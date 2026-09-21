@@ -36,3 +36,12 @@ Hệ thống được chia thành 4 lớp rõ rệt, kết nối với nhau thô
 Luồng hoạt động dưới đây mô tả quá trình từ lúc người dùng tải file lên đến lúc hệ thống xử lý xong và thực thi cơ chế xóa tự động.
 
 ![alt text](image.png)
+
+3. 🚨 QUY TẮC BẢO MẬT & TUÂN THỦ PHÁP LÝ (CRITICAL)
+Toàn bộ đội ngũ phát triển phải tuân thủ nghiêm ngặt các quy định sau nhằm đáp ứng Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân. Vi phạm các quy tắc này là vi phạm kiến trúc hệ thống.
+
+🚫 TUYỆT ĐỐI KHÔNG SỬ DỤNG API LLM/AI CỦA BÊN THỨ 3: Không được phép gọi API của OpenAI, Gemini, Claude, Google Vision hay bất kỳ dịch vụ Cloud nào để xử lý dữ liệu hồ sơ (CMND/CCCD, hợp đồng) của người dùng thật. Mọi suy luận (inference) phải chạy Local 100% bằng Ollama và các mô hình mã nguồn mở.
+
+🚫 KHÔNG LƯU VẾT DỮ LIỆU NHẠY CẢM: Không được phép ghi Log (print/logger) hoặc Hard-code các thông tin cá nhân trích xuất được từ OCR (Họ tên, số ID, địa chỉ, số tiền) vào bất kỳ file .txt, .log hay Console nào trên Server.
+
+✅ CƠ CHẾ RAM-ONLY & TỰ ĐỘNG HỦY: Dữ liệu file tải lên và kết quả OCR thô chỉ được phép tồn tại trên RAM (thông qua Redis). Không lưu file của người dùng vào ổ cứng (Hard Drive/SSD) của máy chủ. Căn cứ theo Sơ đồ Luồng Dữ liệu ở Mục 2, tiến trình tự động dọn dẹp biến và xóa file tạm (Garbage Collection) phải được thực thi ngay lập tức sau khi trả kết quả về Frontend.
