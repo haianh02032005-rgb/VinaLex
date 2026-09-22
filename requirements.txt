@@ -1,0 +1,44 @@
+# ==========================================
+# VINALEX - REQUIREMENTS.TXT
+# Môi trường yêu cầu: Python 3.11.x
+# ==========================================
+
+# 1. CORE BACKEND (FastAPI & Server)
+# ------------------------------------------
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9          # Bắt buộc để FastAPI nhận file upload (ảnh, pdf)
+pydantic==2.7.2                  # Quản lý schema và validate dữ liệu
+pydantic-settings==2.3.0         # Quản lý biến môi trường (.env)
+python-dotenv==1.0.1
+
+# 2. DATABASE & CACHE (Bộ nhớ & Lưu trữ)
+# ------------------------------------------
+redis==5.0.4                     # Tương tác với Redis (Lưu file tạm/Session)
+SQLAlchemy==2.0.30               # ORM kết nối PostgreSQL
+asyncpg==0.29.0                  # Driver PostgreSQL hỗ trợ bất đồng bộ (Async)
+
+# 3. COMPUTER VISION & OCR (Thị giác máy & Trích xuất)
+# ------------------------------------------
+# Lưu ý: Cài đặt torch qua pip default. Nếu có GPU, team cần cài lại torch bằng lệnh riêng của CUDA
+torch==2.3.0
+torchvision==0.18.0
+opencv-python-headless==4.9.0.80 # Bản headless nhẹ hơn cho Server (không cần GUI)
+ultralytics==8.2.30              # Thư viện chính chủ chạy YOLO-OBB (Layout Analysis)
+vietocr==0.3.12                  # Trích xuất text tiếng Việt
+Pillow==10.3.0                   # Xử lý ảnh cơ bản
+
+# 4. LLM & RAG (Ngôn ngữ tự nhiên & Tra cứu Vector)
+# ------------------------------------------
+langchain==0.2.5                 # Core orchestration cho RAG
+langchain-community==0.2.5
+langchain-huggingface==0.0.3     # Tích hợp PhoBERT/Vietnamese Embedding
+qdrant-client==1.9.1             # SDK kết nối Vector DB Qdrant
+transformers==4.41.2             # Chạy các mô hình nhúng (Embedding)
+sentence-transformers==3.0.1
+ollama==0.2.1                    # Client gọi Local LLM (Qwen2.5/Llama-3)
+
+# 5. UTILITIES (Công cụ hỗ trợ)
+# ------------------------------------------
+PyMuPDF==1.24.5                  # Hỗ trợ đọc/chuyển đổi file PDF sang ảnh (nếu cần)
+numpy==1.26.4
