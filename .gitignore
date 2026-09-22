@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 *.jpg
 data/weights/
+
+venv/
