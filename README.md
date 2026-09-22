@@ -45,7 +45,6 @@ vinalex/
 │   ├── models/             # Định nghĩa cấu trúc Database (SQLAlchemy) & Schema (Pydantic)
 │   ├── services/           # Lớp logic xử lý chính (Class OOP)
 │   │   ├── admin_service.py # Quản lý nội dung CMS
-│   │   ├── cv_service.py   # Xử lý OpenCV & YOLO-OBB cho file ảnh
 │   │   ├── ocr_service.py  # Trích xuất VietOCR
 │   │   ├── rag_service.py  # Truy xuất Vector DB
 │   │   └── agent_service.py# Điều phối Chatbot LLM
