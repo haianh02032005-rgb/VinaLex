@@ -20,7 +20,6 @@ Hệ thống được chia thành 4 phân hệ chính:
 ### 3.2. Trí tuệ Nhân tạo & Xử lý Tài liệu (AI/CV)
 * **Thị giác máy & OCR (Xử lý qua File tải lên):** Hệ thống bóc tách dữ liệu từ các file ảnh/scan (JPG, PNG, PDF) do người dùng cung cấp thay vì trích xuất realtime qua camera.
   * `OpenCV`: Tiền xử lý ảnh tĩnh sau khi upload (cắt viền, căn chỉnh, khử nhiễu).
-  * `YOLO-OBB`: Nhận diện bố cục (Layout Analysis) để khoanh vùng văn bản nghiêng lệch trên file ảnh.
   * `VietOCR` & `PyTorch`: Trích xuất ký tự tiếng Việt từ các vùng đã khoanh.
 * **Xử lý Ngôn ngữ Tự nhiên (LLM & RAG):** 
   * `LangChain`: Bộ khung điều phối giữa LLM và cơ sở dữ liệu.

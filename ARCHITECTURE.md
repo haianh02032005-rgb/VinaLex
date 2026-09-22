@@ -18,7 +18,6 @@ Hệ thống được chia thành 4 lớp rõ rệt, kết nối với nhau thô
 Được đóng gói thành các Class (OOP) gọi từ FastAPI, bao gồm 2 phân hệ:
 * **Phân hệ Thị giác máy (CV/OCR - Xử lý file ảnh tĩnh):**
   * `OpenCV`: Tiền xử lý file ảnh tải lên (cắt, xoay, làm nét).
-  * `YOLO-OBB`: Phân tích bố cục, khoanh vùng chính xác các trường thông tin (tên, ngày sinh, chữ ký).
   * `VietOCR`: Trích xuất ký tự tiếng Việt từ các vùng đã cắt.
 * **Phân hệ Xử lý Ngôn ngữ Tự nhiên (RAG):**
   * `LangChain`: Khung sườn liên kết các module NLP.
