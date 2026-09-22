@@ -1,1 +1,1 @@
-print("Hello world")
+#khoi tao chuong trinh
