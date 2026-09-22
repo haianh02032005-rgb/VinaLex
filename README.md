@@ -45,11 +45,14 @@ vinalex/
 │   ├── models/             # Định nghĩa cấu trúc Database (SQLAlchemy) & Schema (Pydantic)
 │   ├── services/           # Lớp logic xử lý chính (Class OOP)
 │   │   ├── admin_service.py # Quản lý nội dung CMS
+│   │   ├── crawler_service.py # Thu thập dữ liệu từ Thư Viện Pháp Luật
 │   │   ├── ocr_service.py  # Trích xuất VietOCR
 │   │   ├── rag_service.py  # Truy xuất Vector DB
 │   │   └── agent_service.py# Điều phối Chatbot LLM
+│   ├── crawl_data.py       # CLI Runner thu thập dữ liệu pháp luật & thủ tục
+│   ├── init_db.py          # Khởi tạo bảng & seed dữ liệu vào PostgreSQL
 │   └── main.py             # File khởi chạy server Backend
-├── data/                   # (Đã gitignore) Trọng số mô hình AI & Vector DB
+├── data/                   # Dataset đã cào (.json), trọng số mô hình AI & Vector DB
 ├── requirements.txt        # Thư viện Python cho Backend
 └── README.md               # Tài liệu dự án
 
@@ -66,10 +69,24 @@ Cấu hình .env (thông số PostgreSQL, Redis, đường dẫn mô hình).
 
 Chạy server: uvicorn main:app --reload (Mặc định chạy ở cổng 8000).
 
-Bước 2: Khởi chạy Frontend (Next.js)
+Bước 2: Thu thập dữ liệu từ Thư Viện Pháp Luật (thuvienphapluat.vn)
+Chạy script crawl dữ liệu thực tế để tạo cơ sở dữ liệu cho dự án:
+```bash
+# Thu thập cả văn bản pháp luật và bài viết thủ tục hành chính:
+python -m backend.crawl_data --mode all --limit 15
+
+# Thu thập văn bản chuyên ngành và lưu trực tiếp vào PostgreSQL:
+python -m backend.crawl_data --category Bat-dong-san --limit 10 --save-db
+
+# Đồng thời phân đoạn và nhúng vào Qdrant Vector DB:
+python -m backend.crawl_data --mode all --limit 20 --save-db --sync-rag
+```
+
+Bước 3: Khởi chạy Frontend (Next.js)
 
 Mở terminal tại thư mục frontend/
 
 Cài đặt Node.js dependencies: npm install
 
 Chạy giao diện: npm run dev (Mặc định chạy ở cổng 3000).
+

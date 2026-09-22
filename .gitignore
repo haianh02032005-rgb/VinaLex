@@ -1,7 +1,69 @@
-.venv/
-__pycache__/
-*.pyc
-*.jpg
-data/weights/
-
+# ==========================================
+# 1. Môi trường ảo Python & Bộ nhớ đệm
+# ==========================================
 venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+
+# ==========================================
+# 2. Node.js & Next.js Frontend
+# ==========================================
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+out/
+frontend/out/
+build/
+dist/
+*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# 3. Biến môi trường & Khóa bảo mật (CRITICAL)
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.local.example
+frontend/.env.local
+frontend/.env.*.local
+
+# ==========================================
+# 4. Trọng số AI & Cơ sở dữ liệu cục bộ
+# ==========================================
+data/weights/
+*.pt
+*.pth
+*.onnx
+data/qdrant_db/
+qdrant_db/
+*.sqlite
+*.sqlite3
+
+# ==========================================
+# 5. Hệ điều hành & IDE
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# 6. Tệp tạm & Scratch
+# ==========================================
+scratch/
+temp/
+tmp/
