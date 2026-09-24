@@ -108,6 +108,30 @@ class OcrResponse(BaseModel):
     session_id: str
 
 
+# ── Document Verification Schemas ──
+class DocumentVerificationCheckItem(BaseModel):
+    check: str
+    status: str  # passed | failed | warning
+    note: str
+
+
+class DocumentVerificationResponse(BaseModel):
+    """
+    Kết quả thẩm định tính hợp lệ của tài liệu theo thành phần hồ sơ.
+    """
+    is_valid: bool
+    status: str  # passed | rejected
+    document_type: str
+    expected_document: str
+    extracted_fields: Dict[str, str] = {}
+    validation_checks: List[DocumentVerificationCheckItem] = []
+    errors: List[str] = []
+    suggestions: str = ""
+    processing_time_ms: int = 0
+    session_id: str
+
+
+
 # ── User Procedure (Hồ sơ) Schemas ──
 class UserProcedureResponse(BaseModel):
     id: int
@@ -186,6 +210,8 @@ class LegalDocumentResponse(BaseModel):
     signer: Optional[str] = None
     status: str
     summary: Optional[str] = None
+    excerpt: Optional[str] = None
+    content_text: Optional[str] = None
     original_url: Optional[str] = None
     created_at: datetime
 

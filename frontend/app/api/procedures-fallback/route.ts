@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import { MOCK_PROCEDURES } from '@/lib/mockData';
 
 function loadProcedures(): Record<string, unknown>[] {
   // Tìm file ở nhiều vị trí có thể (root hoặc relative)
@@ -37,17 +38,18 @@ export async function GET(request: NextRequest) {
 
   const procedures = loadProcedures();
 
-  if (procedures.length === 0) {
-    return NextResponse.json(
-      { error: 'Fallback data file not found' },
-      { status: 503 }
-    );
-  }
-
-  // Tìm thủ tục theo slug
-  const found = procedures.find(
+  // Tìm thủ tục theo slug trong file cào
+  let found = procedures.find(
     (p) => (p as { slug?: string }).slug === slug
   );
+
+  // Nếu không thấy trong file cào, tìm trong MOCK_PROCEDURES cốt lõi
+  if (!found) {
+    const mock = MOCK_PROCEDURES.find((p) => p.slug === slug);
+    if (mock) {
+      found = mock as unknown as Record<string, unknown>;
+    }
+  }
 
   if (!found) {
     return NextResponse.json(

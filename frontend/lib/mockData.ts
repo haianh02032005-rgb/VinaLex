@@ -2,14 +2,14 @@
 import { Procedure, Category } from '@/types';
 
 export const CATEGORIES: Category[] = [
-  { id: '1', slug: 'dat-dai', label: 'Đất đai & Nhà ở', icon: '🏠', count: 48, color: '#4F7FFA' },
-  { id: '2', slug: 'ho-tich', label: 'Hộ tịch', icon: '👨‍👩‍👧', count: 32, color: '#06B6D4' },
-  { id: '3', slug: 'doanh-nghiep', label: 'Doanh nghiệp', icon: '🏢', count: 56, color: '#8B5CF6' },
-  { id: '4', slug: 'giao-thong', label: 'Giao thông', icon: '🚗', count: 24, color: '#F59E0B' },
-  { id: '5', slug: 'giao-duc', label: 'Giáo dục', icon: '📚', count: 18, color: '#10B981' },
-  { id: '6', slug: 'y-te', label: 'Y tế', icon: '🏥', count: 22, color: '#EF4444' },
-  { id: '7', slug: 'thue', label: 'Thuế & Tài chính', icon: '💰', count: 38, color: '#EC4899' },
-  { id: '8', slug: 'lao-dong', label: 'Lao động - BHXH', icon: '👷', count: 29, color: '#14B8A6' },
+  { id: '1', slug: 'dat-dai', label: 'Đất đai & Nhà ở', icon: '🏠', count: 50, color: '#4F7FFA' },
+  { id: '2', slug: 'ho-tich', label: 'Hộ tịch', icon: '👨‍👩‍👧', count: 39, color: '#06B6D4' },
+  { id: '3', slug: 'doanh-nghiep', label: 'Doanh nghiệp', icon: '🏢', count: 19, color: '#8B5CF6' },
+  { id: '4', slug: 'giao-thong', label: 'Giao thông', icon: '🚗', count: 10, color: '#F59E0B' },
+  { id: '5', slug: 'giao-duc', label: 'Giáo dục', icon: '📚', count: 13, color: '#10B981' },
+  { id: '6', slug: 'y-te', label: 'Y tế', icon: '🏥', count: 24, color: '#EF4444' },
+  { id: '7', slug: 'thue', label: 'Thuế & Tài chính', icon: '💰', count: 55, color: '#EC4899' },
+  { id: '8', slug: 'lao-dong', label: 'Lao động - BHXH', icon: '👷', count: 58, color: '#14B8A6' },
 ];
 
 export const MOCK_PROCEDURES: Procedure[] = [
@@ -254,8 +254,8 @@ export const MOCK_PROCEDURES: Procedure[] = [
 ];
 
 export const STATS = [
-  { label: 'Thủ tục hành chính', value: '2,500+', icon: '📋' },
-  { label: 'Văn bản pháp luật', value: '15,000+', icon: '⚖️' },
-  { label: 'Người dùng hàng tháng', value: '50,000+', icon: '👥' },
-  { label: 'Câu hỏi được giải đáp', value: '120,000+', icon: '💬' },
+  { label: 'Thủ tục hành chính', value: '550+', icon: '📋' },
+  { label: 'Văn bản pháp luật', value: '200+', icon: '⚖️' },
+  { label: 'Điều khoản pháp lý số hóa', value: '8,300+', icon: '📚' },
+  { label: 'Chuẩn hóa thể thức hành chính', value: '100%', icon: '🛡️' },
 ];

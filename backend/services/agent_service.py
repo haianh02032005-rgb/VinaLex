@@ -27,13 +27,12 @@ SYSTEM_PROMPT = """Bạn là Trợ lý Pháp lý VinaLex — một AI chuyên v�
 
 Nguyên tắc trả lời:
 1. Chỉ trả lời dựa trên tài liệu pháp luật được cung cấp trong Context.
-2. Trích dẫn nguồn văn bản pháp luật cụ thể khi trả lời.
-3. Nếu không có đủ thông tin trong Context, hãy thành thật nói không biết.
-4. Sử dụng ngôn ngữ đơn giản, dễ hiểu cho người dân.
-5. KHÔNG đưa ra lời khuyên pháp lý có tính ràng buộc — khuyến khích tham khảo luật sư.
-6. Ưu tiên trả lời bằng tiếng Việt.
-
-Hệ thống này chạy hoàn toàn nội bộ (Local AI), không chia sẻ thông tin của người dùng với bất kỳ bên nào."""
+2. Trích dẫn chính xác căn cứ pháp lý: ghi rõ Điều, Khoản, Tên văn bản và Số hiệu văn bản (Ví dụ: "Căn cứ Điều 14 Nghị định 6093/QĐ-UBND...").
+3. Phân biệt rõ ràng giữa quy định nội dung (Luật/Nghị định/Thông tư) và trình tự thực hiện (Thủ tục hành chính).
+4. Nếu không có đủ thông tin trong Context, hãy thành thật thông báo cơ sở dữ liệu chưa ghi nhận quy định này.
+5. Sử dụng ngôn ngữ chuẩn mực, mạch lạc, dễ hiểu cho người dân và doanh nghiệp.
+6. KHÔNG đưa ra phán quyết hay lời khuyên có tính ràng buộc pháp lý cá nhân.
+7. Trả lời bằng tiếng Việt chuẩn ngữ pháp."""
 
 
 class AgentService:
@@ -42,8 +41,8 @@ class AgentService:
 
     Pipeline RAG đầy đủ:
       1. Nhận câu hỏi từ người dùng
-      2. Gọi RagService để tìm văn bản pháp luật liên quan (Qdrant)
-      3. Xây dựng prompt với context
+      2. Gọi RagService để tìm văn bản pháp luật liên quan (Qdrant & Hybrid Search)
+      3. Xây dựng prompt với context pháp lý chuẩn hóa
       4. Gọi Ollama LLM Local để sinh câu trả lời
       5. Trả về câu trả lời + danh sách nguồn trích dẫn
     """
@@ -93,11 +92,13 @@ class AgentService:
             return f"""{SYSTEM_PROMPT}
 
 ---
-TÀI LIỆU PHÁP LUẬT LIÊN QUAN:
+TÀI LIỆU PHÁP LUẬT LIÊN QUAN TRÍCH LỤC TỪ CƠ SỞ DỮ LIỆU:
 {context}
 ---
 
-CÂU HỎI: {query}
+CÂU HỎI CỦA NGƯỜI DÙNG: {query}
+
+HƯỚNG DẪN TRẢ LỜI: Hãy dựa vào các căn cứ pháp lý trên để trả lời chi tiết, trích dẫn rõ ràng số Điều, Tên văn bản và các bước thủ tục cần thiết.
 
 TRẢ LỜI:"""
         else:
@@ -111,24 +112,29 @@ TRẢ LỜI:"""
 
     def _synthesize_local_answer(self, query: str, docs: List[Document]) -> str:
         """
-        Tổng hợp câu trả lời chi tiết, dẫn chứng pháp lý trực tiếp từ các tài liệu tìm được
+        Tổng hợp câu trả lời chi tiết, dẫn chứng pháp lý trực tiếp từ các điều luật và thủ tục tìm được
         khi Ollama LLM chưa được khởi chạy trên máy.
         """
         lines = [
-            f"Dựa trên cơ sở dữ liệu pháp luật hiện hành của VinaLex, hệ thống đã tra cứu được **{len(docs)}** văn bản và thủ tục liên quan đến yêu cầu của bạn:\n"
+            f"Dựa trên cơ sở dữ liệu pháp luật hiện hành của VinaLex, hệ thống đã tra cứu và đối chiếu được **{len(docs)}** căn cứ pháp lý và hướng dẫn thủ tục liên quan đến yêu cầu của bạn:\n"
         ]
 
         for i, doc in enumerate(docs, 1):
-            source = doc.metadata.get("source", "Văn bản quy phạm")
-            doc_number = doc.metadata.get("doc_number", "")
-            agency = doc.metadata.get("agency", "")
-            issue_date = doc.metadata.get("issue_date", "")
-            category = doc.metadata.get("category", "")
-            snippet = doc.page_content.strip()
+            meta = doc.metadata or {}
+            source = meta.get("source", "Văn bản quy phạm")
+            doc_number = meta.get("doc_number", "")
+            agency = meta.get("agency", "")
+            issue_date = meta.get("issue_date", "")
+            category = meta.get("category", "")
+            article = meta.get("article", "")
+            source_type = meta.get("source_type", "")
+            content = doc.page_content.strip()
 
             meta_items = []
             if doc_number:
                 meta_items.append(f"Số hiệu: `{doc_number}`")
+            if article:
+                meta_items.append(f"Quy định: **{article}**")
             if agency:
                 meta_items.append(f"Cơ quan: {agency}")
             if issue_date:
@@ -140,17 +146,18 @@ TRẢ LỜI:"""
             if meta_items:
                 lines.append(f"*{' | '.join(meta_items)}*\n")
 
-            # Trích đoạn nội dung
-            lines.append(f"> {snippet}\n")
+            # Trích dẫn nguyên văn nội dung
+            lines.append(f"```text\n{content}\n```\n")
 
         lines.append(
             "---\n"
-            "📌 **Khuyến nghị thực hiện:**\n"
-            "- Người dân và doanh nghiệp chuẩn bị hồ sơ theo đúng thành phần và biểu mẫu tại các văn bản nêu trên.\n"
-            "- Để nộp hồ sơ, quý vị có thể đến trực tiếp Bộ phận Một cửa của cơ quan có thẩm quyền hoặc truy cập Cổng Dịch vụ công quốc gia.\n\n"
-            "*(💡 Lưu ý: Hệ thống đang trích xuất trực tiếp từ kho CSDL 175+ văn bản pháp luật và thủ tục thực tế. Để kích hoạt mô hình sinh ngôn ngữ tự nhiên (Generative AI), bạn có thể bật Ollama trên máy qua lệnh: `ollama run qwen2.5:latest`)*"
+            "📌 **Khuyến nghị & Hướng dẫn thi hành:**\n"
+            "- Người dân và doanh nghiệp chuẩn bị hồ sơ tuân thủ theo đúng các thành phần và biểu mẫu tại các điều khoản và thủ tục viện dẫn ở trên.\n"
+            "- Nộp hồ sơ tại Bộ phận Một cửa của cơ quan có thẩm quyền hoặc thực hiện trực tuyến qua Cổng Dịch vụ công Quốc gia.\n\n"
+            "*(💡 Lưu ý: Hệ thống đang trích xuất trực tiếp từ kho CSDL 204+ văn bản pháp luật toàn văn (2.765+ Điều luật) và 550+ thủ tục hành chính. Để kích hoạt mô hình sinh ngôn ngữ tự nhiên Generative AI hoàn chỉnh, bạn có thể bật Ollama trên máy: `ollama run qwen2.5:latest`)*"
         )
         return "\n".join(lines)
+
 
     async def generate_answer(self, query: str) -> Tuple[str, List[str]]:
         """
@@ -168,6 +175,17 @@ TRẢ LỜI:"""
             Tuple (answer_text, sources_list)
         """
         self._initialize()
+
+        # Bước 0: Nếu có cấu hình Gemini API Key -> Sử dụng Gemini AI Agent kết hợp RAG & Tool Calling
+        try:
+            from backend.services.gemini_service import GeminiService
+            gemini = GeminiService()
+            if gemini.is_available():
+                answer, sources = await gemini.chat_with_agent(query)
+                if answer and answer.strip():
+                    return answer.strip(), sources
+        except Exception:
+            pass
 
         # Bước 1: Retrieve văn bản pháp luật liên quan từ RAG
         relevant_docs: List[Document] = self._rag_service.retrieve_relevant_docs(query)
@@ -197,6 +215,12 @@ TRẢ LỜI:"""
                 "*(Lưu ý: Để sử dụng AI sinh ngôn ngữ tự nhiên đầy đủ, bạn có thể khởi động Ollama trên máy: `ollama run qwen2.5:latest`)*"
             )
 
+        try:
+            from backend.services.gemini_service import GeminiService
+            answer = GeminiService()._ensure_pdf_widget(answer, query)
+        except Exception:
+            pass
+
         return answer.strip(), sources
 
     async def analyze_ocr_result(
@@ -219,6 +243,28 @@ TRẢ LỜI:"""
             Câu trả lời về tính hợp lệ của hồ sơ
         """
         self._initialize()
+
+        # Bước 0: Ưu tiên Gemini AI Agent phân tích ngữ cảnh sâu nếu có API Key
+        try:
+            from backend.services.gemini_service import GeminiService
+            gemini = GeminiService()
+            if gemini.is_available():
+                res = await gemini.analyze_document_semantic(
+                    extracted_fields=extracted_fields,
+                    expected_doc_name=document_type,
+                    procedure_title=context_procedure or "Thủ tục hành chính",
+                    raw_document_type=document_type,
+                )
+                summary_parts = [f"✅ **Đánh giá thẩm định AI ({document_type})**: {res.get('summary', '')}"]
+                if res.get("errors"):
+                    summary_parts.append("\n❌ **Lỗi vi phạm / sai lệch:**\n" + "\n".join([f"- {e}" for e in res["errors"]]))
+                if res.get("warnings"):
+                    summary_parts.append("\n⚠️ **Lưu ý:**\n" + "\n".join([f"- {w}" for w in res["warnings"]]))
+                if res.get("suggestions"):
+                    summary_parts.append(f"\n💡 **Hướng dẫn khắc phục:** {res['suggestions']}")
+                return "\n".join(summary_parts)
+        except Exception:
+            pass
 
         # Tóm tắt field labels (KHÔNG log giá trị thật)
         field_labels = list(extracted_fields.keys())

@@ -231,6 +231,59 @@
 }
 
 /* Documents */
+.sectionHeaderFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.progressBadge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.docProgressBarContainer {
+  height: 6px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.docProgressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981 0%, #06B6D4 100%);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.downloadToast {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  color: #34d399;
+  font-size: 0.85rem;
+  margin-bottom: var(--space-3);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .docList {
   list-style: none;
   display: flex;
@@ -240,34 +293,161 @@
 
 .docItem {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   background: var(--bg-glass);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   font-size: 0.9rem;
   color: var(--text-secondary);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition: all var(--transition-fast);
+  flex-wrap: wrap;
 }
 
 .docItem:hover {
   border-color: var(--border-accent);
   background: var(--bg-glass-hover);
-  color: var(--text-primary);
 }
 
-.docCheck { color: var(--color-accent); flex-shrink: 0; margin-top: 2px; }
+.docItemVerified {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.08);
+}
 
-.docDownload {
+.docLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 220px;
+}
+
+.docCheck {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.docCheckVerified {
+  color: #10B981;
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.4));
+}
+
+.docInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.docTitleText {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.docTitleVerified {
+  color: #f1f5f9;
+}
+
+.docVerifiedTag {
+  font-size: 0.75rem;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.docActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-left: auto;
   flex-shrink: 0;
-  color: var(--text-muted);
-  padding: var(--space-1);
-  border-radius: var(--radius-sm);
-  transition: color var(--transition-fast), background var(--transition-fast);
 }
-.docDownload:hover { color: var(--color-primary-light); background: rgba(79, 127, 250, 0.1); }
+
+.docActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* Nút tải lên OCR (Mũi tên đi lên) */
+.docUploadBtn {
+  background: rgba(79, 127, 250, 0.12);
+  border-color: rgba(79, 127, 250, 0.3);
+  color: #60a5fa;
+}
+
+.docUploadBtn:hover {
+  background: rgba(79, 127, 250, 0.22);
+  color: #fff;
+  border-color: rgba(79, 127, 250, 0.6);
+  box-shadow: 0 2px 10px rgba(79, 127, 250, 0.25);
+}
+
+.docUploadBtnVerified {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.docUploadBtnVerified:hover {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #fff;
+}
+
+/* Nút tải biểu mẫu PDF (Mũi tên đi xuống) */
+.docDownloadBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.docDownloadBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.docDownloadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnText {
+  font-size: 0.775rem;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .docItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .docActions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+}
 
 /* Sidebar */
 .sidebar {

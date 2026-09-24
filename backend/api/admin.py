@@ -13,6 +13,7 @@ Chức năng:
   - GET  /api/v1/admin/stats          — Thống kê tổng quan hệ thống
 """
 
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Header
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
@@ -34,16 +35,15 @@ from backend.services.crawler_service import ThuvienphapluatCrawler
 from backend.core.config import settings
 
 
-
 router = APIRouter()
 _admin_service = AdminService()
 
 
 # ── Dependency: Xác thực Admin Key ──
 
-def _verify_admin_key(x_admin_key: str = Header(..., description="Admin API Key")) -> None:
+def _verify_admin_key(x_admin_key: Optional[str] = Header(None, description="Admin API Key")) -> None:
     """Xác thực Admin Key từ header X-Admin-Key."""
-    if x_admin_key != settings.ADMIN_SECRET_KEY:
+    if not x_admin_key or x_admin_key != settings.ADMIN_SECRET_KEY:
         raise HTTPException(status_code=403, detail="Không có quyền truy cập Admin")
 
 
@@ -62,24 +62,37 @@ async def admin_get_all_procedures(
     Khác với GET /api/v1/procedures (chỉ trả về is_published=True),
     endpoint này trả về tất cả để Admin quản lý.
     """
-    count_result = await db.execute(select(func.count()).select_from(ProcedureModel))
-    total = count_result.scalar_one()
+    try:
+        count_result = await db.execute(select(func.count()).select_from(ProcedureModel))
+        total = count_result.scalar_one()
 
-    offset = (page - 1) * limit
-    result = await db.execute(
-        select(ProcedureModel)
-        .order_by(ProcedureModel.updated_at.desc())
-        .offset(offset)
-        .limit(limit)
-    )
-    procedures = result.scalars().all()
+        offset = (page - 1) * limit
+        result = await db.execute(
+            select(ProcedureModel)
+            .order_by(ProcedureModel.updated_at.desc())
+            .offset(offset)
+            .limit(limit)
+        )
+        procedures = result.scalars().all()
 
-    return ProcedureListResponse(
-        items=[ProcedureResponse.model_validate(p) for p in procedures],
-        total=total,
-        page=page,
-        limit=limit,
-    )
+        return ProcedureListResponse(
+            items=[ProcedureResponse.model_validate(p) for p in procedures],
+            total=total,
+            page=page,
+            limit=limit,
+        )
+    except Exception:
+        from backend.api.procedures import _load_fallback_procedures
+        fallback_data = _load_fallback_procedures()
+        total = len(fallback_data)
+        offset = (page - 1) * limit
+        paged = fallback_data[offset : offset + limit]
+        return ProcedureListResponse(
+            items=[ProcedureResponse(**p) for p in paged],
+            total=total,
+            page=page,
+            limit=limit,
+        )
 
 
 @router.post("/sync-legal-doc")

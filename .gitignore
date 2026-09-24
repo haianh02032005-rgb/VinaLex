@@ -47,9 +47,10 @@ data/weights/
 *.pth
 *.onnx
 data/qdrant_db/
-qdrant_db/
 *.sqlite
 *.sqlite3
+*.db
+!data/vinalex.db
 
 # ==========================================
 # 5. Hệ điều hành & IDE
@@ -62,8 +63,9 @@ Thumbs.db
 *.swo
 
 # ==========================================
-# 6. Tệp tạm & Scratch
+# 6. Tệp tạm & Logs
 # ==========================================
 scratch/
 temp/
 tmp/
+*.log

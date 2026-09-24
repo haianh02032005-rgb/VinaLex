@@ -5,6 +5,43 @@ import { Bot, Upload, Send, Shield, Paperclip, X, FileText, CheckCircle, Loader2
 import { marked } from 'marked';
 import styles from './page.module.css';
 import { api } from '@/lib/api';
+import PdfPreviewModal from '@/components/PdfPreviewModal';
+
+function renderPdfCardHtml(docName: string, title: string, slug: string): string {
+  const safeDoc = docName.replace(/"/g, '&quot;');
+  const safeTitle = title.replace(/"/g, '&quot;');
+  const safeSlug = slug.replace(/"/g, '&quot;');
+
+  return `
+<div class="vinalexPdfCard" data-pdf-card="true">
+  <div class="vinalexPdfCardTop">
+    <div class="vinalexPdfCardBadge">
+      <span class="vinalexPdfBadgeTag">📄 BIỂU MẪU CHÍNH THỨC</span>
+      <span class="vinalexPdfBadgeSub">Chuẩn thể thức Nghị định 30/2020/NĐ-CP</span>
+    </div>
+  </div>
+  <div class="vinalexPdfCardBody">
+    <div class="vinalexPdfIconWrapper">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10 13v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/><path d="M10 17v-1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1"/></svg>
+    </div>
+    <div class="vinalexPdfDetails">
+      <div class="vinalexPdfTitle">${safeDoc}</div>
+      <div class="vinalexPdfMeta">Thủ tục: <strong>${safeTitle}</strong> · Định dạng PDF A4 chuẩn Nhà nước</div>
+    </div>
+  </div>
+  <div class="vinalexPdfActions">
+    <button type="button" class="vinalexPdfBtnDownload" data-action="download-pdf" data-doc="${safeDoc}" data-title="${safeTitle}" data-slug="${safeSlug}">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Tải file PDF trực tiếp</span>
+    </button>
+    <button type="button" class="vinalexPdfBtnPreview" data-action="preview-pdf" data-doc="${safeDoc}" data-title="${safeTitle}" data-slug="${safeSlug}">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span>Xem trước biểu mẫu A4</span>
+    </button>
+  </div>
+</div>
+`;
+}
 
 // Tạo session UUID cho mỗi phiên làm việc — Backend dùng để xóa Redis đúng cách
 // Tuân thủ luồng: Frontend → FastAPI → Redis → AI → Trả JSON → Xóa Redis (ARCHITECTURE.md)
@@ -48,8 +85,86 @@ export default function TroLyAiPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [previewModalDoc, setPreviewModalDoc] = useState<{ name: string; slug: string; title: string } | null>(null);
+  const [downloadingDoc, setDownloadingDoc] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPdf = async (docName: string, title?: string, slug?: string) => {
+    try {
+      setDownloadingDoc(docName);
+      const blob = await api.downloadDocumentTemplate(
+        docName,
+        title || 'Thủ tục hành chính',
+        slug || 'bieu-mau',
+        false
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const safeName = (slug || docName).replace(/[^a-zA-Z0-9\u00C0-\u1EF9]/g, '_').slice(0, 40);
+      a.download = `${safeName}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Download error:', err);
+      const params = new URLSearchParams({
+        doc_name: docName,
+        title: title || '',
+        slug: slug || '',
+      });
+      window.open(`http://localhost:8000/api/v1/procedures/download-template?${params.toString()}`, '_blank');
+    } finally {
+      setDownloadingDoc(null);
+    }
+  };
+
+  const handleChatClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+
+    const downloadBtn = target.closest('[data-action="download-pdf"]') as HTMLElement;
+    if (downloadBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const doc = downloadBtn.getAttribute('data-doc') || 'Tờ khai hành chính';
+      const title = downloadBtn.getAttribute('data-title') || '';
+      const slug = downloadBtn.getAttribute('data-slug') || '';
+      handleDownloadPdf(doc, title, slug);
+      return;
+    }
+
+    const previewBtn = target.closest('[data-action="preview-pdf"]') as HTMLElement;
+    if (previewBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const doc = previewBtn.getAttribute('data-doc') || 'Tờ khai hành chính';
+      const title = previewBtn.getAttribute('data-title') || '';
+      const slug = previewBtn.getAttribute('data-slug') || '';
+      setPreviewModalDoc({ name: doc, title: title || 'Thủ tục hành chính', slug: slug || 'bieu-mau' });
+      return;
+    }
+
+    const link = target.closest('a') as HTMLAnchorElement;
+    if (link && link.href && link.href.includes('/download-template')) {
+      e.preventDefault();
+      try {
+        const urlObj = new URL(link.href, window.location.origin);
+        const doc = urlObj.searchParams.get('doc_name') || 'Tờ khai hành chính';
+        const title = urlObj.searchParams.get('title') || '';
+        const slug = urlObj.searchParams.get('slug') || '';
+        const isPreview = urlObj.searchParams.get('preview') === 'true';
+        if (isPreview) {
+          setPreviewModalDoc({ name: doc, title: title || 'Thủ tục hành chính', slug: slug || 'bieu-mau' });
+        } else {
+          handleDownloadPdf(doc, title, slug);
+        }
+      } catch {
+        window.open(link.href, '_blank');
+      }
+    }
+  };
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -140,10 +255,47 @@ export default function TroLyAiPage() {
 
   const formatContent = (content: string) => {
     if (!content) return '';
+    // 1. Tự động chuyển đổi mã trigger OCR thành nút bấm trực quan
+    let processed = content.replace(/\[SYS_TRIGGER_OCR:([^\]]+)\]/g, (_match, slug) => {
+      return `<div style="margin: 10px 0;"><a href="/thu-tuc/${slug}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #ffffff; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500;">🔍 Mở khung thẩm định hồ sơ: ${slug} ↗</a></div>`;
+    });
+
+    // 2. Chuyển đổi mã widget PDF [SYS_PDF_TEMPLATE:doc_name=...&title=...&slug=...]
+    processed = processed.replace(/\[SYS_PDF_TEMPLATE:([^\]]+)\]/g, (_match, rawQuery) => {
+      try {
+        const params = new URLSearchParams(rawQuery);
+        const docName = params.get('doc_name') || 'Tờ khai / Biểu mẫu hành chính';
+        const title = params.get('title') || 'Thủ tục hành chính';
+        const slug = params.get('slug') || 'bieu-mau';
+        return renderPdfCardHtml(docName, title, slug);
+      } catch {
+        return '';
+      }
+    });
+
+    // 3. Chuyển đổi dòng chữ thô unclickable kiểu "👉 Tải Biểu mẫu ..." nếu chưa có widget
+    if (!content.includes('[SYS_PDF_TEMPLATE:')) {
+      const rawFormRegex = /(?:👉\s*)?Tải [bB]iểu mẫu\s*(?:Tờ khai|Đơn|Văn bản)?\s*([^\n\r(]+)(?:\((?:File\s*)?PDF\))?/i;
+      const m = processed.match(rawFormRegex);
+      if (m && m[1]) {
+        const extractedDoc = m[1].trim();
+        if (extractedDoc.length > 3) {
+          const cardHtml = renderPdfCardHtml(
+            extractedDoc.startsWith('Tờ khai') || extractedDoc.startsWith('Văn bản') || extractedDoc.startsWith('Đơn')
+              ? extractedDoc
+              : `Tờ khai đề nghị: ${extractedDoc}`,
+            'Thủ tục hành chính',
+            'bieu-mau'
+          );
+          processed = processed.replace(m[0], cardHtml);
+        }
+      }
+    }
+
     try {
-      return marked.parse(content, { async: false }) as string;
+      return marked.parse(processed, { async: false }) as string;
     } catch {
-      return content
+      return processed
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\n/g, '<br/>');
@@ -260,7 +412,7 @@ export default function TroLyAiPage() {
           {/* Right Panel — Chat */}
           <div className={styles.chatPanel}>
             {/* Messages */}
-            <div className={styles.messageList} id="chat-message-list">
+            <div className={styles.messageList} id="chat-message-list" onClick={handleChatClick}>
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -278,6 +430,18 @@ export default function TroLyAiPage() {
                       className={styles.msgContent}
                       dangerouslySetInnerHTML={{ __html: formatContent(msg.content) }}
                     />
+                    {msg.sources && msg.sources.length > 0 && (
+                      <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed rgba(128,128,128,0.25)', fontSize: '12px' }}>
+                        <div style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px', color: 'var(--primary-color, #2563eb)' }}>
+                          📚 Căn cứ pháp lý trích dẫn (RAG):
+                        </div>
+                        <ul style={{ margin: 0, paddingLeft: '18px', opacity: 0.85 }}>
+                          {msg.sources.map((src, sIdx) => (
+                            <li key={sIdx}>{src}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     <div className={styles.msgTime}>
                       {msg.timestamp.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
                     </div>
@@ -356,6 +520,40 @@ export default function TroLyAiPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal xem trước biểu mẫu PDF khổ A4 */}
+      {previewModalDoc && (
+        <PdfPreviewModal
+          isOpen={true}
+          onClose={() => setPreviewModalDoc(null)}
+          documentName={previewModalDoc.name}
+          procedureSlug={previewModalDoc.slug}
+          procedureTitle={previewModalDoc.title}
+        />
+      )}
+
+      {/* Toast thông báo tải PDF */}
+      {downloadingDoc && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          background: '#1e293b',
+          color: '#ffffff',
+          padding: '12px 20px',
+          borderRadius: '8px',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          zIndex: 9999,
+          fontSize: '14px',
+          border: '1px solid #3b82f6',
+        }}>
+          <Loader2 size={16} className={styles.spinning} />
+          <span>Đang tạo và tải file PDF: <strong>{downloadingDoc.slice(0, 30)}...</strong></span>
+        </div>
+      )}
     </div>
   );
 }

@@ -27,7 +27,10 @@ if sys.platform == "win32":
         pass
 
 from backend.services.crawler_service import ThuvienphapluatCrawler
-from backend.core.config import settings
+try:
+    from backend.core.config import settings
+except ImportError:
+    settings = None
 
 
 def is_postgres_running(host: str = "localhost", port: int = 5432, timeout: float = 0.5) -> bool:
@@ -184,8 +187,8 @@ async def main():
 
     # Kiểm tra PostgreSQL trước khi lưu để tránh lỗi kết nối
     if args.save_db:
-        pg_host = settings.POSTGRES_SERVER
-        pg_port = settings.POSTGRES_PORT
+        pg_host = getattr(settings, "POSTGRES_SERVER", "localhost") if settings else "localhost"
+        pg_port = getattr(settings, "POSTGRES_PORT", 5432) if settings else 5432
         if is_postgres_running(pg_host, pg_port):
             print(f"\n[*] Đang đồng bộ toàn bộ kho dữ liệu vào PostgreSQL ({pg_host}:{pg_port})...")
             try:

@@ -1,55 +1,63 @@
-# Hướng dẫn Đóng góp (Contributing Guidelines) - Dự án VinaLex
+# Hướng Dẫn Đóng Góp (Contributing Guidelines) — Dự Án VinaLex
 
-Để đảm bảo hệ thống VinaLex hoạt động ổn định và an toàn, mọi thành viên vui lòng đọc kỹ và tuân thủ các quy tắc dưới đây trước khi commit code.
-
----
-
-## 1. 🚨 Nguyên tắc Bảo mật (Bắt buộc tuân thủ)
-
-Hệ thống VinaLex xử lý dữ liệu cá nhân, do đó việc tuân thủ Nghị định 13/2023/NĐ-CP là yêu cầu bắt buộc. Các Pull Request (PR) vi phạm quy tắc sau sẽ không được merge:
-
-* **Không sử dụng API bên thứ 3:** Không gọi API của OpenAI, Gemini, Claude, hay Google Vision để xử lý dữ liệu hồ sơ thật của người dùng. Mọi tác vụ suy luận (inference) phải chạy Local 100% bằng Ollama và các mô hình mã nguồn mở.
-* **Không lưu log dữ liệu nhạy cảm:** Không dùng lệnh `print()` hoặc ghi file log chứa thông tin cá nhân trích xuất từ OCR (họ tên, CCCD, địa chỉ) lên Server.
-* **Cơ chế RAM-only & Xóa tự động:** Dữ liệu file tải lên và kết quả OCR thô chỉ được lưu trên RAM qua Redis. Ngay sau khi Backend (FastAPI) trả kết quả về Frontend, hệ thống phải thực thi lệnh xóa toàn bộ dữ liệu của Session ID đó trên Redis. Không lưu file của người dùng vào ổ cứng (Hard Drive/SSD).
+Chào mừng bạn tham gia phát triển dự án **VinaLex**! Để đảm bảo chất lượng mã nguồn, tính toàn vẹn của dữ liệu pháp lý và tuân thủ các quy định bảo mật, vui lòng đọc kỹ hướng dẫn dưới đây trước khi commit hoặc tạo Pull Request (PR).
 
 ---
 
-## 2. Quy chuẩn Thiết kế & Cấu trúc Mã nguồn
+## 1. 🚨 Nguyên Tắc Bảo Mật Bắt Buộc (Nghị định 13/2023/NĐ-CP)
 
-Hệ thống chia thành 4 lớp theo kiến trúc đã thống nhất. Bạn cần đặt code đúng thư mục tương ứng.
-
-### 2.1. Backend (FastAPI - Python 3.11)
-* **Framework:** Sử dụng FastAPI kết hợp Uvicorn làm Backend lõi.
-* **Lập trình Hướng đối tượng (OOP):** Các service xử lý AI và bóc tách dữ liệu phải được viết thành các Class độc lập.
-* **Vị trí đặt code:**
-  * `backend/api/`: Các endpoint (routes) tiếp nhận request.
-  * `backend/services/`: Chứa logic xử lý (VD: `cv_service.py` cho OpenCV/YOLO-OBB, `ocr_service.py` cho VietOCR, `rag_service.py` cho LangChain/Vector DB).
-  * `backend/models/`: Cấu trúc Database (SQLAlchemy) và Pydantic schema.
-* **Quy tắc đặt tên:** Tên Class viết theo `PascalCase` (VD: `OcrService`), tên biến và hàm viết theo `snake_case` (VD: `extract_text`).
-
-### 2.2. Frontend (Next.js) & Database
-* **Frontend:** Phát triển bằng Next.js (React).
-* **Database:** Dùng PostgreSQL để lưu dữ liệu hệ thống (tài khoản, thủ tục).
+1. **Không ghi log thông tin nhạy cảm:** Tuyệt đối không dùng `print()` hoặc ghi file log chứa thông tin cá nhân trích xuất từ tài liệu (Họ tên, số CCCD, địa chỉ, số tiền, tài sản).
+2. **Cơ chế RAM-Only & Tự hủy:** Dữ liệu file tải lên từ người dùng chỉ được giữ trên RAM (qua Redis với TTL 300s) và phải được giải phóng ngay sau khi xử lý xong.
+3. **Bảo mật khóa API:** Tuyệt đối không commit file `.env` chứa `GEMINI_API_KEY`, `SECRET_KEY`, hoặc mật khẩu cơ sở dữ liệu thật lên Git. Hãy sử dụng `.env.example` làm mẫu.
 
 ---
 
-## 3. Cài đặt Môi trường (Environment Setup)
+## 2. Quy Chuẩn Mã Nguồn & Cấu Trúc Dự Án
 
-1. **Phiên bản Python:** Đảm bảo sử dụng Python 3.11.x.
-2. **Cài đặt thư viện:** Dùng lệnh `pip install -r requirements.txt`.
-3. **Lưu ý về PyTorch & GPU:** 
-   * File `requirements.txt` sử dụng `torch==2.3.0` và `torchvision==0.18.0` (cài qua pip mặc định).
-   * Nếu máy bạn có card đồ họa (NVIDIA GPU) và muốn tối ưu tốc độ cho YOLO/VietOCR, hãy bỏ qua bản mặc định này và cài lại `torch` theo lệnh riêng của CUDA.
-4. **Thư viện cốt lõi:** Không tự ý thay đổi phiên bản các thư viện lõi như `fastapi==0.111.0`, `redis==5.0.4`, `langchain==0.2.5`, hoặc `opencv-python-headless==4.9.0.80`. Bản `opencv-python-headless` được dùng để tối ưu cho Server vì không yêu cầu giao diện UI.
+* **Backend (Python 3.11):**
+  * Tuân thủ chuẩn PEP 8.
+  * Tên Class theo `PascalCase` (ví dụ: `PdfTemplateService`, `GeminiService`).
+  * Tên biến và hàm theo `snake_case` (ví dụ: `get_statutory_form_pdf`, `search_procedures`).
+  * Tất cả các file Python phải hỗ trợ encoding UTF-8 tiếng Việt.
+* **Frontend (Next.js 14 / TypeScript):**
+  * Tên component theo `PascalCase` (ví dụ: `DocumentVerificationModal.tsx`).
+  * Luôn kiểm tra tính tương thích TypeScript, không dùng `any` bừa bãi.
+  * Đảm bảo giao diện đồng bộ chính xác với số liệu từ CSDL (dùng dynamic count, không hardcode mock data).
 
 ---
 
-## 4. Quy trình Đẩy code (Git Workflow)
+## 3. Quy Trình Kiểm Thử Bắt Buộc Trước Khi Tạo Pull Request
 
-1. **Phân nhánh (Branching):**
-   * Không commit trực tiếp vào nhánh `main` hoặc `master`.
-   * Tạo nhánh mới theo cú pháp: `type/tên-tính-năng` (VD: `feature/add-ocr`, `bugfix/redis-timeout`).
-2. **Tạo Pull Request (PR):**
-   * Test kỹ code trên máy cá nhân trước khi tạo PR.
-   * Đối chiếu sơ đồ luồng dữ liệu để đảm bảo logic: Người dùng -> Frontend -> FastAPI -> Redis -> AI Services -> Trả JSON -> Xóa Redis.
-   * Nhờ ít nhất 1 thành viên khác review (đặc biệt kiểm tra các quy tắc bảo mật) trước khi merge.
+Trước khi push code lên nhánh hoặc tạo PR, bạn **BẮT BUỘC** phải chạy và vượt qua 100% các bộ kiểm thử sau trên máy local:
+
+```bash
+# 1. Kiểm tra tính toàn vẹn CSDL và phân loại danh mục:
+python test/test_stats_and_categories.py
+
+# 2. Kiểm tra sinh 10 mẫu biểu PDF hành chính luật định:
+python test/test_all_statutory_form_templates.py
+
+# 3. Chạy bộ kiểm thử hồi quy toàn diện hệ thống (42 ca kiểm thử):
+python test/comprehensive_system_test.py
+
+# 4. Kiểm tra biên dịch Frontend (Next.js Build):
+cd frontend && npm run build
+```
+
+> [!IMPORTANT]
+> Toàn bộ các bài kiểm thử trên phải đạt **100% PASS** thì PR mới được xem xét hợp nhất.
+
+---
+
+## 4. Quy Trình Git & Phân Nhánh (Git Workflow)
+
+1. **Tạo nhánh mới:**
+   * Cú pháp đặt tên: `feature/ten-tinh-nang`, `fix/loi-can-sua`, hoặc `docs/cap-nhat-tai-lieu`.
+   * Ví dụ: `feature/pdf-form-export`, `fix/category-count-badge`.
+2. **Commit message chuẩn mực:**
+   * Cú pháp: `feat: mô tả ngắn`, `fix: mô tả ngắn`, `docs: mô tả ngắn`.
+   * Ví dụ: `feat: add statutory form template 11-DK for land registration`.
+3. **Tạo Pull Request:**
+   * Mô tả rõ những thay đổi đã thực hiện.
+   * Đính kèm kết quả chạy các bài kiểm thử tự động.
+   * Yêu cầu ít nhất 1 thành viên review và phê duyệt trước khi merge vào `main`.

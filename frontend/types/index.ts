@@ -74,3 +74,22 @@ export interface ApiResponse<T> {
   message: string;
   success: boolean;
 }
+
+export interface LegalDocument {
+  id: string;
+  doc_number: string;
+  title: string;
+  slug: string;
+  doc_type: string;
+  issuing_authority?: string;
+  signer?: string;
+  issue_date?: string;
+  effective_date?: string;
+  status?: string;
+  original_url?: string;
+  category?: string;
+  summary?: string;
+  excerpt?: string;
+  content_text?: string;
+}
+

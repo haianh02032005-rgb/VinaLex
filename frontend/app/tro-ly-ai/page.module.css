@@ -528,3 +528,146 @@
 @media (max-width: 640px) {
   .secBadge { display: none; }
 }
+
+/* ── Interactive PDF Template Card in Chatbot ── */
+.messageList :global(.vinalexPdfCard) {
+  margin: 14px 0;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+  border: 1px solid rgba(79, 127, 250, 0.35);
+  border-left: 4px solid var(--color-primary, #2563eb);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 15px rgba(37, 99, 235, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.messageList :global(.vinalexPdfCard:hover) {
+  border-color: rgba(79, 127, 250, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
+}
+
+.messageList :global(.vinalexPdfCardTop) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.messageList :global(.vinalexPdfCardBadge) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.messageList :global(.vinalexPdfBadgeTag) {
+  background: rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.5);
+  color: #60a5fa;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.messageList :global(.vinalexPdfBadgeSub) {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.messageList :global(.vinalexPdfCardBody) {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.messageList :global(.vinalexPdfIconWrapper) {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.messageList :global(.vinalexPdfDetails) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.messageList :global(.vinalexPdfTitle) {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.4;
+}
+
+.messageList :global(.vinalexPdfMeta) {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+.messageList :global(.vinalexPdfMeta strong) {
+  color: #93c5fd;
+}
+
+.messageList :global(.vinalexPdfActions) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.messageList :global(.vinalexPdfBtnDownload) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.messageList :global(.vinalexPdfBtnDownload:hover) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+}
+
+.messageList :global(.vinalexPdfBtnPreview) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0 !important;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.messageList :global(.vinalexPdfBtnPreview:hover) {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.35);
+}

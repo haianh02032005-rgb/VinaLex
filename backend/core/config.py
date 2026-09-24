@@ -6,7 +6,8 @@ Tuân thủ ARCHITECTURE.md: backend/core/ = File cấu hình, bảo mật (.env
 """
 
 from pydantic_settings import BaseSettings
-from typing import List
+from pydantic import model_validator
+from typing import List, Optional
 
 
 class Settings(BaseSettings):
@@ -17,19 +18,31 @@ class Settings(BaseSettings):
     ADMIN_SECRET_KEY: str = "vinalex-admin-2024"  # Đổi trong production!
     BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
-    # ── PostgreSQL ──
+    # ── Database (PostgreSQL / SQLite) ──
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "postgres"
     POSTGRES_PORT: int = 5432
     POSTGRES_DB: str = "vinalex_db"
+    USE_SQLITE: bool = False
+    SQLALCHEMY_DATABASE_URI: Optional[str] = None
 
-    @property
-    def SQLALCHEMY_DATABASE_URI(self) -> str:
-        return (
-            f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
-        )
+    @model_validator(mode="after")
+    def set_database_uri(self):
+        import os
+        # Tự động ưu tiên SQLite nếu USE_SQLITE=True hoặc có tệp data/vinalex.db
+        use_sqlite_env = os.environ.get("USE_SQLITE", "").lower() in ("true", "1", "yes")
+        sqlite_file_exists = os.path.exists("./data/vinalex.db") or os.path.exists("data/vinalex.db")
+        force_postgres = os.environ.get("FORCE_POSTGRES", "").lower() in ("true", "1", "yes")
+
+        if (self.USE_SQLITE or use_sqlite_env or sqlite_file_exists) and not force_postgres:
+            self.SQLALCHEMY_DATABASE_URI = "sqlite+aiosqlite:///./data/vinalex.db"
+        elif not self.SQLALCHEMY_DATABASE_URI:
+            self.SQLALCHEMY_DATABASE_URI = (
+                f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+                f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+            )
+        return self
 
     # ── Redis (In-memory / RAM-only — tuân thủ NĐ 13/2023) ──
     REDIS_HOST: str = "localhost"
@@ -56,6 +69,10 @@ class Settings(BaseSettings):
 
     # ── Embedding (Vietnamese) ──
     EMBEDDING_MODEL_NAME: str = "keepitreal/vietnamese-sbert"
+
+    # ── Gemini AI Agent ──
+    GEMINI_API_KEY: Optional[str] = None
+    GEMINI_MODEL: str = "gemini-3.6-flash"
 
     class Config:
         env_file = ".env"

@@ -1,0 +1,11 @@
+{
+  "started_at": "2026-09-23T12:57:13.575757",
+  "stopped_at": "2026-09-23T13:24:29.757157",
+  "total_procedures": 345,
+  "total_news": 3,
+  "total_forms": 0,
+  "total_requests": 1132,
+  "total_errors": 0,
+  "cycles_completed": 15,
+  "last_cycle_at": "2026-09-23T13:24:29.754544"
+}

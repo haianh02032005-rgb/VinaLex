@@ -78,6 +78,83 @@ class ApiClient {
     return res.json();
   }
 
+  // ── Document Templates (PDF) ──
+  async downloadDocumentTemplate(
+    docName: string,
+    procedureTitle = '',
+    slug = '',
+    preview = false
+  ): Promise<Blob> {
+    const params = new URLSearchParams({
+      doc_name: docName,
+      title: procedureTitle,
+      slug: slug,
+      preview: String(preview),
+    });
+
+    const primaryUrl = `${this.baseUrl}/procedures/download-template?${params.toString()}`;
+    const fallbackUrl = `/api/v1/procedures/download-template?${params.toString()}`;
+
+    try {
+      const res = await fetch(primaryUrl);
+      if (res.ok) {
+        return await res.blob();
+      }
+      throw new Error(`Download Error ${res.status}: ${res.statusText}`);
+    } catch (primaryErr) {
+      if (typeof window !== 'undefined') {
+        try {
+          const fallbackRes = await fetch(fallbackUrl);
+          if (fallbackRes.ok) {
+            return await fallbackRes.blob();
+          }
+        } catch {
+          // Fallback also failed
+        }
+      }
+      throw primaryErr;
+    }
+  }
+
+  // ── Document Verification (OCR + Match) ──
+  async verifyDocument(
+    file: File,
+    expectedDoc: string,
+    procedureSlug: string,
+    procedureTitle: string,
+    sessionId: string
+  ): Promise<{
+    is_valid: boolean;
+    status: 'passed' | 'rejected';
+    document_type: string;
+    expected_document: string;
+    extracted_fields: Record<string, string>;
+    validation_checks: Array<{ check: string; status: 'passed' | 'failed' | 'warning'; note: string }>;
+    errors: string[];
+    suggestions: string;
+    processing_time_ms: number;
+    session_id: string;
+  }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('procedure_slug', procedureSlug);
+    formData.append('procedure_title', procedureTitle);
+    formData.append('expected_document', expectedDoc);
+    formData.append('session_id', sessionId);
+
+    const res = await fetch(`${this.baseUrl}/ai/verify-document`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      throw new Error(`Verification Error ${res.status}: ${errText || res.statusText}`);
+    }
+
+    return res.json();
+  }
+
   // ── Auth ──
   async login(email: string, password: string) {
     return this.request<{ access_token: string; token_type: string }>('/auth/login', {

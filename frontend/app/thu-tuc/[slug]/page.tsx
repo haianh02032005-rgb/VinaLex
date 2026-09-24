@@ -1,14 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   ArrowLeft, Clock, DollarSign, Building2, MapPin,
   CheckCircle2, FileText, Download, Bot, ChevronRight,
   Loader2, AlertCircle, Eye, Bookmark, BookmarkCheck,
+  Upload,
 } from 'lucide-react';
 import { api } from '@/lib/api';
+import { CATEGORIES, MOCK_PROCEDURES } from '@/lib/mockData';
+import DocumentVerificationModal from '@/components/DocumentVerificationModal';
+import PdfPreviewModal from '@/components/PdfPreviewModal';
 import styles from './page.module.css';
 
 // ── Types (phản chiếu cả backend API lẫn mockData) ──
@@ -80,11 +84,18 @@ async function fetchProcedure(slug: string): Promise<ProcedureDetail | null> {
     // API route fallback cũng không có
   }
 
+  // 3. Fallback 2: tìm trong danh mục MOCK_PROCEDURES cốt lõi
+  const mockFound = MOCK_PROCEDURES.find((p) => p.slug === slug);
+  if (mockFound) {
+    return mockFound as unknown as ProcedureDetail;
+  }
+
   return null;
 }
 
 export default function ProcedureDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params.slug as string;
 
   const [proc, setProc] = useState<ReturnType<typeof normalize> | null>(null);
@@ -92,6 +103,76 @@ export default function ProcedureDetailPage() {
   const [notFound, setNotFound] = useState(false);
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // ── Quản lý trạng thái thẩm định & tải biểu mẫu cho từng giấy tờ ──
+  const [docStatuses, setDocStatuses] = useState<Record<number, { isVerified: boolean; details?: any }>>({});
+  const [downloadingDocIndex, setDownloadingDocIndex] = useState<number | null>(null);
+  const [uploadModalDoc, setUploadModalDoc] = useState<{ index: number; name: string } | null>(null);
+  const [downloadNotification, setDownloadNotification] = useState<string | null>(null);
+  const [previewModalDoc, setPreviewModalDoc] = useState<{ name: string } | null>(null);
+
+  // Tải trạng thái thẩm định từ localStorage khi mở trang
+  useEffect(() => {
+    if (!slug) return;
+    try {
+      const savedStatus = localStorage.getItem(`vinalex_proc_docs_${slug}`);
+      if (savedStatus) {
+        setDocStatuses(JSON.parse(savedStatus));
+      }
+    } catch {
+      // Bỏ qua lỗi localStorage
+    }
+  }, [slug]);
+
+  // Xử lý tải file biểu mẫu PDF về máy (Mũi tên đi xuống)
+  const handleDownloadTemplate = async (docName: string, index: number) => {
+    if (!proc) return;
+    setDownloadingDocIndex(index);
+    try {
+      const blob = await api.downloadDocumentTemplate(docName, proc.title, proc.slug);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const safeName = docName.replace(/[^a-zA-Z0-9\u00C0-\u1EF9]/g, '_').slice(0, 40);
+      a.download = `bieu_mau_${safeName}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      setDownloadNotification(`Đã tải biểu mẫu "${docName}" thành công!`);
+      setTimeout(() => setDownloadNotification(null), 4000);
+    } catch (err) {
+      console.error(err);
+      alert('Không thể tải biểu mẫu lúc này. Vui lòng thử lại sau.');
+    } finally {
+      setDownloadingDocIndex(null);
+    }
+  };
+
+  // Xử lý khi OCR thẩm định thành công (Mũi tên đi lên -> Modal xác nhận)
+  const handleSuccessVerified = (docName: string, result: any) => {
+    if (uploadModalDoc === null) return;
+    const idx = uploadModalDoc.index;
+    const updated = {
+      ...docStatuses,
+      [idx]: { isVerified: true, details: result },
+    };
+    setDocStatuses(updated);
+    try {
+      localStorage.setItem(`vinalex_proc_docs_${slug}`, JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+
+    // Tự động đồng bộ tiến độ lên backend nếu người dùng đã lưu thủ tục
+    const token = typeof window !== 'undefined' ? localStorage.getItem('vinalex_access_token') : null;
+    if (token && proc && typeof proc.id === 'number') {
+      const verifiedCount = Object.values(updated).filter((s) => s.isVerified).length;
+      const totalDocs = proc.documents.length;
+      api.saveUserProcedure(token, proc.id, `Tiến độ: ${verifiedCount}/${totalDocs} giấy tờ đã hoàn thành`).catch(() => {});
+    }
+  };
 
   const handleSaveProcedure = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('vinalex_access_token') : null;
@@ -117,6 +198,15 @@ export default function ProcedureDetailPage() {
 
   useEffect(() => {
     if (!slug) return;
+
+    // Nếu slug trùng với slug của Danh mục (ví dụ: dat-dai, thue, ho-tich...),
+    // tự động chuyển hướng người dùng đến danh sách thủ tục của danh mục đó
+    const matchedCategory = CATEGORIES.find((c) => c.slug === slug);
+    if (matchedCategory) {
+      router.replace(`/thu-tuc?category=${slug}`);
+      return;
+    }
+
     setLoading(true);
     setNotFound(false);
 
@@ -130,7 +220,7 @@ export default function ProcedureDetailPage() {
       })
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
-  }, [slug]);
+  }, [slug, router]);
 
   // ── Loading State ──
   if (loading) {
@@ -157,9 +247,18 @@ export default function ProcedureDetailPage() {
             <p className={styles.notFoundDesc}>
               Thủ tục <strong>{slug}</strong> không tồn tại hoặc đã bị gỡ xuống.
             </p>
-            <Link href="/thu-tuc" className={styles.backBtn}>
-              <ArrowLeft size={16} /> Về danh sách thủ tục
-            </Link>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '16px', flexWrap: 'wrap' }}>
+              <Link href="/thu-tuc" className={styles.backBtn}>
+                <ArrowLeft size={16} /> Về danh sách thủ tục
+              </Link>
+              <Link
+                href={`/thu-tuc?q=${encodeURIComponent(slug.replace(/-/g, ' '))}`}
+                className={styles.backBtn}
+                style={{ background: 'var(--primary-color, #2563eb)', color: '#fff' }}
+              >
+                🔍 Tìm thủ tục liên quan
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -262,20 +361,93 @@ export default function ProcedureDetailPage() {
 
             {/* Documents */}
             <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>
-                <FileText size={22} className={styles.sectionIcon} />
-                Hồ sơ cần chuẩn bị
-              </h2>
+              <div className={styles.sectionHeaderFlex}>
+                <h2 className={styles.sectionTitle}>
+                  <FileText size={22} className={styles.sectionIcon} />
+                  Hồ sơ cần chuẩn bị
+                </h2>
+                {proc.documents.length > 0 && (
+                  <span className={styles.progressBadge}>
+                    Đã chuẩn bị: {Object.values(docStatuses).filter((s) => s.isVerified).length}/{proc.documents.length}
+                  </span>
+                )}
+              </div>
+
+              {/* Progress bar */}
+              {proc.documents.length > 0 && (
+                <div className={styles.docProgressBarContainer}>
+                  <div
+                    className={styles.docProgressBarFill}
+                    style={{
+                      width: `${Math.round(
+                        (Object.values(docStatuses).filter((s) => s.isVerified).length / proc.documents.length) * 100
+                      )}%`,
+                    }}
+                  />
+                </div>
+              )}
+
+              {downloadNotification && (
+                <div className={styles.downloadToast}>
+                  <CheckCircle2 size={16} />
+                  <span>{downloadNotification}</span>
+                </div>
+              )}
+
               <ul className={styles.docList}>
-                {proc.documents.map((doc, i) => (
-                  <li key={i} className={styles.docItem}>
-                    <CheckCircle2 size={16} className={styles.docCheck} />
-                    <span>{typeof doc === 'string' ? doc : (doc as { title?: string })?.title ?? String(doc)}</span>
-                    <button className={styles.docDownload} title="Tải biểu mẫu">
-                      <Download size={14} />
-                    </button>
-                  </li>
-                ))}
+                {proc.documents.map((doc, i) => {
+                  const docTitle = typeof doc === 'string' ? doc : (doc as { title?: string })?.title ?? String(doc);
+                  const isVerified = Boolean(docStatuses[i]?.isVerified);
+                  const isDownloading = downloadingDocIndex === i;
+
+                  return (
+                    <li
+                      key={i}
+                      className={`${styles.docItem} ${isVerified ? styles.docItemVerified : ''}`}
+                    >
+                      <div className={styles.docLeft}>
+                        <CheckCircle2
+                          size={18}
+                          className={`${styles.docCheck} ${isVerified ? styles.docCheckVerified : ''}`}
+                        />
+                        <div className={styles.docInfo}>
+                          <span className={`${styles.docTitleText} ${isVerified ? styles.docTitleVerified : ''}`}>
+                            {docTitle}
+                          </span>
+                          {isVerified && (
+                            <span className={styles.docVerifiedTag}>
+                              ✓ Đã thẩm định đạt chuẩn
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className={styles.docActions}>
+                        {/* Mũi tên đi lên: Tải file lên để OCR phân tích & thẩm định */}
+                        <button
+                          className={`${styles.docActionBtn} ${styles.docUploadBtn} ${
+                            isVerified ? styles.docUploadBtnVerified : ''
+                          }`}
+                          title="Tải lên giấy tờ để OCR đối soát & kiểm tra tính hợp lệ"
+                          onClick={() => setUploadModalDoc({ index: i, name: docTitle })}
+                        >
+                          <Upload size={14} />
+                          <span className={styles.btnText}>Nộp & Thẩm định</span>
+                        </button>
+
+                        {/* Mũi tên đi xuống: Xem trước mẫu biểu mẫu trước khi tải về máy */}
+                        <button
+                          className={`${styles.docActionBtn} ${styles.docDownloadBtn}`}
+                          title="Xem trước mẫu biểu mẫu và tải file PDF về máy"
+                          onClick={() => setPreviewModalDoc({ name: docTitle })}
+                        >
+                          <Download size={14} />
+                          <span className={styles.btnText}>Xem & Tải mẫu</span>
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </main>
@@ -363,6 +535,30 @@ export default function ProcedureDetailPage() {
           </aside>
         </div>
       </div>
+
+      {/* Modal thẩm định giấy tờ bằng AI OCR */}
+      {uploadModalDoc && (
+        <DocumentVerificationModal
+          isOpen={true}
+          onClose={() => setUploadModalDoc(null)}
+          documentName={uploadModalDoc.name}
+          procedureSlug={proc.slug}
+          procedureTitle={proc.title}
+          onSuccessVerified={handleSuccessVerified}
+        />
+      )}
+
+      {/* Modal xem trước biểu mẫu PDF trước khi tải về */}
+      {previewModalDoc && (
+        <PdfPreviewModal
+          isOpen={true}
+          onClose={() => setPreviewModalDoc(null)}
+          documentName={previewModalDoc.name}
+          procedureSlug={proc.slug}
+          procedureTitle={proc.title}
+        />
+      )}
     </div>
   );
 }
+
