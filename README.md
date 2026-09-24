@@ -4,7 +4,7 @@
 [![Next.js](https://img.shields.io/badge/Frontend-Next.js_14-black?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Python](https://img.shields.io/badge/Python-3.11.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![Database](https://img.shields.io/badge/Database-SQLite_%7C_PostgreSQL-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://sqlite.org)
-[![AI Agent](https://img.shields.io/badge/AI_Agent-Gemini_Flash_%7C_RAG-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev/)
+[![AI RAG](https://img.shields.io/badge/AI_RAG-Vector_Database_%7C_Retrieval-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev/)
 [![Compliance](https://img.shields.io/badge/Compliance-NĐ_30/2020_%7C_NĐ_13/2023-critical?style=flat-square)](#)
 
 > **VinaLex** là giải pháp GovTech & LegalTech tiên tiến, hỗ trợ người dân và doanh nghiệp Việt Nam tra cứu quy trình hành chính công, đọc toàn văn thông tư - nghị định, tư vấn pháp lý với Trợ lý AI và tự động sinh biểu mẫu PDF chuẩn thể thức in ấn hành chính nhà nước.
@@ -18,7 +18,7 @@
 * **Văn bản quy phạm pháp luật (204 văn bản):** Tra cứu nhanh số hiệu, trích yếu, ngày ban hành và xem toàn văn Thông tư, Nghị định, Luật với trình đọc trực quan (`Legal Documents Reader`).
 * **Thuật toán tìm kiếm thông minh:** Hỗ trợ tiếng Việt không dấu, tìm kiếm mờ (fuzzy) và từ khóa pháp lý đồng nghĩa (ví dụ: *"sổ đỏ"* ↔ *"giấy chứng nhận quyền sử dụng đất"*, *"cccd"* ↔ *"căn cước"*).
 
-### 2. 🤖 Trợ Lý AI Pháp Lý Đột Phá (Gemini Flash Agent + RAG)
+### 2. 🤖 Trợ Lý AI Pháp Lý Đột Phá (Hệ Thống RAG Tri Thức Pháp Luật)
 * **Truy xuất tri thức pháp luật thời gian thực (RAG):** Đào sâu trong kho 8.301 điều khoản pháp lý số hóa để trả lời chính xác, trích dẫn rõ ràng điều/khoản/luật ban hành.
 * **Cung cấp Biểu mẫu PDF Trực tiếp trong Khung Chat:** Khi người dùng hỏi hoặc yêu cầu mẫu đơn, Trợ lý AI tự động nhận diện ý định và trả về thẻ tải file PDF chuẩn trực tiếp trên giao diện chat.
 * **Thẩm định Hồ sơ Cá nhân (Document Verification):** Tự động đối chiếu các giấy tờ người dùng hiện có với quy định pháp luật để chỉ ra những giấy tờ còn thiếu hoặc cần bổ sung.
