@@ -1771,7 +1771,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Người dân có thể tích hợp tài khoản thanh toán, tài khoản nhận an sinh xã hội trên VNeID (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -1785,12 +1785,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1534,
+    "view_count": 1718,
     "is_published": true
   },
   {
     "slug": "huong-dan-ho-kinh-doanh-cham-dut-hoat-dong-kinh-doanh-tren-cong-dich-vu-cong-the-nao",
-    "title": "Hướng dẫn hộ kinh doanh chấm dứt hoạt động kinh doanh trên Cổng dịch vụ công",
+    "title": "Hướng dẫn hộ kinh doanh chấm dứt hoạt động kinh doanh trên Cổng dịch vụ công thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Hộ kinh doanh thực hiện chấm dứt hoạt động kinh doanh trên Cổng dịch vụ công như thế nào?",
@@ -1821,7 +1821,7 @@
       }
     ],
     "documents": [
-      "Giấy đề nghị đăng ký hộ kinh doanh (Phụ lục III-1 ban hành kèm theo Thông tư số 02/2023/TT-BKHĐT)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -1835,12 +1835,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 362,
+    "view_count": 2173,
     "is_published": true
   },
   {
     "slug": "ke-khai-phu-luc-giam-thue-gtgt-2-quy-22026-tren-htkk-theo-nghi-quyet-204-nhu-the-nao",
-    "title": "Kê khai Phụ lục giảm thuế GTGT 2% Quý 2/2026 trên HTKK theo Nghị quyết 204",
+    "title": "Kê khai Phụ lục giảm thuế GTGT 2% Quý 2/2026 trên HTKK theo Nghị quyết 204 như thế nào?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Chi tiết cách kê khai Phụ lục giảm thuế GTGT 2% Quý 2/2026 trên HTKK theo Nghị quyết 204 được hướng dẫn thế nào?",
@@ -1871,7 +1871,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -1885,12 +1885,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1687,
+    "view_count": 739,
     "is_published": true
   },
   {
     "slug": "cach-nop-gia-han-nop-thue-2026-online-nhu-the-nao",
-    "title": "Cách nộp gia hạn nộp thuế 2026 online",
+    "title": "Cách nộp gia hạn nộp thuế 2026 online như thế nào?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Cách nộp gia hạn nộp thuế 2026 online như thế nào?",
@@ -1921,7 +1921,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -1935,7 +1935,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1908,
+    "view_count": 1302,
     "is_published": true
   },
   {
@@ -2190,7 +2190,7 @@
   },
   {
     "slug": "co-bao-nhieu-an-le-lien-quan-dat-dai-so-do",
-    "title": "Tra cứu các án lệ về tranh chấp đất đai và Giấy chứng nhận quyền sử dụng đất",
+    "title": "Có bao nhiêu án lệ liên quan đất đai sổ đỏ?",
     "category": "Đất đai - Bất động sản",
     "category_slug": "bat-dong-san",
     "description": "Trong toàn bộ 90 án lệ được cập nhật mới nhất, có bao nhiêu án lệ liên quan đất đai sổ đỏ?",
@@ -2221,7 +2221,7 @@
       }
     ],
     "documents": [
-      "Đơn đăng ký, cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất (Mẫu số 04/ĐK ban hành kèm theo Nghị định số 101/2024/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2235,7 +2235,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 951,
+    "view_count": 2152,
     "is_published": true
   },
   {
@@ -2271,7 +2271,7 @@
       }
     ],
     "documents": [
-      "Đơn đăng ký, cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất (Mẫu số 04/ĐK ban hành kèm theo Nghị định số 101/2024/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2285,7 +2285,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2341,
+    "view_count": 2338,
     "is_published": true
   },
   {
@@ -2321,7 +2321,7 @@
       }
     ],
     "documents": [
-      "Đơn đăng ký, cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu tài sản gắn liền với đất (Mẫu số 04/ĐK ban hành kèm theo Nghị định số 101/2024/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2335,7 +2335,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 131,
+    "view_count": 439,
     "is_published": true
   },
   {
@@ -2371,7 +2371,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Án lệ số 88/2025/AL về ủy quyền tham gia tố tụng trong vụ án tranh chấp về nuôi con (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2385,7 +2385,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1818,
+    "view_count": 1624,
     "is_published": true
   },
   {
@@ -2421,7 +2421,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Luật sửa đổi 4 luật về công nghệ, viễn thông: Đổi mới quản lý theo hướng tăng hậu kiểm, đẩy mạnh phân cấp, phân quyền (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2435,7 +2435,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2445,
+    "view_count": 1219,
     "is_published": true
   },
   {
@@ -2471,7 +2471,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Tra cứu chính sách an sinh xã hội ngay trên môi trường số (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2485,7 +2485,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 201,
+    "view_count": 1761,
     "is_published": true
   },
   {
@@ -2521,7 +2521,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Lấy ý kiến góp ý dự thảo quy định mức hỗ trợ thúc đẩy nghiên cứu khoa học, phát triển công nghệ, đổi mới sáng tạo và chuyển đổi số của TP.Hồ Chí Minh (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2535,7 +2535,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 411,
+    "view_count": 1316,
     "is_published": true
   },
   {
@@ -2721,7 +2721,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Cảnh báo thủ đoạn lừa đảo đăng ký giải chạy dành cho trẻ em trên mạng xã hội (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2735,12 +2735,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1432,
+    "view_count": 746,
     "is_published": true
   },
   {
     "slug": "nhung-dau-hieu-nao-nhan-biet-lua-dao-hop-dong-ky-nghi",
-    "title": "Những dấu hiệu nào nhận biết lừa đảo Hợp đồng kỳ nghỉ",
+    "title": "Những dấu hiệu nào nhận biết lừa đảo Hợp đồng kỳ nghỉ?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Những dấu hiệu nào nhận biết lừa đảo Hợp đồng kỳ nghỉ theo khuyến cáo của Công an thành phố Hải Phòng?",
@@ -2771,7 +2771,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Những dấu hiệu nào nhận biết lừa đảo Hợp đồng kỳ nghỉ (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2785,7 +2785,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1566,
+    "view_count": 1474,
     "is_published": true
   },
   {
@@ -2821,7 +2821,7 @@
       }
     ],
     "documents": [
-      "Văn bản đề nghị giải quyết thủ tục về lao động (Ban hành kèm Nghị định số 145/2020/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2835,7 +2835,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2148,
+    "view_count": 840,
     "is_published": true
   },
   {
@@ -2871,7 +2871,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Cảnh báo thủ đoạn lừa đảo trực tuyến nhắm vào học sinh trong dịp nghỉ hè (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2885,7 +2885,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2257,
+    "view_count": 2487,
     "is_published": true
   },
   {
@@ -2940,7 +2940,7 @@
   },
   {
     "slug": "cuong-che-bang-bien-phap-ke-bien-tai-san-ban-dau-gia-tai-san-ke-bien-voi-nguoi-nop-thue-nhu-the-nao",
-    "title": "Cưỡng chế bằng biện pháp kê biên tài sản, bán đấu giá tài sản kê biên với người nộp thuế",
+    "title": "Cưỡng chế bằng biện pháp kê biên tài sản, bán đấu giá tài sản kê biên với người nộp thuế như thế nào?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Nghị định 252/2026 quy định cưỡng chế bằng biện pháp kê biên tài sản, bán đấu giá tài sản kê biên với người nộp thuế như thế nào?",
@@ -2971,7 +2971,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -2985,7 +2985,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1814,
+    "view_count": 746,
     "is_published": true
   },
   {
@@ -3073,7 +3073,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Báo cáo tình hình kinh tế – xã hội tháng Tám và 8 tháng năm 2026 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3087,12 +3087,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2211,
+    "view_count": 2269,
     "is_published": true
   },
   {
     "slug": "khau-hao-nhanh-tai-san-co-dinh-la-gi",
-    "title": "Khấu hao nhanh tài sản cố định",
+    "title": "Khấu hao nhanh tài sản cố định là gì?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Quy định về khấu hao nhanh tài sản cố định theo Thông tư 45/2013/TT-BTC như thế nào?",
@@ -3123,7 +3123,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Khấu hao nhanh tài sản cố định (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3137,7 +3137,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 630,
+    "view_count": 1418,
     "is_published": true
   },
   {
@@ -3192,7 +3192,7 @@
   },
   {
     "slug": "nhung-luat-moi-nao-ve-tiep-cong-dan-khieu-nai-to-cao-va-phong-chong-tham-nhung-co-hieu-luc-tu-172026",
-    "title": "Những luật mới nào về tiếp công dân, khiếu nại tố cáo và phòng chống tham nhũng có hiệu lực từ 1/7/2026",
+    "title": "Những luật mới nào về tiếp công dân, khiếu nại tố cáo và phòng chống tham nhũng có hiệu lực từ 1/7/2026?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Từ ngày 1/7/2026, những luật mới nào về tiếp công dân, khiếu nại tố cáo và phòng chống tham nhũng có hiệu lực?",
@@ -3223,7 +3223,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Những luật mới nào về tiếp công dân, khiếu nại tố cáo và phòng chống tham nhũng có hiệu lực từ 1/7/2026 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3237,12 +3237,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1735,
+    "view_count": 2005,
     "is_published": true
   },
   {
     "slug": "phuong-thuc-va-thoi-diem-ke-khai-tai-san-thu-nhap-cua-can-bo-cong-chuc-nhu-the-nao",
-    "title": "Phương thức và thời điểm kê khai tài sản, thu nhập của cán bộ công chức",
+    "title": "Phương thức và thời điểm kê khai tài sản, thu nhập của cán bộ công chức như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Phương thức và thời điểm cán bộ, công chức phải kê khai tài sản lần đầu, kê khai bổ sung được quy định thế nào?",
@@ -3273,7 +3273,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Phương thức và thời điểm kê khai tài sản, thu nhập của cán bộ công chức (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3287,12 +3287,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 734,
+    "view_count": 1565,
     "is_published": true
   },
   {
     "slug": "nghi-dinh-184-danh-muc-vi-tri-cong-tac-phai-dinh-ky-chuyen-doi-tu-0172026-nhu-the-nao",
-    "title": "Nghị định 184: Danh mục vị trí công tác phải định kỳ chuyển đổi từ 01/7/2026",
+    "title": "Nghị định 184: Danh mục vị trí công tác phải định kỳ chuyển đổi từ 01/7/2026 như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Nghị định 184, danh mục vị trí công tác phải định kỳ chuyển đổi từ 01/7/2026 như thế nào?",
@@ -3323,7 +3323,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Nghị định 184: Danh mục vị trí công tác phải định kỳ chuyển đổi từ 01/7/2026 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3337,12 +3337,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 517,
+    "view_count": 1158,
     "is_published": true
   },
   {
     "slug": "da-co-nghi-dinh-1842026nd-cp-sua-nghi-dinh-59-huong-dan-luat-phong-chong-tham-nhung-co-noi-dung-nao-noi-bat",
-    "title": "Đã có Nghị định 184/2026/NĐ-CP sửa Nghị định 59 hướng dẫn Luật Phòng chống tham nhũng có nội dung nào nổi bật",
+    "title": "Đã có Nghị định 184/2026/NĐ-CP sửa Nghị định 59 hướng dẫn Luật Phòng chống tham nhũng có nội dung nào nổi bật?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Nghị định 184/2026/NĐ-CP sửa đổi Nghị định 59/2019/NĐ-CP hướng dẫn Luật Phòng chống tham nhũng, có hiệu lực thi hành từ ngày 01/7/2026 và trong Nghị định này có nội dung nào nổi bật?",
@@ -3373,7 +3373,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Đã có Nghị định 184/2026/NĐ-CP sửa Nghị định 59 hướng dẫn Luật Phòng chống tham nhũng có nội dung nào nổi bật (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3387,7 +3387,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 463,
+    "view_count": 1224,
     "is_published": true
   },
   {
@@ -3442,7 +3442,7 @@
   },
   {
     "slug": "xe-dap-di-vao-lan-o-to-bi-phat-bao-nhieu",
-    "title": "Xe đạp đi vào làn ô tô bị phạt bao nhiêu",
+    "title": "Xe đạp đi vào làn ô tô bị phạt bao nhiêu?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Nghị định 168, điều khiển xe đạp đi vào làn ô tô bị phạt bao nhiêu?",
@@ -3473,7 +3473,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Xe đạp đi vào làn ô tô bị phạt bao nhiêu (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3487,12 +3487,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1895,
+    "view_count": 1849,
     "is_published": true
   },
   {
     "slug": "di-xe-dap-lang-lach-danh-vong-bi-phat-bao-nhieu",
-    "title": "Đi xe đạp lạng lách đánh võng bị phạt bao nhiêu",
+    "title": "Đi xe đạp lạng lách đánh võng bị phạt bao nhiêu?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Người có hành vi đi xe đạp lạng lách đánh võng bị phạt bao nhiêu theo Nghị định 168?",
@@ -3523,7 +3523,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Đi xe đạp lạng lách đánh võng bị phạt bao nhiêu (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3537,12 +3537,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1153,
+    "view_count": 1672,
     "is_published": true
   },
   {
     "slug": "di-xe-dap-nguoc-chieu-bi-phat-bao-nhieu",
-    "title": "Đi xe đạp ngược chiều bị phạt bao nhiêu",
+    "title": "Đi xe đạp ngược chiều bị phạt bao nhiêu?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Nghị định 168/2024, người có hành vi đi xe đạp ngược chiều bị phạt bao nhiêu?",
@@ -3573,7 +3573,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Đi xe đạp ngược chiều bị phạt bao nhiêu (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3587,7 +3587,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 508,
+    "view_count": 1221,
     "is_published": true
   },
   {
@@ -3623,7 +3623,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Hệ lụy từ những thói quen xấu ngày hè (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3637,7 +3637,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1116,
+    "view_count": 213,
     "is_published": true
   },
   {
@@ -3692,7 +3692,7 @@
   },
   {
     "slug": "giai-quyet-tranh-chap-khi-choi-hui-ho-bieu-phuong-nhu-the-nao",
-    "title": "Giải quyết tranh chấp khi chơi hụi họ biêu phường",
+    "title": "Giải quyết tranh chấp khi chơi hụi họ biêu phường như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Sổ tay giới thiệu về họ, hụi, biêu, phường, hướng dẫn giải quyết tranh chấp khi chơi hụi họ biêu phường như thế nào?",
@@ -3723,7 +3723,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Giải quyết tranh chấp khi chơi hụi họ biêu phường (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3737,12 +3737,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 210,
+    "view_count": 922,
     "is_published": true
   },
   {
     "slug": "nhung-vuong-mac-nao-lien-quan-tranh-chap-thua-ke-duoc-giai-dap-tai-cong-van-250",
-    "title": "Những vướng mắc nào liên quan tranh chấp thừa kế được giải đáp tại Công văn 250",
+    "title": "Những vướng mắc nào liên quan tranh chấp thừa kế được giải đáp tại Công văn 250?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Tại Công văn 250, Tòa án nhân dân tối cao giải đáp những vướng mắc nào liên quan tranh chấp thừa kế?",
@@ -3773,7 +3773,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Những vướng mắc nào liên quan tranh chấp thừa kế được giải đáp tại Công văn 250 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3787,12 +3787,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 206,
+    "view_count": 228,
     "is_published": true
   },
   {
     "slug": "thu-tuc-yeu-cau-cham-dut-quyen-su-dung-sang-che-theo-quyet-dinh-bat-buoc-nhu-the-nao",
-    "title": "Thủ tục yêu cầu chấm dứt quyền sử dụng sáng chế theo quyết định bắt buộc",
+    "title": "Thủ tục yêu cầu chấm dứt quyền sử dụng sáng chế theo quyết định bắt buộc như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Hiện nay, thủ tục yêu cầu chấm dứt quyền sử dụng sáng chế theo quyết định bắt buộc như thế nào?",
@@ -3823,7 +3823,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Thủ tục yêu cầu chấm dứt quyền sử dụng sáng chế theo quyết định bắt buộc (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3837,12 +3837,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2186,
+    "view_count": 870,
     "is_published": true
   },
   {
     "slug": "du-kien-viec-giai-quyet-tranh-chap-trong-thuong-mai-dien-tu-duoc-thuc-hien-the-nao",
-    "title": "Dự kiến việc giải quyết tranh chấp trong thương mại điện tử được thực hiện",
+    "title": "Dự kiến việc giải quyết tranh chấp trong thương mại điện tử được thực hiện thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Dự thảo Luật Thương mại điện tử, việc giải quyết tranh chấp trong thương mại điện tử được thực hiện thế nào?",
@@ -3873,7 +3873,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Dự kiến việc giải quyết tranh chấp trong thương mại điện tử được thực hiện (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3887,7 +3887,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1324,
+    "view_count": 262,
     "is_published": true
   },
   {
@@ -3973,7 +3973,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: [Gợi ý] Chủ đề bài viết nổi bật trên trang Chính sách pháp luật mới (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -3987,7 +3987,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2232,
+    "view_count": 1464,
     "is_published": true
   },
   {
@@ -4023,7 +4023,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Hướng dẫn sử dụng tính năng ‘Báo lỗi nội dung’ (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4037,7 +4037,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 489,
+    "view_count": 2204,
     "is_published": true
   },
   {
@@ -4073,7 +4073,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Tiện ích Tra cứu Đơn vị Hành chính Việt Nam (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4087,7 +4087,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1062,
+    "view_count": 1073,
     "is_published": true
   },
   {
@@ -4123,7 +4123,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4137,7 +4137,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1490,
+    "view_count": 418,
     "is_published": true
   },
   {
@@ -4173,7 +4173,7 @@
       }
     ],
     "documents": [
-      "Giấy đề nghị đăng ký doanh nghiệp (Ban hành kèm theo Thông tư số 02/2023/TT-BKHĐT)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4187,7 +4187,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 232,
+    "view_count": 1418,
     "is_published": true
   },
   {
@@ -4242,7 +4242,7 @@
   },
   {
     "slug": "phuong-an-cat-giam-don-gian-hoa-thu-tuc-hanh-chinh-ve-ban-quyen-tac-gia-nam-2025-ra-sao",
-    "title": "Phương án cắt giảm, đơn giản hóa thủ tục hành chính về bản quyền tác giả năm 2025",
+    "title": "Phương án cắt giảm, đơn giản hóa thủ tục hành chính về bản quyền tác giả năm 2025 ra sao?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Phương án cắt giảm, đơn giản hóa thủ tục hành chính về bản quyền tác giả năm 2025 do Thủ tướng Chính phủ phê duyệt ra sao?",
@@ -4273,7 +4273,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Phương án cắt giảm, đơn giản hóa thủ tục hành chính về bản quyền tác giả năm 2025 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4287,12 +4287,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1167,
+    "view_count": 1424,
     "is_published": true
   },
   {
     "slug": "yeu-cau-cat-giam-doi-tuong-thuc-hien-thu-tuc-tham-dinh-du-an-tham-dinh-thiet-ke-nhu-the-nao",
-    "title": "Yêu cầu cắt giảm đối tượng thực hiện thủ tục thẩm định dự án, thẩm định thiết kế",
+    "title": "Yêu cầu cắt giảm đối tượng thực hiện thủ tục thẩm định dự án, thẩm định thiết kế như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "TạiCông văn 4377/BXD-VPnăm 2025,  Bộ Xây dựng đã có yêu cầu cắt giảm đối tượng thực hiện thủ tục thẩm định dự án, thẩm định thiết kế như thế nào?",
@@ -4323,7 +4323,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Yêu cầu cắt giảm đối tượng thực hiện thủ tục thẩm định dự án, thẩm định thiết kế (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4337,12 +4337,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2065,
+    "view_count": 490,
     "is_published": true
   },
   {
     "slug": "cat-giam-thu-tuc-cap-chung-chi-nang-luc-xay-dung-bao-cao-thu-tuong-truoc-thoi-gian-nao",
-    "title": "Cắt giảm thủ tục cấp chứng chỉ năng lực xây dựng, báo cáo Thủ tướng trước thời gian nào",
+    "title": "Cắt giảm thủ tục cấp chứng chỉ năng lực xây dựng, báo cáo Thủ tướng trước thời gian nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Bộ Xây dựng chỉ đạo các cơ quan thuộc Bộ khẩn trương cắt giảm thủ tục cấp chứng chỉ năng lực xây dựng, báo cáo Thủ tướng trước thời gian nào?",
@@ -4373,7 +4373,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị cấp giấy phép xây dựng nhà ở riêng lẻ (Mẫu số 01 Phụ lục II Nghị định số 15/2021/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4387,12 +4387,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1051,
+    "view_count": 1551,
     "is_published": true
   },
   {
     "slug": "cong-dien-78-cat-giam-thu-tuc-cap-giay-phep-xay-dung-doi-voi-cac-cong-trinh-da-co-quy-hoach-chi-tiet-1500-ra-sao",
-    "title": "Công điện 78: Cắt giảm thủ tục cấp giấy phép xây dựng đối với các công trình đã có quy hoạch chi tiết 1/500",
+    "title": "Công điện 78: Cắt giảm thủ tục cấp giấy phép xây dựng đối với các công trình đã có quy hoạch chi tiết 1/500 ra sao?",
     "category": "Xây dựng - Đô thị",
     "category_slug": "xay-dung-do-thi",
     "description": "Thủ tướng có Công điện 78/CĐ-TTg năm 2025 chủ trương cắt giảm thủ tục cấp giấy phép xây dựng đối với các công trình đã có quy hoạch chi tiết 1/500 như thế nào?",
@@ -4423,7 +4423,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị cấp giấy phép xây dựng nhà ở riêng lẻ (Mẫu số 01 Phụ lục II Nghị định số 15/2021/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4437,7 +4437,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 139,
+    "view_count": 1532,
     "is_published": true
   },
   {
@@ -4492,7 +4492,7 @@
   },
   {
     "slug": "trien-khai-thi-diem-che-dinh-luat-su-cong-tai-tphcm-nhu-the-nao",
-    "title": "Triển khai thí điểm chế định luật sư công tại TPHCM",
+    "title": "Triển khai thí điểm chế định luật sư công tại TPHCM như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Việc triển khai thí điểm chế định luật sư công trên địa bàn TPHCM theo Nghị quyết của Quốc hội được thực hiện thế nào?",
@@ -4523,7 +4523,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Triển khai thí điểm chế định luật sư công tại TPHCM (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4537,12 +4537,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 170,
+    "view_count": 1358,
     "is_published": true
   },
   {
     "slug": "thu-tuc-dang-ky-hoat-dong-cua-chi-nhanh-cua-to-chuc-hanh-nghe-luat-su-nhu-the-nao",
-    "title": "Thủ tục đăng ký hoạt động của chi nhánh của tổ chức hành nghề luật sư",
+    "title": "Thủ tục đăng ký hoạt động của chi nhánh của tổ chức hành nghề luật sư như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Quyết định 1262/QĐ-BTP thủ tục đăng ký hoạt động của chi nhánh của tổ chức hành nghề luật sư như thế nào?",
@@ -4573,7 +4573,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Thủ tục đăng ký hoạt động của chi nhánh của tổ chức hành nghề luật sư (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4587,12 +4587,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1008,
+    "view_count": 1026,
     "is_published": true
   },
   {
     "slug": "tieu-chuan-luat-su-du-kien-ap-dung-tu-0132027-nhu-the-nao",
-    "title": "Tiêu chuẩn luật sư dự kiến áp dụng từ 01/3/2027",
+    "title": "Tiêu chuẩn luật sư dự kiến áp dụng từ 01/3/2027 như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Dự kiến tiêu chuẩn luật sư áp dụng từ 01/3/2027 như thế nào?",
@@ -4623,7 +4623,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Tiêu chuẩn luật sư dự kiến áp dụng từ 01/3/2027 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4637,12 +4637,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 150,
+    "view_count": 995,
     "is_published": true
   },
   {
     "slug": "luat-su-se-co-them-3-quyen-loi-moi-gi-tu-nam-2027-du-kien",
-    "title": "Luật sư sẽ có thêm 3 quyền lợi mới gì từ năm 2027 (dự kiến)",
+    "title": "Luật sư sẽ có thêm 3 quyền lợi mới gì từ năm 2027 (dự kiến)?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Dự kiến Luật sư sẽ có thêm 3 quyền lợi mới gì từ năm 2027?",
@@ -4673,7 +4673,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Luật sư sẽ có thêm 3 quyền lợi mới gì từ năm 2027 (dự kiến) (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4687,7 +4687,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 447,
+    "view_count": 1510,
     "is_published": true
   },
   {
@@ -4742,7 +4742,7 @@
   },
   {
     "slug": "cong-dien-127-cat-giam-toi-thieu-30-dieu-kien-kinh-doanh-thoi-gian-chi-phi-tuan-thu-thu-tuc-hanh-chinh-nhu-the-nao",
-    "title": "Công điện 127: Cắt giảm tối thiểu 30% điều kiện kinh doanh, thời gian, chi phí tuân thủ thủ tục hành chính",
+    "title": "Công điện 127: Cắt giảm tối thiểu 30% điều kiện kinh doanh, thời gian, chi phí tuân thủ thủ tục hành chính như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Thủ tường yêu cầu triển khai ngay việc cắt giảm tối thiểu 30% điều kiện kinh doanh, thời gian, chi phí tuân thủ thủ tục hành chính.",
@@ -4773,7 +4773,7 @@
       }
     ],
     "documents": [
-      "Giấy đề nghị đăng ký doanh nghiệp (Ban hành kèm theo Thông tư số 02/2023/TT-BKHĐT)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4787,12 +4787,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1465,
+    "view_count": 1957,
     "is_published": true
   },
   {
     "slug": "cong-dien-63-cham-dut-tinh-trang-chi-phi-khong-chinh-thuc-trong-thuc-hien-thu-tuc-hanh-chinh-doi-voi-doanh-nghiep-ra-sao",
-    "title": "Công điện 63: Chấm dứt tình trạng chi phí không chính thức trong thực hiện thủ tục hành chính đối với doanh nghiệp",
+    "title": "Công điện 63: Chấm dứt tình trạng chi phí không chính thức trong thực hiện thủ tục hành chính đối với doanh nghiệp ra sao?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Thủ tướng chỉ đạo chấm dứt tình trạng chi phí không chính thức trong thực hiện thủ tục hành chính đối với doanh nghiệp tại Công điện 63 như thế nào?",
@@ -4823,7 +4823,7 @@
       }
     ],
     "documents": [
-      "Giấy đề nghị đăng ký doanh nghiệp (Ban hành kèm theo Thông tư số 02/2023/TT-BKHĐT)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4837,12 +4837,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 749,
+    "view_count": 258,
     "is_published": true
   },
   {
     "slug": "pci-2024-chi-phi-khong-chinh-thuc-tang-hay-giam",
-    "title": "PCI 2024: Chi phí không chính thức tăng hay giảm",
+    "title": "PCI 2024: Chi phí không chính thức tăng hay giảm?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Chi phí không chính thức đo lường mức chi phí ngoài quy định mà doanh nghiệp phải trả, vậy theo Báo cáo PCI 2024 thì chi phí không chính thức này tăng hay giảm so với năm trước?",
@@ -4873,7 +4873,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: PCI 2024: Chi phí không chính thức tăng hay giảm (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4887,12 +4887,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2330,
+    "view_count": 1964,
     "is_published": true
   },
   {
     "slug": "nghi-quyet-68-cat-giam-chi-phi-tuan-thu-trong-nam-2025-nhu-the-nao",
-    "title": "Nghị quyết 68: Cắt giảm chi phí tuân thủ trong năm 2025",
+    "title": "Nghị quyết 68: Cắt giảm chi phí tuân thủ trong năm 2025 như thế nào?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Theo Nghị quyết 68 việc cắt giảm chi phí tuân thủ trong năm 2025 như thế nào?",
@@ -4923,7 +4923,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Nghị quyết 68: Cắt giảm chi phí tuân thủ trong năm 2025 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -4937,7 +4937,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 801,
+    "view_count": 2410,
     "is_published": true
   },
   {
@@ -4992,7 +4992,7 @@
   },
   {
     "slug": "quen-mang-bao-hiem-xe-may-khi-tham-gia-giao-thong-bi-phat-bao-nhieu",
-    "title": "Quên mang bảo hiểm xe máy khi tham gia giao thông, bị phạt bao nhiêu",
+    "title": "Quên mang bảo hiểm xe máy khi tham gia giao thông, bị phạt bao nhiêu?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Tôi có mua bảo hiểm xe máy, tuy nhiên khi tham gia giao thông tôi quên mang theo, vậy tôi có bị xử phạt hay không? Nếu bị phạt thì số tiền phạt là bao nhiêu? – Văn Quốc (Phú Yên).",
@@ -5023,7 +5023,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Quên mang bảo hiểm xe máy khi tham gia giao thông, bị phạt bao nhiêu (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5037,12 +5037,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 187,
+    "view_count": 972,
     "is_published": true
   },
   {
     "slug": "dong-bo-quy-dinh-ve-tien-luong-dong-bhxh-cua-nld-da-qua-dao-tao-nghe-nhu-the-nao",
-    "title": "Đồng bộ quy định về tiền lương đóng BHXH của NLĐ đã qua đào tạo nghề",
+    "title": "Đồng bộ quy định về tiền lương đóng BHXH của NLĐ đã qua đào tạo nghề như thế nào?",
     "category": "Lao động - Tiền lương",
     "category_slug": "lao-dong-tien-luong",
     "description": "Có phải hiện nay mức tiền lương tối thiểu tính đóng bảo hiểm xã hội bắt buộc của người lao động đã qua đào tạo nghề với lao động phổ thông là như nhau? – Hồng Gấm (Đồng Nai).",
@@ -5073,7 +5073,7 @@
       }
     ],
     "documents": [
-      "Văn bản đề nghị giải quyết thủ tục về lao động (Ban hành kèm Nghị định số 145/2020/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5087,12 +5087,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 314,
+    "view_count": 228,
     "is_published": true
   },
   {
     "slug": "cac-truong-hop-duoc-giam-tien-dien-sinh-hoat-muc-giam-tu-ngay-0452023",
-    "title": "Các trường hợp được giảm tiền điện sinh hoạt, mức giảm từ ngày 04/5/2023",
+    "title": "Các trường hợp được giảm tiền điện sinh hoạt, mức giảm từ ngày 04/5/2023?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Từ ngày 04/5/2023, đã tăng giá điện sinh hoạt; vậy có quy định mới nào về việc giảm tiền điện sinh hoạt hay không? Mức giảm là bao nhiêu (nếu có)? – Bích Liên (Quảng Ngãi).",
@@ -5123,7 +5123,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Các trường hợp được giảm tiền điện sinh hoạt, mức giảm từ ngày 04/5/2023 (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5137,12 +5137,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2357,
+    "view_count": 1052,
     "is_published": true
   },
   {
     "slug": "cong-chuc-vien-chuc-thieu-chung-chi-tieng-anh-tin-hoc-co-bi-thoi-viec",
-    "title": "Công chức, viên chức thiếu chứng chỉ tiếng Anh, tin học có bị thôi việc",
+    "title": "Công chức, viên chức thiếu chứng chỉ tiếng Anh, tin học có bị thôi việc?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Chính phủ vừa ban hành Nghị định về tinh giản biên chế từ ngày 20/7/2023. Vậy công chức, viên chức thiếu chứng chỉ tiếng Anh, tin học có bị thôi việc không? – Minh Tâm (Bến Tre).",
@@ -5173,7 +5173,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Công chức, viên chức thiếu chứng chỉ tiếng Anh, tin học có bị thôi việc (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5187,7 +5187,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1431,
+    "view_count": 572,
     "is_published": true
   },
   {
@@ -5244,7 +5244,7 @@
   },
   {
     "slug": "file-phan-mem-itaxviewer-283-doc-to-khai-thue-xml-cua-cuc-thue",
-    "title": "File phần mềm iTaxViewer 2.8.3 đọc tờ khai thuế XML của Cục Thuế",
+    "title": "File phần mềm iTaxViewer 2.8.3 đọc tờ khai thuế XML của Cục Thuế?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Bài viết dưới đây sẽ cập nhật nội dung file phần mềm iTaxViewer 2.8.3 đọc tờ khai thuế XML của Cục Thuế.",
@@ -5275,7 +5275,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5289,12 +5289,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1285,
+    "view_count": 1060,
     "is_published": true
   },
   {
     "slug": "tai-ve-phan-mem-itaxviewer-282-doc-to-khai-thue-xml-moi-nhat-cua-cuc-thue",
-    "title": "Tải về phần mềm iTaxViewer 2.8.2 đọc tờ khai thuế XML mới nhất của Cục Thuế",
+    "title": "Tải về phần mềm iTaxViewer 2.8.2 đọc tờ khai thuế XML mới nhất của Cục Thuế?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Bài viết dưới đây sẽ cung cấp nội dung tải về phần mềm iTaxViewer 2.8.2 đọc tờ khai thuế XML mới nhất của Cục Thuế.",
@@ -5325,7 +5325,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5339,12 +5339,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2419,
+    "view_count": 1612,
     "is_published": true
   },
   {
     "slug": "ngay-198-la-ngay-gi-ngay-198-la-ngay-le-lon-cua-viet-nam",
-    "title": "Ngày 19/8 là ngày gì? Ngày 19/8 là ngày lễ lớn của Việt Nam",
+    "title": "Ngày 19/8 là ngày gì? Ngày 19/8 là ngày lễ lớn của Việt Nam?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Ngày 19/8 là ngày gì? Ngày 19/8 là ngày lễ lớn của Việt Nam? Khẩu hiệu tuyên truyền kỷ niệm 81 năm Cách mạng Tháng Tám 19/8 và Quốc khánh 2/9?",
@@ -5375,7 +5375,7 @@
       }
     ],
     "documents": [
-      "Đơn đề nghị giải quyết thủ tục: Ngày 19/8 là ngày gì? Ngày 19/8 là ngày lễ lớn của Việt Nam (Chuẩn thể thức Nghị định số 30/2020/NĐ-CP & NĐ 61/2018/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5389,12 +5389,12 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 903,
+    "view_count": 1829,
     "is_published": true
   },
   {
     "slug": "tai-ve-tai-lieu-huong-dan-quy-dinh-ve-dang-ky-thue-cua-thue-tp-hai-phong",
-    "title": "Tải về Tài liệu hướng dẫn quy định về đăng ký thuế của Thuế TP Hải Phòng",
+    "title": "Tải về Tài liệu hướng dẫn quy định về đăng ký thuế của Thuế TP Hải Phòng?",
     "category": "Thuế & Tài chính",
     "category_slug": "thue",
     "description": "Bài viết dưới đây sẽ cung cấp nội dung tải về Tài liệu hướng dẫn quy định về đăng ký thuế của Thuế TP Hải Phòng",
@@ -5425,7 +5425,7 @@
       }
     ],
     "documents": [
-      "Tờ khai quyết toán thuế thu nhập cá nhân (Mẫu số 02/QTT-TNCN ban hành kèm Thông tư số 80/2021/TT-BTC)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -5439,7 +5439,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 2438,
+    "view_count": 2149,
     "is_published": true
   },
   {
@@ -7946,7 +7946,7 @@
   },
   {
     "slug": "cong-van-14615-huong-dan-tien-su-dung-dat-khi-chuyen-muc-dich-su-dung-dat-nong-nghiep-sang-dat-o-ra-sao",
-    "title": "Công văn 14615 hướng dẫn tiền sử dụng đất khi chuyển mục đích sử dụng đất nông nghiệp sang đất ở",
+    "title": "Công văn 14615 hướng dẫn tiền sử dụng đất khi chuyển mục đích sử dụng đất nông nghiệp sang đất ở ra sao?",
     "category": "Thủ tục hành chính",
     "category_slug": "thu-tuc-hanh-chinh",
     "description": "Bộ Tài chính hướng dẫn về tính tiền sử dụng đất đối với hộ gia đình, cá nhân khi chuyển mục đích sử dụng đất từ đất vườn, ao, đất nông nghiệp sang đất ở thế nào?",
@@ -7977,7 +7977,7 @@
       }
     ],
     "documents": [
-      "Đơn xin chuyển mục đích sử dụng đất / gia hạn sử dụng đất (Mẫu số 09/ĐK ban hành kèm theo Nghị định số 102/2024/NĐ-CP)",
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
       "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
       "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
       "Các tài liệu liên quan đến nội dung thủ tục"
@@ -7991,7 +7991,7 @@
       "Thủ tục",
       "Pháp luật"
     ],
-    "view_count": 1018,
+    "view_count": 746,
     "is_published": true
   },
   {
@@ -10292,6 +10292,1656 @@
       "Pháp luật"
     ],
     "view_count": 1331,
+    "is_published": true
+  },
+  {
+    "slug": "tuyen-luat-sucv-phap-ly-lam-legal-business-analyst-tvpl-legal-ai",
+    "title": "Tuyển Luật Sư/CV Pháp Lý Làm Legal Business Analyst - TVPL Legal AI",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Tuyển Luật Sư/CV Pháp Lý Làm Legal Business Analyst - TVPL Legal AI tại Công ty TNHH THƯ VIỆN PHÁP LUẬT.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2237,
+    "is_published": true
+  },
+  {
+    "slug": "nhung-nganh-dao-tao-dai-hoc-nao-duoc-bo-sung-thay-doi-theo-thong-tu-742026tt-bgddt",
+    "title": "Những ngành đào tạo đại học nào được bổ sung, thay đổi theo Thông tư 74/2026/TT-BGDĐT?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Những ngành đào tạo đại học nào được bổ sung, thay đổi theo Thông tư 74/2026/TT-BGDĐT? Ngành mới được bổ sung từ năm 2027 phải đáp ứng điều kiện gì?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1046,
+    "is_published": true
+  },
+  {
+    "slug": "quy-dinh-ve-dao-tao-tap-su-de-tro-thanh-luat-su-cong-theo-nghi-dinh-3642026",
+    "title": "Quy định về đào tạo tập sự để trở thành luật sư công theo Nghị định 364/2026",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung quy định về đào tạo tập sự để trở thành luật sư công theo Nghị định 364/2026.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1118,
+    "is_published": true
+  },
+  {
+    "slug": "nguoi-nop-thue-tam-ngung-kinh-doanh-phai-thong-bao-khi-nao",
+    "title": "Người nộp thuế tạm ngừng kinh doanh phải thông báo khi nào?",
+    "category": "Thuế & Tài chính",
+    "category_slug": "thue",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung về việc người nộp thuế tạm ngừng kinh doanh phải thông báo khi nào.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thuế & Tài chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2006,
+    "is_published": true
+  },
+  {
+    "slug": "muc-phat-vi-pham-quy-dinh-ve-lao-dong-la-nguoi-giup-viec-gia-dinh-theo-nghi-dinh-2832026",
+    "title": "Mức phạt vi phạm quy định về lao động là người giúp việc gia đình theo Nghị định 283/2026",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung mức phạt vi phạm quy định về lao động là người giúp việc gia đình theo Nghị định 283/2026.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2410,
+    "is_published": true
+  },
+  {
+    "slug": "phat-trien-do-thi-theo-dinh-huong-giao-thong-cong-cong-tai-luat-phat-trien-do-thi-2026-duoc-quy-dinh-ra-sao",
+    "title": "Phát triển đô thị theo định hướng giao thông công cộng tại Luật Phát triển đô thị 2026 được quy định ra sao?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Phát triển đô thị theo định hướng giao thông công cộng tại Luật Phát triển đô thị 2026 được quy định ra sao từ 01/10/2026?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1518,
+    "is_published": true
+  },
+  {
+    "slug": "tang-cuong-bao-dam-trat-tu-an-toan-giao-thong-doi-voi-hoat-dong-kinh-doanh-van-tai-bang-xe-o-to-tren-dia-ban-thanh-pho",
+    "title": "Tăng cường bảo đảm trật tự, an toàn giao thông đối với hoạt động kinh doanh vận tải bằng xe ô tô trên địa bàn Thành phố",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "(Hochiminhcity.gov.vn) – UBND TP.Hồ Chí Minh ban hành Công văn về việc tăng cường bảo đảm trật tự, an toàn giao thông đối với hoạt động kinh doanh vận tải bằng xe ô tô trên địa bàn Thành phố.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2272,
+    "is_published": true
+  },
+  {
+    "slug": "huong-dan-phan-loai-thuoc-khong-ke-don-theo-thong-tu-322026tt-byt",
+    "title": "Hướng dẫn phân loại thuốc không kê đơn theo Thông tư 32/2026/TT-BYT?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Hướng dẫn phân loại thuốc không kê đơn theo Thông tư 32/2026/TT-BYT từ 01/10/2026?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 907,
+    "is_published": true
+  },
+  {
+    "slug": "huong-dan-chinh-sach-thue-voi-truong-hop-ban-dau-gia-tai-san-bao-dam-thi-hanh-an-theo-cong-van-3249-thue-vinh-long-ra-sao",
+    "title": "Hướng dẫn chính sách thuế với trường hợp bán đấu giá tài sản bảo đảm thi hành án theo Công văn 3249 Thuế Vĩnh Long ra sao?",
+    "category": "Thuế & Tài chính",
+    "category_slug": "thue",
+    "description": "Thuế tỉnh Vĩnh Long hướng dẫn về chính sách thuế đối với trường hợp bán đấu giá tài sản bảo đảm thi hành án thế nào?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thuế & Tài chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 540,
+    "is_published": true
+  },
+  {
+    "slug": "dia-ban-khu-vuc-kho-khan-duoc-pho-cap-dich-vu-vien-thong-duoc-xac-dinh-theo-tieu-chi-nao",
+    "title": "Địa bàn, khu vực khó khăn được phổ cập dịch vụ viễn thông được xác định theo tiêu chí nào?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Địa bàn, khu vực khó khăn được phổ cập dịch vụ viễn thông được xác định dựa trên những tiêu chí nào theo Thông tư 57/2026/TT-BKHCN?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2478,
+    "is_published": true
+  },
+  {
+    "slug": "khau-tru-tien-luong-cua-nguoi-lao-dong-khong-dung-quy-dinh-bi-phat-bao-nhieu",
+    "title": "Khấu trừ tiền lương của người lao động không đúng quy định bị phạt bao nhiêu?",
+    "category": "Lao động - Tiền lương",
+    "category_slug": "lao-dong-tien-luong",
+    "description": "Khi nào người sử dụng lao động được khấu trừ tiền lương của người lao động? Khấu trừ tiền lương của người lao động không đúng quy định bị phạt bao nhiêu?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Lao động - Tiền lương",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2464,
+    "is_published": true
+  },
+  {
+    "slug": "quyet-dinh-882026qd-ubnd-sua-doi-bo-sung-he-so-dieu-chinh-gia-dat-quang-ninh-ra-sao",
+    "title": "Quyết định 88/2026/QĐ-UBND sửa đổi bổ sung hệ số điều chỉnh giá đất Quảng Ninh ra sao?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Hệ số điều chỉnh giá đất tại Quảng Ninh được sửa đổi, bổ sung những nội dung gì theo Quyết định 88/2026/QĐ-UBND?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2295,
+    "is_published": true
+  },
+  {
+    "slug": "du-thao-nghi-dinh-xu-phat-vi-pham-hanh-chinh-trong-linh-vuc-canh-tranh-ra-sao",
+    "title": "Dự thảo Nghị định xử phạt vi phạm hành chính trong lĩnh vực cạnh tranh ra sao?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Dự thảo Nghị định quy định xử phạt vi phạm hành chính trong lĩnh vực cạnh tranh của Bộ Công Thương thế nào?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1362,
+    "is_published": true
+  },
+  {
+    "slug": "thong-bao-494tb-vpcp-ra-soat-hoan-thien-chuong-trinh-sach-giao-khoa-giao-duc-pho-thong-ra-sao",
+    "title": "Thông báo 494/TB-VPCP: Rà soát hoàn thiện Chương trình, sách giáo khoa giáo dục phổ thông ra sao?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung Thông báo 494/TB-VPCP: Rà soát hoàn thiện Chương trình, sách giáo khoa giáo dục phổ thông.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 460,
+    "is_published": true
+  },
+  {
+    "slug": "nha-phat-hanh-game-khong-bao-dam-quyen-loi-cua-nguoi-choi-bi-phat-bao-nhieu",
+    "title": "Nhà phát hành Game không bảo đảm quyền lợi của người chơi bị phạt bao nhiêu?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Theo quy định hiện nay, nhà phát hành Game không bảo đảm quyền lợi của người chơi bị phạt bao nhiêu?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1096,
+    "is_published": true
+  },
+  {
+    "slug": "thu-tuc-cap-so-do-lan-dau-doi-voi-ca-nhan-ho-gia-dinh-tinh-tay-ninh-nam-2026-ra-sao",
+    "title": "Thủ tục cấp Sổ đỏ lần đầu đối với cá nhân, hộ gia đình tỉnh Tây Ninh năm 2026 ra sao?",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "Sau đây là nội dung bài viết về thủ tục cấp Sổ đỏ lần đầu đối với cá nhân, hộ gia đình tỉnh Tây Ninh năm 2026 theo Quyết định 137/2026/QĐ-UBND.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 605,
+    "is_published": true
+  },
+  {
+    "slug": "tphcm-bi-thu-hoi-tro-cap-that-nghiep-co-duoc-xac-nhan-lai-so-bhxh-khong",
+    "title": "TPHCM: Bị thu hồi trợ cấp thất nghiệp có được xác nhận lại sổ BHXH không?",
+    "category": "Lao động - Tiền lương",
+    "category_slug": "lao-dong-tien-luong",
+    "description": "Khi người lao động bị thu hồi trợ cấp thất nghiệp, việc xác nhận lại sổ BHXH được thực hiện như thế nào?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Lao động - Tiền lương",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 635,
+    "is_published": true
+  },
+  {
+    "slug": "cach-phan-bo-thue-gtgt-duoc-khau-tru-theo-nghi-dinh-1812025nd-cp-ra-sao",
+    "title": "Cách phân bổ thuế GTGT được khấu trừ theo Nghị định 181/2025/NĐ-CP ra sao?",
+    "category": "Thuế & Tài chính",
+    "category_slug": "thue",
+    "description": "Theo quy định hiện nay, việc phân bổ thuế GTGT được khấu trừ theo Nghị định 181/2025/NĐ-CP ra sao?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thuế & Tài chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 420,
+    "is_published": true
+  },
+  {
+    "slug": "tpho-chi-minh-tang-cuong-cong-tac-quan-ly-tuan-thu-phap-luat-ve-an-toan-ve-sinh-lao-dong",
+    "title": "TP.Hồ Chí Minh tăng cường công tác quản lý, tuân thủ pháp luật về an toàn, vệ sinh lao động",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "(Hochiminhcity.gov.vn) – UBND TP.Hồ Chí Minh ban hành văn bản tăng cường công tác quản lý, tuân thủ pháp luật về an toàn, vệ sinh lao động trên địa bàn TP.Hồ Chí Minh.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2155,
+    "is_published": true
+  },
+  {
+    "slug": "tpho-chi-minh-tang-muc-ho-tro-len-den-5-trieu-dongthang-mo-rong-chinh-sach-thu-hut-nhan-luc-giam-dinh-tu-phap",
+    "title": "TP.Hồ Chí Minh: Tăng mức hỗ trợ lên đến 5 triệu đồng/tháng, mở rộng chính sách thu hút nhân lực giám định tư pháp",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "(Hochiminhcity.gov.vn) - Tại Kỳ họp thứ năm (Kỳ họp chuyên đề), HĐND TP.Hồ Chí Minh khóa XI đã thông qua Nghị quyết quy định về hỗ trợ người giám định tư pháp, thu hút chuyên gia, tổ chức có năng lực tham gia hoạt động giám định tư pháp trên địa bàn Thành phố. Nghị quyết thay thế Nghị quyết số 49/2024/NQ-HĐND, điều chỉnh tăng mức hỗ trợ đối với người giám định tư pháp và mở rộng đối tượng được hưởng chính sách.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1703,
+    "is_published": true
+  },
+  {
+    "slug": "tpho-chi-minh-ap-dung-bien-phap-ngung-cung-cap-dien-nuoc-doi-voi-cac-cong-trinh-co-so-vi-pham-nghiem-trong",
+    "title": "TP.Hồ Chí Minh: Áp dụng biện pháp ngừng cung cấp điện, nước đối với các công trình, cơ sở vi phạm nghiêm trọng",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "(Hochiminhcity.gov.vn) - Ngày 22/9, tại Kỳ họp thứ năm, HĐND TP.Hồ Chí Minh khóa XI đã thông qua Nghị quyết quy định về việc áp dụng biện pháp ngừng cung cấp dịch vụ điện, nước đối với các công trình, cơ sở sản xuất, kinh doanh vi phạm trên địa bàn Thành phố.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1482,
+    "is_published": true
+  },
+  {
+    "slug": "quy-dinh-mot-so-chinh-sach-quan-ly-khai-thac-su-dung-khong-gian-ngam-va-phat-trien-cong-trinh-ngam-tren-dia-ban-tpho-chi-minh",
+    "title": "Quy định một số chính sách quản lý, khai thác, sử dụng không gian ngầm và phát triển công trình ngầm trên địa bàn TP.Hồ Chí Minh",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "(Hochiminhcity.gov.vn) - Ngày 22/9, tại Kỳ họp thứ năm (Kỳ họp chuyên đề), HĐND TP.Hồ Chí Minh khóa XI đã thông qua Nghị quyết quy định một số chính sách quản lý, khai thác, sử dụng không gian ngầm và phát triển công trình ngầm trên địa bàn TP.Hồ Chí Minh.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 883,
+    "is_published": true
+  },
+  {
+    "slug": "mau-tp-lsc-03-van-ban-de-nghi-tham-du-ky-kiem-tra-ket-qua-tap-su-hanh-nghe-luat-su-cong-theo-nghi-dinh-3642026nd-cp-la-mau-nao",
+    "title": "Mẫu TP-LSC-03 Văn bản đề nghị tham dự kỳ kiểm tra kết quả tập sự hành nghề luật sư công theo Nghị định 364/2026/NĐ-CP là mẫu nào?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Dưới đây là Mẫu TP-LSC-03 Văn bản đề nghị tham dự kỳ kiểm tra kết quả tập sự hành nghề luật sư công theo quy định tại Nghị định 364/2026/NĐ-CP.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1004,
+    "is_published": true
+  },
+  {
+    "slug": "mau-tp-lsc-02-bao-cao-qua-trinh-tap-su-hanh-nghe-luat-su-cong-theo-nghi-dinh-3642026nd-cp-la-mau-nao",
+    "title": "Mẫu TP-LSC-02 Báo cáo quá trình tập sự hành nghề luật sư công theo Nghị định 364/2026/NĐ-CP là mẫu nào?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết sau đây đề cập tới Mẫu TP-LSC-02 Báo cáo quá trình tập sự hành nghề luật sư công theo quy định Nghị định 364/2026/NĐ-CP.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 397,
+    "is_published": true
+  },
+  {
+    "slug": "mau-tp-lsc-01-so-nhat-ky-tap-su-danh-cho-luat-su-cong-theo-nghi-dinh-3642026nd-cp-la-mau-nao",
+    "title": "Mẫu TP-LSC-01 Sổ nhật ký tập sự dành cho luật sư công theo Nghị định 364/2026/NĐ-CP là mẫu nào?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Sau đây là Mẫu TP-LSC-01 Sổ nhật ký tập sự dành cho luật sư công theo hướng dẫn tại Nghị định 364/2026/NĐ-CP của Chính phủ.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 360,
+    "is_published": true
+  },
+  {
+    "slug": "mau-thong-bao-nghi-ngay-van-hoa-viet-nam-2411-nam-2026-chi-tiet-the-nao",
+    "title": "Mẫu thông báo nghỉ Ngày Văn hóa Việt Nam 24/11 năm 2026 chi tiết thế nào?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung mẫu thông báo nghỉ Ngày Văn hóa Việt Nam 24/11 năm 2026 chi tiết.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 197,
+    "is_published": true
+  },
+  {
+    "slug": "mau-phieu-yeu-cau-cung-cap-thong-tin-cua-ca-nhan-co-yeu-cau-cung-cap-thong-tin-theo-nghi-dinh-3372026",
+    "title": "Mẫu Phiếu yêu cầu cung cấp thông tin của cá nhân có yêu cầu cung cấp thông tin theo Nghị định 337/2026?",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung mẫu Phiếu yêu cầu cung cấp thông tin của cá nhân có yêu cầu cung cấp thông tin theo Nghị định 337/2026.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1730,
+    "is_published": true
+  },
+  {
+    "slug": "thu-tuc-hoa-giai-tranh-chap-dat-dai-thuoc-tham-quyen-cua-ubnd-cap-xa-tinh-tay-ninh-the-nao",
+    "title": "Thủ tục hòa giải tranh chấp đất đai thuộc thẩm quyền của UBND cấp xã tỉnh Tây Ninh thế nào?",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "Bài viết dưới đây đề cập tới thủ tục hòa giải tranh chấp đất đai thuộc thẩm quyền của UBND cấp xã tỉnh Tây Ninh theo quy định tại Quyết định 137/2026/QĐ-UBND.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1655,
+    "is_published": true
+  },
+  {
+    "slug": "cong-van-huong-dan-tach-thua-voi-thua-dat-co-ca-dat-o-va-dat-nong-nghiep-cua-so-nnmt-tphcm-ra-sao",
+    "title": "Công văn hướng dẫn tách thửa với thửa đất có cả đất ở và đất nông nghiệp của Sở NNMT TPHCM ra sao?",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung Công văn hướng dẫn tách thửa với thửa đất có cả đất ở và đất nông nghiệp của Sở NNMT TPHCM.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1143,
+    "is_published": true
+  },
+  {
+    "slug": "45-quy-trinh-dien-tu-giai-quyet-thu-tuc-dat-dai-tai-ha-noi-theo-quyet-dinh-1163qd-ttpvhcc-ra-sao",
+    "title": "45 quy trình điện tử giải quyết thủ tục đất đai tại Hà Nội theo Quyết định 1163/QĐ-TTPVHCC ra sao?",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "45 quy trình nội bộ, quy trình điện tử giải quyết thủ tục hành chính lĩnh vực Đất đai trên địa bàn thành phố Hà Nội như thế nào?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 2110,
+    "is_published": true
+  },
+  {
+    "slug": "quyet-dinh-592026qd-ubnd-dinh-chinh-quyet-dinh-472026qd-ubnd-thu-tuc-hanh-chinh-dat-dai-tai-nghe-an",
+    "title": "Quyết định 59/2026/QĐ-UBND đính chính Quyết định 47/2026/QĐ-UBND thủ tục hành chính đất đai tại Nghệ An",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "Quyết định 59/2026/QĐ-UBND đính chính Quyết định 47/2026/QĐ-UBND thủ tục hành chính đất đai tại Nghệ An có nội dung thế nào?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 1468,
+    "is_published": true
+  },
+  {
+    "slug": "to-chuc-kinh-te-tich-tu-dat-nong-nghiep-phai-duoc-ubnd-cap-xa-chap-thuan-trong-bao-lau",
+    "title": "Tổ chức kinh tế tích tụ đất nông nghiệp phải được UBND cấp xã chấp thuận trong bao lâu?",
+    "category": "Đất đai - Bất động sản",
+    "category_slug": "bat-dong-san",
+    "description": "Theo pháp luật đất đai thì tổ chức kinh tế tích tụ đất nông nghiệp phải được UBND cấp xã chấp thuận trong bao lâu?",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Đất đai - Bất động sản",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 252,
+    "is_published": true
+  },
+  {
+    "slug": "chi-phi-lai-vay-duoc-tru-voi-doanh-nghiep-co-giao-dich-lien-ket-theo-nghi-dinh-2552026",
+    "title": "Chi phí lãi vay được trừ với doanh nghiệp có giao dịch liên kết theo Nghị định 255/2026",
+    "category": "Thủ tục hành chính",
+    "category_slug": "thu-tuc-hanh-chinh",
+    "description": "Bài viết dưới đây sẽ cung cấp nội dung chi phí lãi vay được trừ với doanh nghiệp có giao dịch liên kết theo Nghị định 255/2026.",
+    "steps": [
+      {
+        "index": 1,
+        "title": "Chuẩn bị hồ sơ pháp lý",
+        "description": "Người thực hiện chuẩn bị đầy đủ thành phần hồ sơ theo quy định",
+        "duration": "1-2 ngày"
+      },
+      {
+        "index": 2,
+        "title": "Nộp hồ sơ đến cơ quan thụ lý",
+        "description": "Nộp trực tiếp tại Bộ phận một cửa hoặc nộp trực tuyến qua Cổng dịch vụ công quốc gia",
+        "duration": "1 ngày"
+      },
+      {
+        "index": 3,
+        "title": "Tiếp nhận và giải quyết",
+        "description": "Cơ quan chuyên môn thẩm tra tính hợp lệ và xử lý hồ sơ",
+        "duration": "3-7 ngày làm việc"
+      },
+      {
+        "index": 4,
+        "title": "Nhận kết quả",
+        "description": "Nhận kết quả giải quyết thủ tục hành chính và nộp phí/lệ phí theo biên nhận",
+        "duration": "1 ngày"
+      }
+    ],
+    "documents": [
+      "Đơn/Tờ khai theo mẫu quy định của cơ quan nhà nước",
+      "Bản sao Căn cước công dân / Hộ chiếu của người yêu cầu",
+      "Giấy tờ chứng minh tư cách pháp lý hoặc văn bản ủy quyền (nếu có)",
+      "Các tài liệu liên quan đến nội dung thủ tục"
+    ],
+    "processing_time": "3 - 15 ngày làm việc",
+    "fee": "Theo biểu mức quy định của Nhà nước",
+    "agency": "Cơ quan có thẩm quyền theo phân cấp",
+    "level": "Cấp Tỉnh / Huyện",
+    "tags": [
+      "Thủ tục hành chính",
+      "Thủ tục",
+      "Pháp luật"
+    ],
+    "view_count": 808,
     "is_published": true
   }
 ]

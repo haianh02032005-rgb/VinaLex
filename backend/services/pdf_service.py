@@ -161,11 +161,26 @@ class PdfTemplateService:
         **kwargs
     ) -> bytes:
         """
-        Sinh file PDF biểu mẫu hành chính chuẩn theo quy cách Việt Nam.
-        Chuyển toàn bộ màu sắc sang đen trắng chuẩn in ấn công quyền.
-        Phân luồng đa chiều chính xác dựa trên cả doc_name, procedure_title, slug và category.
+        Truy xuất file PDF biểu mẫu hành chính chuẩn từ CSDL có sẵn (thay thế cho cơ chế tự vẽ cũ).
         """
         actual_name = doc_name or document_name or ""
+        
+        # ── ƯU TIÊN TRUY XUẤT TRỰC TIẾP TỪ KHO CSDL ĐÃ CÓ SẴN (100% PDF) ──
+        if not agency:
+            try:
+                from backend.services.document_retrieval_service import document_retrieval_service
+                pdf_bytes, _, _ = document_retrieval_service.retrieve_document_pdf(
+                    doc_name=actual_name,
+                    procedure_title=procedure_title,
+                    slug=slug,
+                    category=category,
+                    agency=agency,
+                )
+                if pdf_bytes and pdf_bytes.startswith(b"%PDF-"):
+                    return pdf_bytes
+            except Exception:
+                pass
+
         clean_name = sanitize_document_name(actual_name)
         clean_title = sanitize_admin_procedure_title(procedure_title)
 
@@ -224,10 +239,10 @@ class PdfTemplateService:
         # 8. HỘ TỊCH: KẾT HÔN, KHAI SINH, KHAI TỬ (TT 04/2020/TT-BTP)
         elif "ket hon" in full_context:
             return self._build_marriage_form(doc, clean_name, clean_title)
+        elif any(k in norm_doc for k in ["chung sinh", "cam doan", "sinh con"]) or any(k in full_context for k in ["chung sinh", "cam doan"]):
+            return self._build_birth_affirmation_form(doc, clean_name, clean_title)
         elif "khai sinh" in full_context:
             return self._build_birth_form(doc, clean_name, clean_title)
-        elif "chung sinh" in full_context:
-            return self._build_birth_affirmation_form(doc, clean_name, clean_title)
 
         # 9. CƯ TRÚ (CT01, CT07 - TT 56/2021/TT-BCA)
         elif any(k in full_context for k in ["cu tru", "ho khau", "tam tru", "thuong tru", "ct01", "ct07"]):

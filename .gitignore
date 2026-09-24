@@ -1,71 +1,131 @@
-# ==========================================
-# 1. Môi trường ảo Python & Bộ nhớ đệm
-# ==========================================
+# ==============================================================================
+# VinaLex — .gitignore (Chuẩn hóa toàn diện cho GitHub Repository)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Môi trường & Khóa bí mật (SECURITY & CREDENTIALS - TUYỆT ĐỐI KHÔNG COMMIT)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.*.example
+frontend/.env.local
+frontend/.env.*.local
+*.pem
+*.key
+*.crt
+*.cert
+
+# ------------------------------------------------------------------------------
+# 2. Python, Môi trường ảo & Cache (PYTHON & VENV)
+# ------------------------------------------------------------------------------
 venv/
 .venv/
 env/
 ENV/
+env.bak/
+venv.bak/
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyd
+*.pyo
+
+# Testing & Linting cache
 .pytest_cache/
 .coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
 
-# ==========================================
-# 2. Node.js & Next.js Frontend
-# ==========================================
-node_modules/
-frontend/node_modules/
-.next/
-frontend/.next/
-out/
-frontend/out/
-build/
+# Build & Packaging
 dist/
+build/
+*.egg-info/
+*.egg
+
+# ------------------------------------------------------------------------------
+# 3. Node.js, Next.js & Frontend Tooling (FRONTEND & JAVASCRIPT)
+# ------------------------------------------------------------------------------
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+**/out/
+.pnp
+.pnp.js
 *.tsbuildinfo
-frontend/tsconfig.tsbuildinfo
+**/*.tsbuildinfo
+next-env.d.ts
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
+pnpm-debug.log*
 
-# ==========================================
-# 3. Biến môi trường & Khóa bảo mật (CRITICAL)
-# ==========================================
-.env
-.env.*
-!.env.example
-!.env.local.example
-frontend/.env.local
-frontend/.env.*.local
-
-# ==========================================
-# 4. Trọng số AI & Cơ sở dữ liệu cục bộ
-# ==========================================
+# ------------------------------------------------------------------------------
+# 4. Trọng số AI, Mô hình & Dữ liệu lớn (AI WEIGHTS & LARGE DATA)
+# ------------------------------------------------------------------------------
 data/weights/
 *.pt
 *.pth
 *.onnx
-data/qdrant_db/
+*.bin
+*.safetensors
+
+# Vector DB storage (chỉ giữ .gitkeep để duy trì cấu trúc thư mục)
+data/qdrant_db/*
+!data/qdrant_db/.gitkeep
+
+# Thư mục PDF cào tự động quy mô lớn (~1.78GB) -> Bỏ qua để giữ Git Repo nhẹ (< 50MB)
+data/pdf_storage/procedures/*
+!data/pdf_storage/procedures/.gitkeep
+
+# Quản lý CSDL: Bỏ qua các file sqlite/db phát sinh tạm thời, CHỈ commit CSDL chuẩn
 *.sqlite
 *.sqlite3
 *.db
 !data/vinalex.db
+!data/dvc_documents.db
 
-# ==========================================
-# 5. Hệ điều hành & IDE
-# ==========================================
+# ------------------------------------------------------------------------------
+# 5. Hệ điều hành & IDEs (OS & DEVELOPER TOOLS)
+# ------------------------------------------------------------------------------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
+
+# IDEs & Editors
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+*.sublime-workspace
+*.sublime-project
+.cursor/
 
-# ==========================================
-# 6. Tệp tạm & Logs
-# ==========================================
+# ------------------------------------------------------------------------------
+# 6. Tệp tạm, Bộ nhớ đệm & Logs hệ thống (SCRATCH & TEMPORARY FILES)
+# ------------------------------------------------------------------------------
 scratch/
 temp/
 tmp/
+*.tmp
+*.bak
 *.log
+.agent/
+.agents/

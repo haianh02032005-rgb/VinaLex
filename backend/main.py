@@ -16,6 +16,7 @@ from backend.api.ai import router as ai_router
 from backend.api.auth import router as auth_router
 from backend.api.admin import router as admin_router
 from backend.api.legal_documents import router as legal_docs_router
+from backend.api.dvc_documents import router as dvc_docs_router
 
 
 app = FastAPI(
@@ -40,6 +41,7 @@ app.add_middleware(
 # ── Đăng ký các Router ──
 app.include_router(procedures_router,   prefix="/api/v1/procedures",      tags=["Thủ tục"])
 app.include_router(legal_docs_router,   prefix="/api/v1/legal-documents", tags=["Văn bản pháp luật & Thông tư, Nghị định"])
+app.include_router(dvc_docs_router,     prefix="/api/v1/dvc-documents",   tags=["Hồ sơ & PDF DVC Quốc Gia"])
 app.include_router(ai_router,           prefix="/api/v1/ai",              tags=["AI & OCR"])
 app.include_router(auth_router,         prefix="/api/v1/auth",            tags=["Auth"])
 app.include_router(admin_router,        prefix="/api/v1/admin",           tags=["Admin CMS"])

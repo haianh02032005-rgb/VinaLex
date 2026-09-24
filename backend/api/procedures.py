@@ -8,6 +8,7 @@ Phần Admin CRUD (POST/PUT/DELETE) được bảo vệ bằng X-Admin-Key heade
 """
 
 import os
+from urllib.parse import quote
 from fastapi import APIRouter, Depends, HTTPException, Query, Header, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
@@ -18,6 +19,7 @@ from backend.models.procedure import ProcedureModel
 from backend.models.schemas import ProcedureResponse, ProcedureListResponse, ProcedureCreateRequest
 from backend.core.config import settings
 from backend.services.pdf_service import PdfTemplateService, sanitize_document_name
+from backend.services.document_retrieval_service import document_retrieval_service
 
 
 router = APIRouter()
@@ -343,57 +345,26 @@ async def download_procedure_document_template(
             pass
 
     clean_name = sanitize_document_name(doc_name)
-    pdf_bytes = _pdf_service.generate_document_pdf(
+    pdf_bytes, filename, meta = document_retrieval_service.retrieve_document_pdf(
         doc_name=clean_name,
         procedure_title=title or "Thủ tục hành chính",
         slug=slug or "",
         category=category or "",
         agency=agency or "",
+        preview=preview or False,
     )
 
-    full_str = f"{clean_name} {title or ''} {slug or ''} {category or ''}".lower()
-    safe_raw = _strip_accents(full_str)
-
-    if any(k in safe_raw for k in ["11/dk", "11-dk", "xac dinh lai", "bien dong"]):
-        filename = "don_dang_ky_bien_dong_dat_dai_mau_11_dk.pdf"
-    elif any(k in safe_raw for k in ["04/dk", "04-dk", "dang ky dat dai", "cap gcn", "so do"]) and any(k in safe_raw for k in ["dat", "dia chinh", "so do"]):
-        filename = "don_dang_ky_cap_gcn_dat_dai_mau_04_dk.pdf"
-    elif any(k in safe_raw for k in ["doanh nghiep", "cong ty", "ho kinh doanh"]):
-        filename = "giay_de_nghi_dang_ky_doanh_nghiep.pdf"
-    elif any(k in safe_raw for k in ["xay dung", "gpxd"]):
-        filename = "don_de_nghi_cap_giay_phep_xay_dung_mau_01.pdf"
-    elif any(k in safe_raw for k in ["lai xe", "gplx", "bang lai"]):
-        filename = "don_de_nghi_doi_gplx_phu_luc_19.pdf"
-    elif any(k in safe_raw for k in ["kham benh", "chua benh", "hanh nghe y"]):
-        filename = "don_de_nghi_cap_giay_phep_hanh_nghe_y.pdf"
-    elif any(k in safe_raw for k in ["bao hiem xa hoi", "bhxh", "14-hsb"]):
-        filename = "don_de_nghi_huong_che_do_bhxh_mau_14_hsb.pdf"
-    elif "ket hon" in safe_raw:
-        filename = "to_khai_dang_ky_ket_hon.pdf"
-    elif "khai sinh" in safe_raw:
-        filename = "to_khai_dang_ky_khai_sinh.pdf"
-    elif "chung sinh" in safe_raw:
-        filename = "giay_cam_doan_ve_viec_sinh_con.pdf"
-    elif any(k in safe_raw for k in ["cu tru", "ho khau", "tam tru", "thuong tru"]):
-        filename = "to_khai_thay_doi_thong_tin_cu_tru_ct01.pdf"
-    elif any(k in safe_raw for k in ["can cuoc", "cccd", "cmnd"]):
-        filename = "to_khai_can_cuoc_dc01.pdf"
-    elif any(k in safe_raw for k in ["thue", "qtt", "tncn"]):
-        filename = "to_khai_quyet_toan_thue_tncn_mau_02_qtt.pdf"
-    elif any(k in safe_raw for k in ["lao dong", "giay phep lao dong", "khong thuoc dien"]):
-        filename = "van_ban_de_nghi_xac_nhan_khong_thuoc_dien_cap_gpld_mau_09.pdf"
-    else:
-        safe_clean = re.sub(r"[^a-zA-Z0-9]+", "_", _strip_accents(clean_name)).strip("_")[:40]
-        filename = f"don_de_nghi_{safe_clean}.pdf" if safe_clean else "bieu_mau_hanh_chinh.pdf"
-
     disposition = "inline" if preview else "attachment"
+    encoded_name = quote(filename)
 
     return Response(
         content=pdf_bytes,
         media_type="application/pdf",
         headers={
-            "Content-Disposition": f'{disposition}; filename="{filename}"',
+            "Content-Disposition": f'{disposition}; filename="{filename}"; filename*=UTF-8\'\'{encoded_name}',
             "Access-Control-Expose-Headers": "Content-Disposition",
+            "X-Document-Source": str(meta.get("source_origin", "dvc_documents_db")),
+            "X-Document-SHA256": str(meta.get("file_hash_sha256", "")),
         },
     )
 
