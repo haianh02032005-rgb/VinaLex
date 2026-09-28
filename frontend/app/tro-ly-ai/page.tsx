@@ -89,6 +89,7 @@ export default function TroLyAiPage() {
   const [downloadingDoc, setDownloadingDoc] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const sendInFlightRef = useRef(false);
 
   const handleDownloadPdf = async (docName: string, title?: string, slug?: string) => {
     try {
@@ -115,7 +116,7 @@ export default function TroLyAiPage() {
         title: title || '',
         slug: slug || '',
       });
-      window.open(`http://localhost:8000/api/v1/procedures/download-template?${params.toString()}`, '_blank');
+      window.open(`/api/v1/procedures/download-template?${params.toString()}`, '_blank');
     } finally {
       setDownloadingDoc(null);
     }
@@ -167,7 +168,8 @@ export default function TroLyAiPage() {
   };
 
   const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || sendInFlightRef.current) return;
+    sendInFlightRef.current = true;
     const userMsg: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -200,6 +202,7 @@ export default function TroLyAiPage() {
       };
       setMessages((prev) => [...prev, aiMsg]);
     } finally {
+      sendInFlightRef.current = false;
       setIsLoading(false);
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }

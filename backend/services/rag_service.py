@@ -298,12 +298,17 @@ class RagService:
 
         rrf_final: List[Tuple[float, Document]] = []
         seen_keys: Set[str] = set()
+        seen_content_keys: Set[str] = set()
 
         for sparse_rank, (sparse_score, doc) in enumerate(scored_chunks[:top_k * 4], 1):
             doc_key = doc.metadata.get("source", "") + doc.page_content[:60]
             if doc_key in seen_keys:
                 continue
+            content_key = re.sub(r"\s+", " ", strip_accents(doc.page_content).lower()).strip()[:260]
+            if content_key in seen_content_keys:
+                continue
             seen_keys.add(doc_key)
+            seen_content_keys.add(content_key)
 
             # Điểm Sparse chuẩn hóa
             sparse_component = sparse_score / (sparse_score + 100.0)

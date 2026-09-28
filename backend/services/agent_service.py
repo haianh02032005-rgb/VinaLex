@@ -15,7 +15,8 @@ Tuân thủ CONTRIBUTING.md §2.1:
   - KHÔNG log nội dung hội thoại chứa dữ liệu cá nhân ra file hoặc Console
 """
 
-from typing import Tuple, List
+import re
+from typing import Tuple, List, Set
 from langchain.schema import Document
 
 from backend.core.config import settings
@@ -110,11 +111,54 @@ CÂU HỎI: {query}
 
 TRẢ LỜI:"""
 
+    @staticmethod
+    def _normalize_repetition_key(text: str) -> str:
+        text = re.sub(r"\s+", " ", text or "").strip().lower()
+        text = re.sub(r"^[\-\*\d\.\)\s]+", "", text)
+        return text
+
+    def _remove_repeated_lines(self, answer: str) -> str:
+        if not answer:
+            return answer
+
+        seen: Set[str] = set()
+        cleaned_lines: List[str] = []
+        for line in answer.splitlines():
+            key = self._normalize_repetition_key(line)
+            if len(key) > 40 and key in seen:
+                continue
+            if len(key) > 40:
+                seen.add(key)
+            cleaned_lines.append(line)
+
+        return "\n".join(cleaned_lines).strip()
+
+    def _dedupe_docs(self, docs: List[Document]) -> List[Document]:
+        seen: Set[str] = set()
+        unique_docs: List[Document] = []
+        for doc in docs:
+            meta = doc.metadata or {}
+            key = "|".join(
+                [
+                    str(meta.get("source_type", "")),
+                    str(meta.get("doc_number", "")),
+                    str(meta.get("title", "")),
+                    str(meta.get("article", "")),
+                    self._normalize_repetition_key(doc.page_content)[:220],
+                ]
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            unique_docs.append(doc)
+        return unique_docs
+
     def _synthesize_local_answer(self, query: str, docs: List[Document]) -> str:
         """
         Tổng hợp câu trả lời chi tiết, dẫn chứng pháp lý trực tiếp từ các điều luật và thủ tục tìm được
         khi Ollama LLM chưa được khởi chạy trên máy.
         """
+        docs = self._dedupe_docs(docs)
         lines = [
             f"Dựa trên cơ sở dữ liệu pháp luật hiện hành của VinaLex, hệ thống đã tra cứu và đối chiếu được **{len(docs)}** căn cứ pháp lý và hướng dẫn thủ tục liên quan đến yêu cầu của bạn:\n"
         ]
@@ -129,6 +173,8 @@ TRẢ LỜI:"""
             article = meta.get("article", "")
             source_type = meta.get("source_type", "")
             content = doc.page_content.strip()
+            if len(content) > 1200:
+                content = content[:1200].rsplit(" ", 1)[0].strip() + "..."
 
             meta_items = []
             if doc_number:
@@ -156,7 +202,7 @@ TRẢ LỜI:"""
             "- Nộp hồ sơ tại Bộ phận Một cửa của cơ quan có thẩm quyền hoặc thực hiện trực tuyến qua Cổng Dịch vụ công Quốc gia.\n\n"
             "*(💡 Lưu ý: Hệ thống đang trích xuất trực tiếp từ kho CSDL 204+ văn bản pháp luật toàn văn (2.765+ Điều luật) và 550+ thủ tục hành chính. Để kích hoạt mô hình sinh ngôn ngữ tự nhiên Generative AI hoàn chỉnh, bạn có thể bật Ollama trên máy: `ollama run qwen2.5:latest`)*"
         )
-        return "\n".join(lines)
+        return self._remove_repeated_lines("\n".join(lines))
 
 
     async def generate_answer(self, query: str) -> Tuple[str, List[str]]:
@@ -183,12 +229,14 @@ TRẢ LỜI:"""
             if gemini.is_available():
                 answer, sources = await gemini.chat_with_agent(query)
                 if answer and answer.strip():
-                    return answer.strip(), sources
+                    return self._remove_repeated_lines(answer), sources
         except Exception:
             pass
 
         # Bước 1: Retrieve văn bản pháp luật liên quan từ RAG
-        relevant_docs: List[Document] = self._rag_service.retrieve_relevant_docs(query)
+        relevant_docs: List[Document] = self._dedupe_docs(
+            self._rag_service.retrieve_relevant_docs(query)
+        )
         context, sources = self._rag_service.build_context(relevant_docs)
 
         # Bước 2: Thử gọi Ollama LLM nếu đang khả dụng
@@ -197,7 +245,7 @@ TRẢ LỜI:"""
             try:
                 answer = await self._llm.ainvoke(prompt)
                 if answer and answer.strip():
-                    return answer.strip(), sources
+                    return self._remove_repeated_lines(answer), sources
             except Exception:
                 # Ollama lỗi kết nối -> Fallback sang trích xuất tri thức trực tiếp
                 pass
@@ -221,7 +269,7 @@ TRẢ LỜI:"""
         except Exception:
             pass
 
-        return answer.strip(), sources
+        return self._remove_repeated_lines(answer), sources
 
     async def analyze_ocr_result(
         self,
