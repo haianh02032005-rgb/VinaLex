@@ -17,7 +17,16 @@ Tuân thủ CONTRIBUTING.md §2.1:
 
 import re
 from typing import Tuple, List, Set
-from langchain.schema import Document
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        class Document:
+            def __init__(self, page_content: str = "", metadata: dict = None):
+                self.page_content = page_content
+                self.metadata = metadata or {}
 
 from backend.core.config import settings
 from backend.services.rag_service import RagService

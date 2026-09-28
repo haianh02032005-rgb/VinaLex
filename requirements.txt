@@ -16,6 +16,11 @@ PyMuPDF==1.24.5
 google-generativeai>=0.8.0
 httpx>=0.27.0
 
+langchain==0.2.5
+langchain-community==0.2.5
+langchain-text-splitters==0.2.4
+ollama==0.2.1
+
 Pillow==10.3.0
 numpy==1.26.4
 opencv-python-headless==4.9.0.80

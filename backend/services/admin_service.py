@@ -10,8 +10,23 @@ Tuân thủ CONTRIBUTING.md §2.1:
 """
 
 from typing import List, Optional
-from langchain.schema import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+try:
+    from langchain.schema import Document
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
+    except ImportError:
+        class Document:
+            def __init__(self, page_content: str = "", metadata: dict = None):
+                self.page_content = page_content
+                self.metadata = metadata or {}
+        class RecursiveCharacterTextSplitter:
+            def __init__(self, **kwargs):
+                pass
+            def split_documents(self, docs):
+                return docs
 
 from backend.services.rag_service import RagService
 

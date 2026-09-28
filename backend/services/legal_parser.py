@@ -12,7 +12,16 @@ Tuân thủ ARCHITECTURE.md Lớp 3 (Phân hệ RAG):
 import re
 import unicodedata
 from typing import List, Dict, Any, Optional
-from langchain.schema import Document
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        class Document:
+            def __init__(self, page_content: str = "", metadata: dict = None):
+                self.page_content = page_content
+                self.metadata = metadata or {}
 
 
 def strip_accents(text: str) -> str:

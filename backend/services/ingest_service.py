@@ -16,7 +16,16 @@ import json
 import logging
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-from langchain.schema import Document
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        class Document:
+            def __init__(self, page_content: str = "", metadata: dict = None):
+                self.page_content = page_content
+                self.metadata = metadata or {}
 
 from backend.services.legal_parser import LegalDocParser, ProcedureParser
 
