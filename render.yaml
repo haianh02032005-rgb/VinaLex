@@ -1,0 +1,20 @@
+services:
+  # ── VinaLex Backend FastAPI Service ──
+  - type: web
+    name: vinalex-backend
+    runtime: python
+    region: singapore # hoặc oregon, frankfurt
+    plan: free
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "python main.py"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: USE_SQLITE
+        value: "True"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_SECRET_KEY
+        value: vinalex-admin-2024
+      - key: GEMINI_API_KEY
+        sync: false

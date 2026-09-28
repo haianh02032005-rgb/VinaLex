@@ -12,6 +12,7 @@ const FOOTER_LINKS = {
   ],
   'Tính năng': [
     { label: 'Trợ lý AI Pháp lý', href: '/tro-ly-ai' },
+    { label: 'Địa điểm & Bản đồ Một Cửa', href: '/dia-diem' },
     { label: 'Kiểm tra Hồ sơ OCR', href: '/tro-ly-ai#ocr' },
     { label: 'Quản lý Hồ sơ', href: '/ho-so' },
     { label: 'Tải biểu mẫu', href: '/ho-so#forms' },

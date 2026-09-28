@@ -72,16 +72,24 @@ async function fetchProcedure(slug: string): Promise<ProcedureDetail | null> {
     // Backend offline — tiếp tục fallback
   }
 
-  // 2. Fallback 1: tim trong JSON tinh duoc deploy cung frontend
-  try {
-    const res = await fetch('/data/crawled_procedures.json');
-    if (res.ok) {
-      const procedures = (await res.json()) as ProcedureDetail[];
-      const found = procedures.find((p) => p.slug === slug);
-      if (found) return found;
+  // 2. Fallback 1: tim trong cac file JSON tinh duoc deploy cung frontend
+  const staticFiles = [
+    '/data/all_procedures.json',
+    '/data/dvc_procedures.json',
+    '/data/crawled_procedures.json',
+  ];
+
+  for (const fileUrl of staticFiles) {
+    try {
+      const res = await fetch(fileUrl);
+      if (res.ok) {
+        const procedures = (await res.json()) as ProcedureDetail[];
+        const found = procedures.find((p) => p.slug === slug);
+        if (found) return found;
+      }
+    } catch {
+      // Continue checking next fallback
     }
-  } catch {
-    // Static data fallback is unavailable.
   }
 
   // 3. Fallback 2: tìm trong danh mục MOCK_PROCEDURES cốt lõi

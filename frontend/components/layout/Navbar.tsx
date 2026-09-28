@@ -8,6 +8,7 @@ import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
   { href: '/thu-tuc', label: 'Thủ tục', hasDropdown: true },
+  { href: '/dia-diem', label: 'Địa điểm & Bản đồ' },
   { href: '/tro-ly-ai', label: 'Trợ lý AI' },
   { href: '/ho-so', label: 'Hồ sơ của tôi' },
 ];

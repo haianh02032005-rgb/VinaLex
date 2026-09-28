@@ -354,6 +354,41 @@ class GeminiService:
             f"Hệ thống sẽ đối soát thông tin, phát hiện sai lệch và kiểm tra tính hợp lệ pháp lý giúp bạn."
         )
 
+    def tool_tra_cuu_dia_diem_co_quan(self, query: str) -> str:
+        """
+        Tool 4: Tra cứu địa điểm trụ sở cơ quan hành chính và phân giải sáp nhập (2023-2025).
+        """
+        from backend.services.agency_location_service import agency_location_service
+        search_res = agency_location_service.search_agencies(keyword=query, limit=3)
+        items = search_res.get("items", [])
+        merger = search_res.get("merger_notice")
+
+        parts = []
+        if merger:
+            parts.append(
+                f"🔔 THÔNG BÁO SÁP NHẬP ĐƠN VỊ HÀNH CHÍNH (Nghị quyết {merger['resolution_code']}):\n"
+                f"- Địa bàn cũ: {merger['old_unit_name']} ({merger['old_district']}, {merger['old_province']})\n"
+                f"- Đã sáp nhập vào: {merger['new_unit_name']}\n"
+                f"- Trụ sở tiếp nhận mới: {merger['headquarters_address']}\n"
+                f"- Ghi chú: {merger['notes']}"
+            )
+            # Nếu chưa có cơ quan tương ứng tên cũ, tự động tìm cơ quan của đơn vị mới
+            if not items and merger.get("new_unit_name"):
+                new_search = agency_location_service.search_agencies(keyword=merger["new_unit_name"], limit=2)
+                items = new_search.get("items", [])
+
+        if items:
+            parts.append("ĐỊA ĐIỂM TRỤ SỞ CƠ QUAN HÀNH CHÍNH TIẾP NHẬN HỒ SƠ:")
+            for it in items:
+                parts.append(
+                    f"🏢 {it['name']}\n"
+                    f"  - Địa chỉ: {it['address']}\n"
+                    f"  - Giờ làm việc: {it['working_hours']}\n"
+                    f"  - Điện thoại: {it.get('phone', 'N/A')}\n"
+                    f"  - 👉 [Chỉ đường trên Google Maps]({it.get('google_maps_url', '')})"
+                )
+        return "\n\n".join(parts) if parts else ""
+
     # ── NHIỆM VỤ 1: THẨM ĐỊNH NGỮ CẢNH & PHÁT HIỆN SAI LỆCH GIẤY TỜ ──
 
     async def analyze_document_semantic(
@@ -609,6 +644,16 @@ Hãy trả về kết quả ĐÚNG ĐỊNH DẠNG JSON sau (không kèm markdown
             proc_info = _query_procedure_db(query)
             slug = proc_info["slug"] if proc_info else "thu-tuc"
             tool_results.append(self.tool_kich_hoat_kiem_tra_ocr(slug))
+
+        # Tool 4: Người dùng hỏi về địa điểm, cơ quan nộp hồ sơ hoặc sáp nhập
+        has_location_intent = any(k in q_lower for k in [
+            "ở đâu", "dia diem", "địa điểm", "trụ sở", "uỷ ban", "ubnd", "nộp hồ sơ ở",
+            "địa chỉ", "đường đi", "sáp nhập", "phường nào", "quận nào", "google map", "gần tôi", "chi cục thuế", "đăng ký đất đai"
+        ])
+        if has_location_intent:
+            loc_info = self.tool_tra_cuu_dia_diem_co_quan(query)
+            if loc_info:
+                tool_results.append(loc_info)
 
         tools_context = ""
         if tool_results:

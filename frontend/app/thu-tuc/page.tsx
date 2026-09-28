@@ -23,6 +23,7 @@ import {
 import { MOCK_PROCEDURES, CATEGORIES } from '@/lib/mockData';
 import styles from './page.module.css';
 import type { Procedure, LegalDocument } from '@/types';
+import { getApiBaseUrl } from '@/lib/apiConfig';
 
 // ── Utilities ──────────────────────────────────────────────
 
@@ -425,9 +426,10 @@ export default function ProceduresPage() {
     async function loadData() {
       setIsLoading(true);
       setBackendError(false);
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+      const apiUrl = getApiBaseUrl();
 
       // 1. Fetch Procedures
+      let backendFailed = false;
       try {
         const res = await fetch(`${apiUrl}/procedures?limit=1000`);
         if (res.ok) {
@@ -459,31 +461,91 @@ export default function ProceduresPage() {
               });
             }
             setAllProcedures(merged);
+          } else {
+            backendFailed = true;
           }
         } else {
-          setBackendError(true);
+          backendFailed = true;
         }
       } catch {
-        setBackendError(true);
-      } finally {
-        setIsLoading(false);
+        backendFailed = true;
       }
 
+      if (backendFailed) {
+        setBackendError(true);
+        // Nạp toàn bộ 615 thủ tục từ tệp dữ liệu tĩnh được đồng bộ từ SQLite
+        try {
+          const staticRes = await fetch('/data/all_procedures.json');
+          if (staticRes.ok) {
+            const staticData = await staticRes.json();
+            if (Array.isArray(staticData) && staticData.length > 0) {
+              const existingSlugs = new Set<string>();
+              const merged: Procedure[] = [];
+
+              for (const item of staticData) {
+                if (!item.slug || existingSlugs.has(item.slug)) continue;
+                existingSlugs.add(item.slug);
+
+                merged.push({
+                  id: `static-${item.slug || item.id}`,
+                  slug: item.slug,
+                  title: item.title || '',
+                  category: item.category || '',
+                  categorySlug: item.category_slug || '',
+                  description: item.description || '',
+                  steps: Array.isArray(item.steps) ? item.steps : [],
+                  documents: Array.isArray(item.documents) ? item.documents : [],
+                  processingTime: item.processing_time || 'Đang cập nhật',
+                  fee: item.fee || 'Miễn phí',
+                  agency: item.agency || 'Cơ quan nhà nước',
+                  level: item.level || 'Cơ sở',
+                  tags: Array.isArray(item.tags) ? item.tags : [],
+                  updatedAt: item.updated_at ? item.updated_at.split('T')[0] : '2026-09-22',
+                  viewCount: item.view_count || 0,
+                });
+              }
+              setAllProcedures(merged);
+            }
+          }
+        } catch (staticErr) {
+          console.error('Lỗi khi nạp dữ liệu thủ tục ngoại tuyến:', staticErr);
+        }
+      }
+      setIsLoading(false);
+
       // 2. Fetch Legal Documents (Thông tư, Nghị định, Quyết định...)
+      let docsFailed = false;
       try {
         setIsDocsLoading(true);
         const docsRes = await fetch(`${apiUrl}/legal-documents?limit=1000`);
         if (docsRes.ok) {
           const docsData = await docsRes.json();
-          if (docsData.items && Array.isArray(docsData.items)) {
+          if (docsData.items && Array.isArray(docsData.items) && docsData.items.length > 0) {
             setAllDocuments(docsData.items);
+          } else {
+            docsFailed = true;
           }
+        } else {
+          docsFailed = true;
         }
-      } catch (err) {
-        console.error('Lỗi khi tải văn bản pháp luật:', err);
-      } finally {
-        setIsDocsLoading(false);
+      } catch {
+        docsFailed = true;
       }
+
+      if (docsFailed) {
+        try {
+          const staticDocsRes = await fetch('/data/crawled_legal_docs.json');
+          if (staticDocsRes.ok) {
+            const staticDocs = await staticDocsRes.json();
+            if (Array.isArray(staticDocs) && staticDocs.length > 0) {
+              setAllDocuments(staticDocs);
+            }
+          }
+        } catch (docErr) {
+          console.error('Lỗi khi tải văn bản pháp luật ngoại tuyến:', docErr);
+        }
+      }
+      setIsDocsLoading(false);
     }
 
     loadData();
@@ -516,7 +578,7 @@ export default function ProceduresPage() {
     if (!search.trim()) return;
 
     let isCancelled = false;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+    const apiUrl = getApiBaseUrl();
 
     async function searchLegalDocs() {
       try {
@@ -618,7 +680,7 @@ export default function ProceduresPage() {
     if (!doc.content_text) {
       setIsDocReadingLoading(true);
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+        const apiUrl = getApiBaseUrl();
         const res = await fetch(`${apiUrl}/legal-documents/${doc.slug}`);
         if (res.ok) {
           const fullDoc = await res.json();

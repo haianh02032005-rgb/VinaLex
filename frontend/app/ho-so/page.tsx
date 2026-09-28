@@ -8,6 +8,7 @@ import {
   Loader2, Download, Bot, Eye, Trash2, Plus, LogIn,
 } from 'lucide-react';
 import styles from './page.module.css';
+import { getApiBaseUrl } from '@/lib/apiConfig';
 
 // ── Types ──
 interface SavedProcedure {
@@ -61,7 +62,7 @@ function getToken(): string | null {
 
 // ── Fetch user procedures từ backend ──
 async function fetchUserProcedures(token: string): Promise<SavedProcedure[]> {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+  const API_BASE = getApiBaseUrl();
   const res = await fetch(`${API_BASE}/auth/me/procedures`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: 'no-store',
@@ -137,7 +138,7 @@ export default function HoSoPage() {
     const token = getToken();
     if (token && typeof id === 'number') {
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'}/auth/me/procedures/${id}`, {
+        await fetch(`${getApiBaseUrl()}/auth/me/procedures/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -5,6 +5,7 @@ import { Bot, Upload, Send, Shield, Paperclip, X, FileText, CheckCircle, Loader2
 import { marked } from 'marked';
 import styles from './page.module.css';
 import { api } from '@/lib/api';
+import { buildApiUrl } from '@/lib/apiConfig';
 import PdfPreviewModal from '@/components/PdfPreviewModal';
 
 function renderPdfCardHtml(docName: string, title: string, slug: string): string {
@@ -116,7 +117,7 @@ export default function TroLyAiPage() {
         title: title || '',
         slug: slug || '',
       });
-      window.open(`/api/v1/procedures/download-template?${params.toString()}`, '_blank');
+      window.open(buildApiUrl(`/procedures/download-template?${params.toString()}`), '_blank');
     } finally {
       setDownloadingDoc(null);
     }

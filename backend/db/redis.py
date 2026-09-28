@@ -27,6 +27,8 @@ async def get_redis() -> aioredis.Redis:
             settings.REDIS_URL,
             encoding="utf-8",
             decode_responses=False,  # Giữ binary để lưu dữ liệu file ảnh
+            socket_connect_timeout=0.5,
+            socket_timeout=0.5,
         )
     return redis_client
 

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # ── 1. Backend FastAPI Service ──
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vinalex_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - USE_SQLITE=True
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SECRET_KEY=${SECRET_KEY:-vinalex-production-secret-key}
+      - ADMIN_SECRET_KEY=${ADMIN_SECRET_KEY:-vinalex-admin-2024}
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── 2. Frontend Next.js 14 Service ──
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vinalex_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BACKEND_URL=http://backend:8000
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+
+  # ── 3. Redis Cache & Session (In-Memory — Tuân thủ NĐ 13/2023) ──
+  redis:
+    image: redis:7-alpine
+    container_name: vinalex_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"

@@ -1,11 +1,11 @@
 {
-  "started_at": "2026-09-24T10:27:44.774207",
-  "stopped_at": "2026-09-24T13:06:12.746426",
-  "total_procedures": 345,
+  "started_at": "2026-09-25T10:26:22.731708",
+  "stopped_at": "2026-09-25T12:08:52.060905",
+  "total_procedures": 347,
   "total_news": 3,
   "total_forms": 0,
-  "total_requests": 6581,
+  "total_requests": 4247,
   "total_errors": 0,
-  "cycles_completed": 87,
-  "last_cycle_at": "2026-09-24T13:06:12.744750"
+  "cycles_completed": 56,
+  "last_cycle_at": "2026-09-25T12:08:52.059730"
 }

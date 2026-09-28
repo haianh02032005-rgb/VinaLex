@@ -1,12 +1,15 @@
 // VinaLex — API Client (kết nối FastAPI Backend)
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+import { getApiBaseUrl } from './apiConfig';
 
 class ApiClient {
-  private baseUrl: string;
+  private customBaseUrl?: string;
 
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor(baseUrl?: string) {
+    this.customBaseUrl = baseUrl;
+  }
+
+  get baseUrl(): string {
+    return this.customBaseUrl || getApiBaseUrl();
   }
 
   private async request<T>(
@@ -289,6 +292,6 @@ class ApiClient {
   }
 }
 
-export const api = new ApiClient(API_BASE_URL);
+export const api = new ApiClient();
 export default api;
 
