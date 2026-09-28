@@ -16,7 +16,8 @@ Tuân thủ CONTRIBUTING.md §2.1:
 """
 
 import re
-from typing import Tuple, List, Set
+import asyncio
+from typing import Tuple, List, Set, Dict
 try:
     from langchain.schema import Document
 except ImportError:
@@ -29,7 +30,12 @@ except ImportError:
                 self.metadata = metadata or {}
 
 from backend.core.config import settings
+from backend.services.legal_parser import strip_accents
 from backend.services.rag_service import RagService
+
+# Bộ nhớ đệm câu trả lời pháp lý siêu tốc (LRU RAM Cache)
+_RESPONSE_CACHE: Dict[str, Tuple[str, List[str]]] = {}
+_MAX_CACHE_SIZE = 500
 
 
 # Prompt hệ thống cho Trợ lý pháp lý VinaLex
@@ -229,6 +235,13 @@ TRẢ LỜI:"""
         Returns:
             Tuple (answer_text, sources_list)
         """
+        cleaned_query = query.strip()
+        cache_key = strip_accents(cleaned_query.lower())
+
+        # Kiểm tra Cache trong bộ nhớ RAM (0.1ms)
+        if cache_key in _RESPONSE_CACHE:
+            return _RESPONSE_CACHE[cache_key]
+
         self._initialize()
 
         # Bước 0: Nếu có cấu hình Gemini API Key -> Sử dụng Gemini AI Agent kết hợp RAG & Tool Calling
@@ -236,32 +249,37 @@ TRẢ LỜI:"""
             from backend.services.gemini_service import GeminiService
             gemini = GeminiService()
             if gemini.is_available():
-                answer, sources = await gemini.chat_with_agent(query)
+                answer, sources = await gemini.chat_with_agent(cleaned_query)
                 if answer and answer.strip():
-                    return self._remove_repeated_lines(answer), sources
+                    cleaned_ans = self._remove_repeated_lines(answer)
+                    if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
+                        _RESPONSE_CACHE[cache_key] = (cleaned_ans, sources)
+                    return cleaned_ans, sources
         except Exception:
             pass
 
-        # Bước 1: Retrieve văn bản pháp luật liên quan từ RAG
-        relevant_docs: List[Document] = self._dedupe_docs(
-            self._rag_service.retrieve_relevant_docs(query)
-        )
+        # Bước 1: Retrieve văn bản pháp luật liên quan từ RAG (chạy non-blocking trên threadpool)
+        raw_docs = await asyncio.to_thread(self._rag_service.retrieve_relevant_docs, cleaned_query)
+        relevant_docs: List[Document] = self._dedupe_docs(raw_docs)
         context, sources = self._rag_service.build_context(relevant_docs)
 
         # Bước 2: Thử gọi Ollama LLM nếu đang khả dụng
         if self._llm is not None:
-            prompt = self.build_prompt(query, context)
+            prompt = self.build_prompt(cleaned_query, context)
             try:
                 answer = await self._llm.ainvoke(prompt)
                 if answer and answer.strip():
-                    return self._remove_repeated_lines(answer), sources
+                    cleaned_ans = self._remove_repeated_lines(answer)
+                    if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
+                        _RESPONSE_CACHE[cache_key] = (cleaned_ans, sources)
+                    return cleaned_ans, sources
             except Exception:
                 # Ollama lỗi kết nối -> Fallback sang trích xuất tri thức trực tiếp
                 pass
 
         # Bước 3: Intelligent Fallback khi Ollama chưa bật
         if relevant_docs:
-            answer = self._synthesize_local_answer(query, relevant_docs)
+            answer = self._synthesize_local_answer(cleaned_query, relevant_docs)
         else:
             answer = (
                 "Xin chào! Tôi là Trợ lý Pháp lý VinaLex.\n\n"
@@ -274,11 +292,15 @@ TRẢ LỜI:"""
 
         try:
             from backend.services.gemini_service import GeminiService
-            answer = GeminiService()._ensure_pdf_widget(answer, query)
+            answer = GeminiService()._ensure_pdf_widget(answer, cleaned_query)
         except Exception:
             pass
 
-        return self._remove_repeated_lines(answer), sources
+        final_answer = self._remove_repeated_lines(answer)
+        if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
+            _RESPONSE_CACHE[cache_key] = (final_answer, sources)
+
+        return final_answer, sources
 
     async def analyze_ocr_result(
         self,

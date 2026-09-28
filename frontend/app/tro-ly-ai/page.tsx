@@ -91,6 +91,24 @@ export default function TroLyAiPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const sendInFlightRef = useRef(false);
+  const [loadingStage, setLoadingStage] = useState<string>('🔍 Đang tra cứu cơ sở dữ liệu pháp luật...');
+
+  useEffect(() => {
+    if (!isLoading) return;
+    const stages = [
+      '🔍 Đang tra cứu cơ sở dữ liệu pháp luật (8.300+ điều khoản)...',
+      '⚖️ Đang đối chiếu quy định & văn bản hướng dẫn...',
+      '📑 Đang thẩm định điều kiện & chuẩn bị biểu mẫu liên quan...',
+      '✨ Đang hoàn thiện câu trả lời chi tiết...',
+    ];
+    let idx = 0;
+    setLoadingStage(stages[0]);
+    const timer = setInterval(() => {
+      idx = (idx + 1) % stages.length;
+      setLoadingStage(stages[idx]);
+    }, 1200);
+    return () => clearInterval(timer);
+  }, [isLoading]);
 
   const handleDownloadPdf = async (docName: string, title?: string, slug?: string) => {
     try {
@@ -460,8 +478,11 @@ export default function TroLyAiPage() {
                     <Bot size={16} />
                   </div>
                   <div className={styles.msgBubble}>
-                    <div className={styles.typingIndicator}>
-                      <span /><span /><span />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary, #64748b)' }}>
+                      <div className={styles.typingIndicator}>
+                        <span /><span /><span />
+                      </div>
+                      <span style={{ fontWeight: 500 }}>{loadingStage}</span>
                     </div>
                   </div>
                 </div>

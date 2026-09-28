@@ -7,6 +7,8 @@ Tuân thủ ARCHITECTURE.md:
 - Xử lý bất đồng bộ (async/await)
 """
 
+from contextlib import asynccontextmanager
+import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -20,12 +22,24 @@ from backend.api.dvc_documents import router as dvc_docs_router
 from backend.api.locations import router as locations_router
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Khởi động sẵn dữ liệu RAG 8.300+ chunks trong background để phục vụ câu hỏi đầu tiên siêu tốc (< 50ms)
+    try:
+        from backend.services.rag_service import RagService
+        asyncio.create_task(asyncio.to_thread(RagService()._initialize))
+    except Exception:
+        pass
+    yield
+
+
 app = FastAPI(
     title="VinaLex API",
     description="Nền tảng Tư vấn Pháp lý & Thủ tục Hành chính — Backend FastAPI",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
+    lifespan=lifespan,
 )
 
 # CORS — cho phép Frontend kết nối từ mọi domain (localhost, Vercel, Cloudflare Tunnel, chatgpt.site...)

@@ -228,9 +228,20 @@ class GeminiService:
         return settings.GEMINI_API_KEY or os.environ.get("GEMINI_API_KEY")
 
     def is_available(self) -> bool:
-        """Kiểm tra Gemini API Key có sẵn sàng không."""
+        """Kiểm tra Gemini API Key có sẵn sàng và hợp lệ không."""
         key = self._get_api_key()
-        return bool(key and key.strip())
+        if not key or not key.strip():
+            return False
+        clean_key = key.strip()
+        # Loại bỏ các key mẫu / placeholder để tránh thử nghiệm timeout 20s
+        if (
+            "your_gemini" in clean_key.lower()
+            or "change-me" in clean_key.lower()
+            or len(clean_key) < 25
+            or not clean_key.startswith("AIza")
+        ):
+            return False
+        return True
 
     def _initialize(self):
         """Khởi tạo Gemini Generative AI SDK."""
@@ -238,28 +249,20 @@ class GeminiService:
             return
 
         api_key = self._get_api_key()
-        if not api_key:
+        if not self.is_available():
             self._initialized = True
             return
 
-        self._candidates = []
+        self._candidates = [
+            "gemini-1.5-flash",
+            "gemini-2.0-flash",
+            "gemini-1.5-pro",
+        ]
         try:
             import warnings
             warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
             import google.generativeai as genai
             genai.configure(api_key=api_key.strip())
-            
-            primary_model = settings.GEMINI_MODEL or "gemini-3.5-flash-lite"
-            raw_candidates = [
-                primary_model,
-                "gemini-3.5-flash-lite",
-                "gemini-3.1-flash-lite",
-                "gemini-flash-lite-latest",
-                "gemini-3.6-flash",
-                "gemini-3.7-flash",
-            ]
-            seen = set()
-            self._candidates = [c for c in raw_candidates if not (c in seen or seen.add(c))]
             
             self._model = genai.GenerativeModel(
                 model_name=self._candidates[0],
@@ -271,7 +274,7 @@ class GeminiService:
             self._initialized = True
 
     def _generate_content_with_retry(self, prompt: str, generation_config=None):
-        """Thử gọi generate_content qua danh sách candidate models nếu gặp 429 quota hoặc 503."""
+        """Gọi generate_content qua danh sách model chính thức (gemini-1.5-flash, gemini-2.0-flash)."""
         import google.generativeai as genai
         last_err = None
         for m_name in self._candidates:
