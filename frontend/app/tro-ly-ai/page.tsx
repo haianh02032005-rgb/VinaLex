@@ -200,9 +200,14 @@ export default function TroLyAiPage() {
     setIsLoading(true);
 
     try {
-      // Gọi API thật — Backend nhận session_id để track Redis session
-      // Khi Backend trả về kết quả, nó sẽ tự động xóa dữ liệu phiên trên Redis
-      const result = await api.sendChatMessage(userMsg.content, sessionId);
+      // Gửi kèm lịch sử hội thoại gần nhất để AI hiểu ngữ cảnh đa lượt
+      const recentHistory = messages
+        .filter((m) => m.id !== 'welcome')
+        .slice(-6)
+        .map((m) => ({ role: m.role, content: m.content }));
+
+      // Gọi API thật — Backend nhận session_id và history để liên kết ngữ cảnh
+      const result = await api.sendChatMessage(userMsg.content, sessionId, recentHistory);
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',

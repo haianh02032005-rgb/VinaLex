@@ -54,7 +54,15 @@ async def ai_chat(request: ChatRequest):
     if not request.message.strip():
         raise HTTPException(status_code=422, detail="Câu hỏi không được để trống")
 
-    answer, sources = await _agent_service.generate_answer(request.message)
+    history_dicts = [
+        {"role": h.role, "content": h.content}
+        for h in (request.history or [])
+    ]
+    answer, sources = await _agent_service.generate_answer(
+        request.message,
+        history=history_dicts,
+        session_id=request.session_id,
+    )
 
     return ChatResponse(
         answer=answer,

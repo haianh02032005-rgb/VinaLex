@@ -15,9 +15,13 @@ Tuân thủ CONTRIBUTING.md §2.1:
   - KHÔNG log nội dung hội thoại chứa dữ liệu cá nhân ra file hoặc Console
 """
 
+import os
 import re
+import json
 import asyncio
-from typing import Tuple, List, Set, Dict
+import urllib.request
+import urllib.parse
+from typing import Tuple, List, Set, Dict, Optional, Any
 try:
     from langchain.schema import Document
 except ImportError:
@@ -168,136 +172,450 @@ TRẢ LỜI:"""
             unique_docs.append(doc)
         return unique_docs
 
-    def _synthesize_local_answer(self, query: str, docs: List[Document]) -> str:
+    def contextualize_query(
+        self, query: str, history: Optional[List[Dict[str, str]]] = None
+    ) -> Tuple[str, Optional[str]]:
         """
-        Tổng hợp câu trả lời chi tiết, dẫn chứng pháp lý trực tiếp từ các điều luật và thủ tục tìm được
-        khi Ollama LLM chưa được khởi chạy trên máy.
+        Tái tạo và mở rộng câu hỏi phụ thuộc (Anaphora Resolution & Contextualization)
+        dựa trên lịch sử hội thoại gần nhất.
         """
-        docs = self._dedupe_docs(docs)
-        lines = [
-            f"Dựa trên cơ sở dữ liệu pháp luật hiện hành của VinaLex, hệ thống đã tra cứu và đối chiếu được **{len(docs)}** căn cứ pháp lý và hướng dẫn thủ tục liên quan đến yêu cầu của bạn:\n"
+        if not history or not query.strip():
+            return query.strip(), None
+
+        q_lower = query.lower().strip()
+        q_clean = strip_accents(q_lower)
+
+        # Các từ khóa nhận diện câu hỏi phụ thuộc
+        FOLLOWUP_INDICATORS = [
+            "o dau", "o dau vay", "o dau nhi", "dia chi nao", "co quan nao", "o dau a",
+            "le phi", "bao nhieu", "bao nhieu tien", "phi", "chi phi", "tien phi", "bang gia", "gia tien",
+            "can gi", "ho so", "giay to", "to khai", "bieu mau", "mau don", "can nhung gi", "giay to gi",
+            "bao lau", "thoi han", "may ngay", "khi nao", "thoi gian", "mat bao lau",
+            "the thi", "vay thi", "the", "vay", "ai", "ai co quyen", "ai duoc",
+            "con gi nua", "can them gi", "dieu kien", "duoc khong", "co duoc",
+            "thu tuc do", "giay to do", "viec do", "cai nay", "cai do", "ho so nay", "buoc nao"
         ]
 
-        for i, doc in enumerate(docs, 1):
-            meta = doc.metadata or {}
-            source = meta.get("source", "Văn bản quy phạm")
-            doc_number = meta.get("doc_number", "")
-            agency = meta.get("agency", "")
-            issue_date = meta.get("issue_date", "")
-            category = meta.get("category", "")
-            article = meta.get("article", "")
-            source_type = meta.get("source_type", "")
-            content = doc.page_content.strip()
-            if len(content) > 1200:
-                content = content[:1200].rsplit(" ", 1)[0].strip() + "..."
+        is_followup = any(re.search(rf"\b{re.escape(ind)}\b", q_clean) for ind in FOLLOWUP_INDICATORS)
+        if len(q_clean.split()) <= 6 or is_followup:
+            extracted_topic = None
 
-            meta_items = []
-            if doc_number:
-                meta_items.append(f"Số hiệu: `{doc_number}`")
-            if article:
-                meta_items.append(f"Quy định: **{article}**")
-            if agency:
-                meta_items.append(f"Cơ quan: {agency}")
-            if issue_date:
-                meta_items.append(f"Ban hành: {issue_date}")
-            if category:
-                meta_items.append(f"Lĩnh vực: {category}")
+            # 1. Tìm trong các câu hỏi trước đó của user (ưu tiên cao nhất vì phản ánh trực tiếp nhu cầu)
+            for msg in reversed(history[-6:]):
+                if msg.get("role") == "user":
+                    user_text = msg.get("content", "").strip().replace("?", "")
+                    # Bóc tách cụm hành chính / thủ tục cụ thể
+                    m_action = re.search(
+                        r"((?:thủ tục\s+)?(?:cấp|đổi|đăng ký|thành lập|giải quyết|hưởng|xin|quyết toán|hoàn|xác định|chuyển nhượng|sang tên)\s+[^\n\r\?\,\.]{4,60})",
+                        user_text,
+                        re.IGNORECASE,
+                    )
+                    if m_action:
+                        extracted_topic = m_action.group(1).strip()
+                        break
 
-            lines.append(f"### {i}. {source}")
-            if meta_items:
-                lines.append(f"*{' | '.join(meta_items)}*\n")
+                    # Nếu là câu hỏi trước không phải câu chào hay câu hỏi phụ thuộc
+                    user_clean = strip_accents(user_text.lower())
+                    if len(user_text) > 6 and not any(
+                        k in user_clean for k in ["chao", "cam on", "hello", "hi", "tam biet", "o dau", "bao nhieu", "the nao"]
+                    ):
+                        extracted_topic = user_text
+                        break
 
-            # Trích dẫn nguyên văn nội dung
-            lines.append(f"```text\n{content}\n```\n")
+            # 2. Nếu chưa tìm thấy trong user messages, tìm trong câu trả lời của trợ lý
+            if not extracted_topic:
+                for msg in reversed(history[-6:]):
+                    if msg.get("role") == "assistant":
+                        text = msg.get("content", "")
+                        for line in text.splitlines():
+                            line_s = line.strip()
+                            if line_s.startswith("### ") and not any(
+                                k in line_s for k in ["TƯ VẤN", "Biểu mẫu", "Thành phần", "Căn cứ", "Trình tự", "Cơ quan", "Quy định", "Khuyến nghị", "Bước", "1.", "2.", "3."]
+                            ):
+                                clean_title = line_s.replace("### ", "").strip()
+                                clean_title = re.sub(r"[\*`#]", "", clean_title).strip()
+                                if len(clean_title) > 5:
+                                    extracted_topic = clean_title
+                                    break
+                        if extracted_topic:
+                            break
 
-        lines.append(
-            "---\n"
-            "📌 **Khuyến nghị & Hướng dẫn thi hành:**\n"
-            "- Người dân và doanh nghiệp chuẩn bị hồ sơ tuân thủ theo đúng các thành phần và biểu mẫu tại các điều khoản và thủ tục viện dẫn ở trên.\n"
-            "- Nộp hồ sơ tại Bộ phận Một cửa của cơ quan có thẩm quyền hoặc thực hiện trực tuyến qua Cổng Dịch vụ công Quốc gia.\n\n"
-            "*(💡 Lưu ý: Hệ thống đang trích xuất trực tiếp từ kho CSDL 204+ văn bản pháp luật toàn văn (2.765+ Điều luật) và 550+ thủ tục hành chính. Để kích hoạt mô hình sinh ngôn ngữ tự nhiên Generative AI hoàn chỉnh, bạn có thể bật Ollama trên máy: `ollama run qwen2.5:latest`)*"
-        )
-        return self._remove_repeated_lines("\n".join(lines))
+            if extracted_topic:
+                enriched = f"{extracted_topic} - {query}"
+                return enriched, extracted_topic
 
+        return query.strip(), None
 
-    async def generate_answer(self, query: str) -> Tuple[str, List[str]]:
+    async def _call_cloud_llm(
+        self,
+        query: str,
+        context: str,
+        history: Optional[List[Dict[str, str]]] = None,
+    ) -> Optional[str]:
         """
-        Pipeline hoàn chỉnh: Nhận câu hỏi → RAG → LLM → Trả lời.
-        Hỗ trợ 2 chế độ:
-          1. Generative AI (nếu Ollama Local đang chạy)
-          2. Direct Knowledge Synthesis (nếu Ollama chưa bật)
-
-        🚫 KHÔNG log query hoặc answer nếu chứa dữ liệu cá nhân.
-
-        Args:
-            query: Câu hỏi của người dùng
-
-        Returns:
-            Tuple (answer_text, sources_list)
+        Gọi Cloud LLM (ưu tiên Groq Llama-3.3-70b siêu tốc, tiếp theo Gemini)
+        với đầy đủ Context và Multi-turn History.
         """
-        cleaned_query = query.strip()
-        cache_key = strip_accents(cleaned_query.lower())
+        # 1. Thử Groq Cloud nếu có cấu hình GROQ_API_KEY
+        groq_key = settings.GROQ_API_KEY or os.environ.get("GROQ_API_KEY")
+        if groq_key and len(groq_key.strip()) > 15 and not groq_key.startswith("your_"):
+            try:
+                system_instruction = (
+                    "Bạn là Trợ lý Pháp lý VinaLex — một AI chuyên gia về pháp luật và thủ tục hành chính Việt Nam.\n"
+                    "Nguyên tắc trả lời:\n"
+                    "1. Trả lời trực diện, đúng trọng tâm, viện dẫn chính xác số Điều, Khoản, Tên văn bản và Số hiệu văn bản quy phạm từ Căn cứ pháp lý được cung cấp.\n"
+                    "2. Phân tách rõ ràng: Căn cứ pháp lý, Trình tự các bước thực hiện (Bước 1, Bước 2...), Thành phần hồ sơ, Cơ quan giải quyết, Thời hạn và Lệ phí.\n"
+                    "3. Khi đề cập đến mẫu đơn/tờ khai bắt buộc, chèn thẻ biểu mẫu chuẩn hệ thống: [SYS_PDF_TEMPLATE:doc_name=<Tên mẫu đơn>&title=<Tên thủ tục>&slug=<mã slug>] kèm link [Tải Biểu mẫu <Tên mẫu> (PDF)](/api/v1/procedures/download-template?...).\n"
+                    "4. Trả lời bằng tiếng Việt trang trọng, mạch lạc, dễ hiểu."
+                )
 
-        # Kiểm tra Cache trong bộ nhớ RAM (0.1ms)
-        if cache_key in _RESPONSE_CACHE:
-            return _RESPONSE_CACHE[cache_key]
+                messages = [
+                    {"role": "system", "content": f"{system_instruction}\n\nTÀI LIỆU PHÁP LUẬT TỪ CƠ SỞ DỮ LIỆU:\n{context}"}
+                ]
+                if history:
+                    for h in history[-4:]:
+                        role = "assistant" if h.get("role") in ["assistant", "bot"] else "user"
+                        messages.append({"role": role, "content": h.get("content", "")})
+                messages.append({"role": "user", "content": query})
 
-        self._initialize()
+                payload = {
+                    "model": settings.GROQ_MODEL,
+                    "messages": messages,
+                    "temperature": 0.2,
+                    "max_tokens": 2048,
+                }
+                req = urllib.request.Request(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers={
+                        "Authorization": f"Bearer {groq_key.strip()}",
+                        "Content-Type": "application/json",
+                    },
+                )
 
-        # Bước 0: Nếu có cấu hình Gemini API Key -> Sử dụng Gemini AI Agent kết hợp RAG & Tool Calling
+                def do_request():
+                    with urllib.request.urlopen(req, timeout=12) as resp:
+                        data = json.loads(resp.read().decode("utf-8"))
+                        return data["choices"][0]["message"]["content"]
+
+                groq_resp = await asyncio.to_thread(do_request)
+                if groq_resp and groq_resp.strip():
+                    return groq_resp.strip()
+            except Exception:
+                pass
+
+        # 2. Thử Gemini AI nếu có key hợp lệ
         try:
             from backend.services.gemini_service import GeminiService
             gemini = GeminiService()
             if gemini.is_available():
-                answer, sources = await gemini.chat_with_agent(cleaned_query)
-                if answer and answer.strip():
-                    cleaned_ans = self._remove_repeated_lines(answer)
-                    if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
-                        _RESPONSE_CACHE[cache_key] = (cleaned_ans, sources)
-                    return cleaned_ans, sources
+                ans, _ = await gemini.chat_with_agent(query, history=history)
+                if ans and ans.strip():
+                    return ans.strip()
         except Exception:
             pass
 
-        # Bước 1: Retrieve văn bản pháp luật liên quan từ RAG (chạy non-blocking trên threadpool)
-        raw_docs = await asyncio.to_thread(self._rag_service.retrieve_relevant_docs, cleaned_query)
-        relevant_docs: List[Document] = self._dedupe_docs(raw_docs)
-        context, sources = self._rag_service.build_context(relevant_docs)
+        return None
 
-        # Bước 2: Thử gọi Ollama LLM nếu đang khả dụng
-        if self._llm is not None:
-            prompt = self.build_prompt(cleaned_query, context)
-            try:
-                answer = await self._llm.ainvoke(prompt)
-                if answer and answer.strip():
-                    cleaned_ans = self._remove_repeated_lines(answer)
-                    if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
-                        _RESPONSE_CACHE[cache_key] = (cleaned_ans, sources)
-                    return cleaned_ans, sources
-            except Exception:
-                # Ollama lỗi kết nối -> Fallback sang trích xuất tri thức trực tiếp
-                pass
+    def _synthesize_expert_answer(
+        self,
+        query: str,
+        docs: List[Document],
+        proc_data: Optional[Dict[str, Any]] = None,
+        history: Optional[List[Dict[str, str]]] = None,
+        extracted_topic: Optional[str] = None,
+    ) -> str:
+        """
+        Khung suy luận pháp lý chuyên sâu VinaLex (Legal Chain-of-Thought Engine).
+        Phân rã ngữ cảnh, xác định ý định và tổng hợp tư vấn chi tiết theo chuẩn mực pháp lý.
+        """
+        q_lower = query.lower()
+        q_clean = strip_accents(q_lower)
 
-        # Bước 3: Intelligent Fallback khi Ollama chưa bật
-        if relevant_docs:
-            answer = self._synthesize_local_answer(cleaned_query, relevant_docs)
-        else:
-            answer = (
+        # 1. Nhận diện ý định chi tiết (Intent Classification với word boundary chính xác)
+        is_location = bool(re.search(r"\b(o dau|dia chi|co quan|tru so|nop tai dau|phuong nao|quan nao|thanh pho|tinh nao)\b", q_clean))
+        is_fee = bool(re.search(r"\b(le phi|phi|chi phi|bao nhieu tien|nop bao nhieu|tien phi|bang gia|gia tien)\b", q_clean))
+        is_docs = bool(re.search(r"\b(ho so|giay to|can nhung gi|can gi|to khai|mau don|bieu mau|thanh phan|tai lieu|chung tu)\b", q_clean))
+        is_time = bool(re.search(r"\b(thoi han|bao lau|may ngay|khi nao|thoi gian|mat bao lau)\b", q_clean))
+        is_steps = bool(re.search(r"\b(buoc|trinh tu|cach lam|quy trinh|lam the nao|cac buoc)\b", q_clean))
+
+        # 2. Xử lý khi có dữ liệu Thủ tục Hành chính (Procedure DB)
+        if proc_data:
+            title = proc_data.get("title", extracted_topic or "Thủ tục hành chính")
+            slug = proc_data.get("slug", "thu-tuc")
+            agency = proc_data.get("agency") or "Cơ quan có thẩm quyền cấp quận/huyện hoặc tỉnh/thành phố"
+            fee = proc_data.get("fee") or "Theo biểu mức quy định của Nhà nước"
+            processing_time = proc_data.get("processing_time") or "Trong thời hạn luật định"
+            docs_list = proc_data.get("documents") or []
+            steps_list = proc_data.get("steps") or []
+
+            # Trích dẫn văn bản quy phạm từ RAG docs
+            legal_citations = []
+            for d in docs[:3]:
+                meta = d.metadata or {}
+                doc_num = meta.get("doc_number", "")
+                art = meta.get("article", "")
+                src = meta.get("source", "")
+                if doc_num or art:
+                    legal_citations.append(f"- **{src}** (Quy định: *{art or 'Toàn văn'}*, Số hiệu: `{doc_num or 'N/A'}`)")
+
+            # Tạo widget biểu mẫu PDF chính thức
+            first_doc = docs_list[0] if docs_list else f"Đơn đề nghị thực hiện {title}"
+            params = urllib.parse.urlencode({"doc_name": first_doc, "title": title, "slug": slug})
+            download_url = f"/api/v1/procedures/download-template?{params}"
+            pdf_widget = f"[SYS_PDF_TEMPLATE:doc_name={urllib.parse.quote(first_doc)}&title={urllib.parse.quote(title)}&slug={slug}]\n👉 [Tải Biểu mẫu {first_doc} (PDF)]({download_url})"
+
+            # Phân nhánh phản hồi theo Intent (hỗ trợ cả Intent kết hợp)
+            if is_fee and is_time:
+                lines = [
+                    f"## 💰 Lệ phí & ⏱️ Thời hạn giải quyết thủ tục\n",
+                    f"Đối với thủ tục **{title}**:\n",
+                    f"### 1. Quy định về Lệ phí & Nghĩa vụ tài chính:",
+                    f"- **Mức lệ phí nhà nước:** **{fee}**",
+                    f"- **Cơ quan thu phí:** {agency}",
+                    f"- **Hình thức nộp:** Tiền mặt tại Bộ phận Một cửa hoặc trực tuyến qua Cổng Dịch vụ công Quốc gia.",
+                    f"- **Chính sách miễn/giảm:** Theo quy định của pháp luật và nghị quyết HĐND cấp tỉnh đối với dịch vụ công trực tuyến.",
+                    f"\n### 2. Thời hạn giải quyết luật định:",
+                    f"- **Thời hạn:** **{processing_time}** (tính theo ngày làm việc, không tính thứ Bảy, Chủ nhật và ngày nghỉ lễ).",
+                    f"- **Hình thức nhận kết quả:** Trực tiếp tại Bộ phận Một cửa hoặc nhận qua dịch vụ bưu chính công ích.\n",
+                    f"📌 **Lưu ý:** Lệ phí hành chính nhà nước luôn có biên lai thu tiền hợp pháp."
+                ]
+                return "\n".join(lines)
+
+            elif is_location and is_fee:
+                lines = [
+                    f"## 🏢 Cơ quan tiếp nhận & 💰 Lệ phí thủ tục\n",
+                    f"Đối với thủ tục **{title}**:\n",
+                    f"### 1. Cơ quan giải quyết & Nơi nộp hồ sơ:",
+                    f"- **Thẩm quyền giải quyết:** **{agency}**",
+                    f"- **Địa điểm tiếp nhận:** Bộ phận Tiếp nhận và Trả kết quả (Bộ phận Một cửa) của {agency}.",
+                    f"- **Nộp trực tuyến:** Cổng Dịch vụ công Quốc gia (`dichvucong.gov.vn`).",
+                    f"\n### 2. Mức lệ phí nhà nước quy định:",
+                    f"- **Lệ phí:** **{fee}**",
+                    f"- **Thời hạn giải quyết:** {processing_time}\n",
+                    f"📌 **Lưu ý khi đi nộp:** Người dân cần mang theo CCCD/VNeID mức 2 và bản chính các giấy tờ để đối soát."
+                ]
+                return "\n".join(lines)
+
+            elif is_location:
+                lines = [
+                    f"## 🏢 Cơ quan tiếp nhận & Thẩm quyền giải quyết\n",
+                    f"Đối với thủ tục **{title}**, quy định về nơi nộp hồ sơ như sau:\n",
+                    f"- **Cơ quan có thẩm quyền giải quyết:** **{agency}**",
+                    f"- **Địa điểm nộp trực tiếp:** Bộ phận Tiếp nhận và Trả kết quả (Bộ phận Một cửa) của **{agency}**.",
+                    f"- **Nộp trực tuyến:** Có thể thực hiện trực tuyến qua Cổng Dịch vụ công Quốc gia (`dichvucong.gov.vn`) hoặc Cổng Dịch vụ công chuyên ngành tương ứng.",
+                    f"- **Thời hạn giải quyết:** `{processing_time}`",
+                    f"- **Lệ phí:** `{fee}`\n",
+                    f"📌 **Lưu ý khi đi nộp:** Người dân cần mang theo bản chính Căn cước công dân/VNeID mức 2 và các giấy tờ gốc để cán bộ một cửa đối soát thông tin.",
+                ]
+                return "\n".join(lines)
+
+            elif is_fee:
+                lines = [
+                    f"## 💰 Quy định Lệ phí & Nghĩa vụ tài chính\n",
+                    f"Đối với thủ tục **{title}**:\n",
+                    f"- **Mức lệ phí nhà nước quy định:** **{fee}**",
+                    f"- **Cơ quan thu lệ phí:** {agency}",
+                    f"- **Hình thức thanh toán:** Nộp tiền mặt trực tiếp tại quầy thu ngân Bộ phận Một cửa hoặc thanh toán trực tuyến qua cổng thanh toán dịch vụ công.",
+                    f"- **Chính sách miễn, giảm:** Miễn lệ phí theo quy định đối với hộ nghèo, người có công, đối tượng bảo trợ xã hội hoặc khi thực hiện trực tuyến toàn trình theo nghị quyết của HĐND từng địa phương.\n",
+                    f"📌 **Lưu ý:** Lệ phí hành chính nhà nước có biên lai thu tiền hợp pháp. Người dân tuyệt đối không trả thêm bất kỳ khoản phí ngoài quy định nào.",
+                ]
+                return "\n".join(lines)
+
+            elif is_time:
+                lines = [
+                    f"## ⏱️ Thời hạn giải quyết thủ tục\n",
+                    f"Đối với thủ tục **{title}**:\n",
+                    f"- **Thời hạn luật định:** **{processing_time}**",
+                    f"- **Cách tính thời hạn:** Tính theo ngày làm việc (không tính thứ Bảy, Chủ nhật và các ngày nghỉ lễ, tết theo quy định của Bộ luật Lao động).",
+                    f"- **Trường hợp phức tạp:** Nếu hồ sơ cần xác minh thực địa hoặc kiểm tra chéo liên ngành, cơ quan giải quyết sẽ có văn bản thông báo gia hạn nhưng không vượt quá thời gian tối đa luật cho phép.",
+                    f"- **Hình thức nhận kết quả:** Nhận kết quả trực tiếp tại Bộ phận Một cửa hoặc đăng ký trả kết quả qua dịch vụ bưu chính công ích về tận nhà.",
+                ]
+                return "\n".join(lines)
+
+            elif is_docs:
+                docs_text = "\n".join([f"  {idx+1}. **{d}**" for idx, d in enumerate(docs_list)])
+                lines = [
+                    f"## 📑 Thành phần hồ sơ bắt buộc\n",
+                    f"Để thực hiện thủ tục **{title}**, người nộp cần chuẩn bị đầy đủ **{len(docs_list)}** loại giấy tờ sau:\n",
+                    docs_text,
+                    f"\n### 📄 Biểu mẫu & Tờ khai chính thức (PDF chuẩn Nghị định 30/2020)\n{pdf_widget}\n",
+                    f"📌 **Quy cách hồ sơ:**",
+                    f"- Các giấy tờ nộp bản sao cần kèm bản chính để đối chiếu, hoặc bản sao có chứng thực.",
+                    f"- Các tờ khai/đơn phải điền đầy đủ thông tin, không tẩy xóa, ký và ghi rõ họ tên.",
+                ]
+                return "\n".join(lines)
+
+            elif is_steps:
+                steps_text = "\n".join([
+                    f"### Bước {s.get('index', idx+1)}: {s.get('title', '')}\n"
+                    f"- **Thời hạn:** {s.get('duration', 'Theo quy định')}\n"
+                    f"- **Nội dung thực hiện:** {s.get('description', '')}\n"
+                    for idx, s in enumerate(steps_list)
+                ])
+                lines = [
+                    f"## 📋 Trình tự các bước thực hiện\n",
+                    f"Quy trình thực hiện thủ tục **{title}** gồm các bước chuẩn như sau:\n",
+                    steps_text,
+                    f"\n### 📄 Biểu mẫu cần có trong quy trình:\n{pdf_widget}\n",
+                    f"📌 **Cơ quan giải quyết:** {agency} · **Thời hạn toàn trình:** {processing_time} · **Lệ phí:** {fee}",
+                ]
+                return "\n".join(lines)
+
+            else:
+                # GENERAL CONSULTATION
+                steps_summary = "\n".join([
+                    f"  - **Bước {s.get('index', idx+1)}**: {s.get('title', '')} ({s.get('duration', 'Đang cập nhật')})"
+                    for idx, s in enumerate(steps_list[:4])
+                ])
+                docs_summary = "\n".join([f"  + {d}" for d in docs_list[:5]])
+                citations_text = "\n".join(legal_citations) if legal_citations else "- Căn cứ CSDL Thủ tục hành chính quốc gia và văn bản quy phạm pháp luật hiện hành."
+
+                lines = [
+                    f"## 🏛️ TƯ VẤN PHÁP LÝ & QUY TRÌNH THỰC HIỆN\n",
+                    f"### {title}\n",
+                    f"Dựa trên cơ sở dữ liệu pháp luật hiện hành của VinaLex, hệ thống cung cấp hướng dẫn chi tiết như sau:\n",
+                    f"#### 1. Căn cứ pháp lý áp dụng:\n{citations_text}\n",
+                    f"#### 2. Trình tự các bước giải quyết:\n{steps_summary}\n",
+                    f"#### 3. Thành phần hồ sơ bắt buộc:\n{docs_summary}\n",
+                    f"### 📄 Biểu mẫu & Tờ khai chính thức (PDF chuẩn Nghị định 30/2020)\n{pdf_widget}\n",
+                    f"#### 4. Cơ quan thẩm quyền, Thời hạn & Lệ phí:\n"
+                    f"- **Cơ quan giải quyết:** {agency}\n"
+                    f"- **Thời hạn giải quyết:** {processing_time}\n"
+                    f"- **Lệ phí:** {fee}\n",
+                    f"---\n"
+                    f"📌 **Khuyến nghị thi hành:**\n"
+                    f"- Người dân chuẩn bị đầy đủ hồ sơ theo danh mục trên, nộp tại Bộ phận Một cửa của **{agency}** hoặc thực hiện trực tuyến qua Cổng Dịch vụ công Quốc gia.\n"
+                    f"- Bạn có thể nộp ảnh giấy tờ vào khung thẩm định để AI đối soát sai sót trước khi nộp chính thức.",
+                ]
+                return "\n".join(lines)
+
+        # 3. Fallback khi không tìm thấy thủ tục cụ thể -> Tổng hợp từ các Điều luật trong RAG Docs
+        docs = self._dedupe_docs(docs)
+        if not docs:
+            return (
                 "Xin chào! Tôi là Trợ lý Pháp lý VinaLex.\n\n"
                 "Hiện tại cơ sở dữ liệu chưa tìm thấy văn bản quy phạm hoặc thủ tục nào khớp chính xác với câu hỏi của bạn.\n\n"
                 "💡 **Gợi ý tra cứu:**\n"
-                "- Bạn có thể thử tra cứu theo từ khóa lĩnh vực: *lao động người nước ngoài, an toàn vệ sinh lao động, bảo hiểm xã hội, sổ đỏ điện tử, thủ tục công chứng, việc làm...*\n"
-                "- Hoặc nhập số hiệu văn bản cụ thể: ví dụ `6093/QĐ-UBND`, `275/NQ-CP`...\n\n"
-                "*(Lưu ý: Để sử dụng AI sinh ngôn ngữ tự nhiên đầy đủ, bạn có thể khởi động Ollama trên máy: `ollama run qwen2.5:latest`)*"
+                "- Bạn có thể thử tra cứu theo từ khóa lĩnh vực: *đất đai, cấp sổ đỏ, hộ tịch, đổi bằng lái xe, bảo hiểm xã hội, thành lập công ty...*\n"
+                "- Hoặc nhập số hiệu văn bản cụ thể: ví dụ `101/2024/NĐ-CP`, `05/2024/TT-BGTVT`, `6093/QĐ-UBND`..."
             )
 
+        lines = [
+            f"## 🏛️ TƯ VẤN PHÁP LÝ DỰA TRÊN CƠ SỞ DỮ LIỆU LUẬT\n",
+            f"Đối chiếu câu hỏi của bạn với hệ thống **{len(docs)}** căn cứ pháp luật hiện hành:\n"
+        ]
+        for i, doc in enumerate(docs, 1):
+            meta = doc.metadata or {}
+            source = meta.get("source", "Văn bản quy phạm")
+            doc_number = meta.get("doc_number", "")
+            article = meta.get("article", "")
+            agency = meta.get("agency", "")
+            content = doc.page_content.strip()
+            if len(content) > 600:
+                content = content[:600].rsplit(" ", 1)[0].strip() + "..."
+
+            lines.append(f"### {i}. {source}")
+            meta_str = " | ".join(filter(None, [
+                f"Quy định: **{article}**" if article else "",
+                f"Số hiệu: `{doc_number}`" if doc_number else "",
+                f"Cơ quan: {agency}" if agency else ""
+            ]))
+            if meta_str:
+                lines.append(f"*{meta_str}*\n")
+            lines.append(f"> {content}\n")
+
+        lines.append(
+            "---\n"
+            "📌 **Khuyến nghị của Trợ lý VinaLex:**\n"
+            "- Các quy định trên là căn cứ pháp lý hiện hành điều chỉnh vấn đề bạn quan tâm.\n"
+            "- Người dân và doanh nghiệp cần đối chiếu trường hợp cụ thể của mình với các điều kiện quy định tại các điều luật trên để thực hiện đúng quyền và nghĩa vụ."
+        )
+        return "\n".join(lines)
+
+    async def generate_answer(
+        self,
+        query: str,
+        history: Optional[List[Dict[str, str]]] = None,
+        session_id: str = "",
+    ) -> Tuple[str, List[str]]:
+        """
+        Pipeline hoàn chỉnh:
+          1. Multi-turn Query Contextualization: giải mã câu hỏi phụ thuộc dựa trên lịch sử.
+          2. RAG Retrieval & Candidate Pruning: trích xuất các điều khoản liên quan.
+          3. Procedure DB Lookup: trích xuất thông tin thủ tục có cấu trúc.
+          4. Cloud LLM Reasoning (Groq / Gemini) nếu có API key.
+          5. Expert Rule-based Legal Reasoning Engine nếu chạy 100% offline.
+          6. PDF Template Widget & Download Links.
+        """
+        cleaned_query = query.strip()
+        if not cleaned_query:
+            return "Xin chào! Bạn cần hỗ trợ thủ tục hành chính hoặc quy định pháp luật nào?", []
+
+        # 1. Tái tạo câu hỏi phụ thuộc (Anaphora Resolution)
+        enriched_query, extracted_topic = self.contextualize_query(cleaned_query, history)
+
+        # 2. Kiểm tra bộ nhớ đệm (chỉ áp dụng cho câu hỏi độc lập)
+        cache_key = strip_accents(enriched_query.lower())
+        if not history and cache_key in _RESPONSE_CACHE:
+            return _RESPONSE_CACHE[cache_key]
+
+        self._initialize()
+
+        # 3. Tra cứu CSDL thủ tục có cấu trúc
+        proc_data = None
+        try:
+            from backend.services.gemini_service import _query_procedure_db
+            if extracted_topic:
+                proc_data = _query_procedure_db(extracted_topic)
+            if not proc_data:
+                proc_data = _query_procedure_db(enriched_query)
+            if not proc_data:
+                proc_data = _query_procedure_db(cleaned_query)
+        except Exception:
+            proc_data = None
+
+        # 4. RAG Retrieval (chạy trên threadpool non-blocking)
+        search_query = enriched_query if enriched_query != cleaned_query else cleaned_query
+        raw_docs = await asyncio.to_thread(self._rag_service.retrieve_relevant_docs, search_query)
+        relevant_docs: List[Document] = self._dedupe_docs(raw_docs)
+        context, sources = self._rag_service.build_context(relevant_docs)
+
+        # 5. Thử Cloud LLM (Groq / Gemini)
+        cloud_answer = await self._call_cloud_llm(cleaned_query, context, history=history)
+        if cloud_answer:
+            answer = cloud_answer
+        elif self._llm is not None:
+            # Thử Ollama local nếu có
+            prompt = self.build_prompt(search_query, context)
+            try:
+                ans = await self._llm.ainvoke(prompt)
+                answer = ans.strip() if ans else None
+            except Exception:
+                answer = None
+        else:
+            answer = None
+
+        # 6. Nếu không có LLM Cloud/Ollama -> Kích hoạt VinaLex Expert Reasoner
+        if not answer:
+            answer = self._synthesize_expert_answer(
+                cleaned_query,
+                relevant_docs,
+                proc_data=proc_data,
+                history=history,
+                extracted_topic=extracted_topic,
+            )
+
+        # 7. Đảm bảo thẻ Biểu mẫu PDF luôn hiện diện
         try:
             from backend.services.gemini_service import GeminiService
-            answer = GeminiService()._ensure_pdf_widget(answer, cleaned_query)
+            target_proc_query = proc_data.get("title") if proc_data else (extracted_topic or cleaned_query)
+            answer = GeminiService()._ensure_pdf_widget(answer, target_proc_query)
         except Exception:
             pass
 
         final_answer = self._remove_repeated_lines(answer)
-        if len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
+        if not history and len(_RESPONSE_CACHE) < _MAX_CACHE_SIZE:
             _RESPONSE_CACHE[cache_key] = (final_answer, sources)
 
         return final_answer, sources

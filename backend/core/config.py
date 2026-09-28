@@ -70,9 +70,11 @@ class Settings(BaseSettings):
     # ── Embedding (Vietnamese) ──
     EMBEDDING_MODEL_NAME: str = "keepitreal/vietnamese-sbert"
 
-    # ── Gemini AI Agent ──
+    # ── Cloud LLM (Groq & Gemini) ──
     GEMINI_API_KEY: Optional[str] = None
-    GEMINI_MODEL: str = "gemini-3.6-flash"
+    GEMINI_MODEL: str = "gemini-1.5-flash"
+    GROQ_API_KEY: Optional[str] = None
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
 
     class Config:
         env_file = ".env"

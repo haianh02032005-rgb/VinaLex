@@ -54,10 +54,18 @@ class ApiClient {
   }
 
   // ── AI Chat ──
-  async sendChatMessage(message: string, sessionId: string) {
+  async sendChatMessage(
+    message: string,
+    sessionId: string,
+    history?: Array<{ role: string; content: string }>
+  ) {
     return this.request<{ answer: string; sources: string[] }>('/ai/chat', {
       method: 'POST',
-      body: JSON.stringify({ message, session_id: sessionId }),
+      body: JSON.stringify({
+        message,
+        session_id: sessionId,
+        history: history || [],
+      }),
     });
   }
 

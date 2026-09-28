@@ -78,9 +78,15 @@ class ProcedureListResponse(BaseModel):
 
 
 # ── AI Chat Schemas ──
+class ChatMessageItem(BaseModel):
+    role: str  # "user" | "assistant"
+    content: str
+
+
 class ChatRequest(BaseModel):
     message: str
     session_id: str  # Bắt buộc — dùng để track Redis session và xóa sau khi trả kết quả
+    history: Optional[List[ChatMessageItem]] = []
 
 
 class ChatResponse(BaseModel):
