@@ -49,6 +49,18 @@ app.include_router(admin_router,        prefix="/api/v1/admin",           tags=[
 
 
 
+@app.get("/", tags=["Root"])
+async def root():
+    """Trang chủ API VinaLex."""
+    return {
+        "service": "VinaLex API",
+        "status": "online",
+        "docs_url": "/api/docs",
+        "health_check": "/api/v1/health",
+        "version": "1.0.0",
+    }
+
+
 @app.get("/api/v1/health", tags=["Health"])
 async def health_check():
     """Kiểm tra trạng thái server."""
