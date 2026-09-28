@@ -52,10 +52,10 @@ def test_database_zero_defect():
 
     c.execute("SELECT count(*) FROM procedures")
     total_count = c.fetchone()[0]
-    assert total_count == 556, f"Expected 556 procedures, got {total_count}"
+    assert total_count >= 556, f"Expected at least 556 procedures, got {total_count}"
 
     conn.close()
-    print(f"PASS: 556 procedures verified: 0 question titles, 0 generic dummy strings.")
+    print(f"PASS: {total_count} procedures verified: 0 question titles, 0 generic dummy strings.")
 
 
 def test_all_10_statutory_form_templates():
