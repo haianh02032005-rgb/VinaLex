@@ -129,3 +129,5 @@ tmp/
 *.log
 .agent/
 .agents/
+
+~$*
