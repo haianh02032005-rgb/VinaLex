@@ -37,6 +37,7 @@ except ImportError:
 from backend.core.config import settings
 from backend.services.legal_parser import strip_accents
 from backend.services.ingest_service import IngestService
+from backend.services.legal_search import analyze_query, best_concept_match, normalize_text
 
 # Bỏ qua các cảnh báo thư viện không cần thiết
 warnings.filterwarnings("ignore", category=FutureWarning, module="huggingface_hub")
@@ -90,7 +91,7 @@ class RagService:
             meta = doc.metadata or {}
             title = (meta.get("title") or "").lower()
             title_clean = strip_accents(title)
-            content_lower = doc.page_content.lower()
+            content_lower = normalize_text(doc.page_content)
 
             cls._shared_preprocessed.append((title, title_clean, content_lower, meta))
 
@@ -100,7 +101,7 @@ class RagService:
                 cls._shared_article_map[art_num].append(idx)
 
             # Chỉ mục số hiệu văn bản
-            doc_num = (meta.get("doc_number") or "").lower()
+            doc_num = normalize_text(meta.get("doc_number") or "")
             if doc_num:
                 cls._shared_doc_num_map[doc_num].append(idx)
                 for part in re.findall(r"\d+[\w\-\/]*\d+|\d+", doc_num):
@@ -201,32 +202,23 @@ class RagService:
             return []
 
         # ── TẦNG 1: BÓC TÁCH THỰC THỂ PHÁP LÝ TỪ QUERY ──
+        parsed_query = analyze_query(query)
         q_lower = query.lower().strip()
-        q_clean = strip_accents(q_lower)
+        q_clean = parsed_query.normalized
 
         # 1.1. Nhận diện số Điều (VD: "Điều 14", "Điều 5", "dieu 14")
-        target_article_num = None
-        dieu_match = re.search(r"(?i)(?:điều|dieu)\s+(\d+)", query)
-        if dieu_match:
-            try:
-                target_article_num = int(dieu_match.group(1))
-            except ValueError:
-                pass
+        target_article_num = parsed_query.article
 
         # 1.2. Nhận diện số Khoản (VD: "Khoản 2", "khoan 1")
-        target_clause_num = None
-        khoan_match = re.search(r"(?i)(?:khoản|khoan)\s+(\d+)", query)
-        if khoan_match:
-            try:
-                target_clause_num = int(khoan_match.group(1))
-            except ValueError:
-                pass
+        target_clause_num = parsed_query.clause
 
         # 1.3. Nhận diện số hiệu văn bản (VD: "6093", "49/2026", "1538", "13/2023")
-        doc_num_candidates = [
-            m.group(1) for m in re.finditer(r"(?i)(\d+[\w\-\/]*\d+|\d+)", query)
-            if len(m.group(1)) >= 2
-        ]
+        doc_num_candidates = list(parsed_query.document_numbers)
+        # Hỗ trợ tra cứu số quyết định rút gọn (VD: "Quyết định 6093"), nhưng
+        # không coi số Điều/Khoản là số hiệu văn bản.
+        if re.search(r"\b(nghi dinh|thong tu|quyet dinh|luat|van ban|so)\b", q_clean):
+            doc_num_candidates.extend(re.findall(r"\b\d{3,6}\b", q_clean))
+        doc_num_candidates = list(dict.fromkeys(doc_num_candidates))
 
         # 1.4. Nhận diện loại văn bản mong muốn
         is_asking_procedure = any(k in q_clean for k in ["thu tuc", "ho so", "trinh tu", "le phi", "thoi han", "xin cap"])
@@ -252,9 +244,7 @@ class RagService:
             "nao", "moi", "nhat", "lai", "theo", "nhu", "the"
         }
 
-        raw_tokens = [t.lower().strip() for t in re.split(r"[\s,\.\?\!\:\;]+", query) if len(t.strip()) > 1]
-        meaningful_tokens = [t for t in raw_tokens if strip_accents(t) not in STOP_WORDS]
-        tokens = meaningful_tokens if meaningful_tokens else raw_tokens
+        tokens = list(parsed_query.tokens)
 
         # ── TẦNG 2: DENSE VECTOR RETRIEVAL (Qdrant) ──
         dense_ranks: Dict[str, int] = {}
@@ -288,13 +278,11 @@ class RagService:
                 for idx in RagService._shared_inverted_index.get(tok_clean, []):
                     candidate_weights[idx] += 2
 
-            # Thu thập theo từ đồng nghĩa
-            for q_pats, t_pats in SYNONYMS:
-                if any(qp in q_clean for qp in q_pats):
-                    for tp in t_pats:
-                        for word in re.findall(r"\w+", strip_accents(tp)):
-                            for idx in RagService._shared_inverted_index.get(word, []):
-                                candidate_weights[idx] += 3
+            # Thu thập theo đồng nghĩa đã chuẩn hóa dùng chung.
+            for term in parsed_query.expanded_terms:
+                for word in re.findall(r"\w+", term):
+                    for idx in RagService._shared_inverted_index.get(word, []):
+                        candidate_weights[idx] += 3
 
         # Giới hạn tối đa 200 ứng viên sáng giá nhất để chấm điểm chi tiết
         if candidate_weights:
@@ -314,12 +302,13 @@ class RagService:
                 meta = doc.metadata or {}
                 title = (meta.get("title") or "").lower()
                 title_clean = strip_accents(title)
-                content_lower = doc.page_content.lower()
+                content_lower = normalize_text(doc.page_content)
 
             doc = chunks[idx]
             article_str = (meta.get("article") or "").lower()
             article_num = meta.get("article_number")
-            doc_number = (meta.get("doc_number") or "").lower()
+            clause_str = normalize_text(meta.get("clause") or "")
+            doc_number = normalize_text(meta.get("doc_number") or "")
             source_type = meta.get("source_type", "")
 
             # Khớp đúng Điều
@@ -328,6 +317,12 @@ class RagService:
                     score += 350.0
                 elif f"điều {target_article_num}" in article_str or f"dieu {target_article_num}" in article_str:
                     score += 300.0
+
+            if target_clause_num is not None:
+                if re.search(rf"\b(?:khoan\s+)?{target_clause_num}\b", clause_str):
+                    score += 120.0
+                elif re.search(rf"(?:^|\n)\s*{target_clause_num}[.)]\s", strip_accents(doc.page_content)):
+                    score += 80.0
 
             # Khớp đúng Số hiệu văn bản
             for candidate in doc_num_candidates:
@@ -341,15 +336,15 @@ class RagService:
             elif q_clean in title_clean:
                 score += 120.0
 
-            if q_lower in content_lower:
+            if q_clean in content_lower:
                 score += 80.0
 
             # Khớp từng token trong tiêu đề và nội dung
             for tok in tokens:
                 tok_clean = strip_accents(tok)
-                if tok in title or tok_clean in title_clean:
+                if tok_clean in title_clean:
                     score += 20.0
-                elif tok in content_lower:
+                elif tok_clean in content_lower:
                     score += 8.0
 
             # Khớp từ đồng nghĩa
@@ -359,6 +354,17 @@ class RagService:
                         score += 50.0
                     elif any(tp in content_lower[:600] for tp in t_pats):
                         score += 25.0
+
+            if best_concept_match(parsed_query, (title_clean, content_lower[:1200])):
+                score += 65.0
+
+            # Khi người dùng nêu đồng thời Điều và số hiệu, tài liệu phải thỏa
+            # cả hai thực thể; tránh lấy nhầm Điều 14 của một văn bản khác.
+            if target_article_num is not None and doc_num_candidates:
+                article_ok = article_num == target_article_num or f"dieu {target_article_num}" in normalize_text(article_str)
+                number_ok = any(candidate in normalize_text(doc_number) for candidate in doc_num_candidates)
+                if not (article_ok and number_ok):
+                    continue
 
             # Điều chỉnh theo định hướng câu hỏi
             if is_asking_procedure and source_type == "procedure":
@@ -424,11 +430,9 @@ class RagService:
 
             return selected_docs
 
-        # Nếu không có từ khóa nào khớp (VD câu hỏi chào hỏi), trả về mẫu các điều luật tiêu biểu
-        default_docs: List[Document] = []
-        for d in chunks[:min(top_k, len(chunks))]:
-            default_docs.append(d)
-        return default_docs
+        # Không bơm tài liệu mặc định vào câu hỏi không liên quan: việc này có
+        # thể khiến chatbot viện dẫn một quy định hoàn toàn sai ngữ cảnh.
+        return []
 
     def build_context(self, docs: List[Document]) -> Tuple[str, List[str]]:
         """

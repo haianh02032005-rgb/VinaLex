@@ -9,7 +9,6 @@ Tuân thủ yêu cầu: KHÔNG đề xuất thủ tục hành chính trong phân
 import os
 import json
 import re
-import unicodedata
 from datetime import datetime
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -19,24 +18,19 @@ from sqlalchemy import select, func
 from backend.db.postgres import get_db
 from backend.models.procedure import LegalDocumentModel
 from backend.models.schemas import LegalDocumentResponse, LegalDocumentListResponse
+from backend.services.legal_search import analyze_query, best_concept_match, contains_phrase, normalize_text
 
 router = APIRouter()
 
 
 def _strip_accents(text: str) -> str:
     """Loại bỏ dấu tiếng Việt để đối sánh linh hoạt."""
-    if not text:
-        return ""
-    text = text.replace("đ", "d").replace("Đ", "D")
-    nfd = unicodedata.normalize("NFD", text)
-    return "".join(c for c in nfd if unicodedata.category(c) != "Mn").lower()
+    return normalize_text(text)
 
 
 def _has_word(pattern: str, text: str) -> bool:
     """Kiểm tra cụm từ có xuất hiện nguyên vẹn theo ranh giới từ."""
-    if not pattern or not text:
-        return False
-    return bool(re.search(r'(?:\b|^)' + re.escape(pattern) + r'(?:\b|$)', text))
+    return contains_phrase(text, pattern)
 
 
 def _extract_excerpt(content: str, query: str, max_len: int = 350) -> str:
@@ -131,11 +125,9 @@ def filter_and_rank_legal_docs(items: list, search: Optional[str] = None, doc_ty
         return filtered
 
     s = search.lower().strip()
-    s_clean = _strip_accents(s)
-    raw_tokens = [t for t in re.split(r"[\s,\.\?\!\:\;]+", s_clean) if t]
-    search_tokens = [t for t in raw_tokens if t not in STOP_WORDS and len(t) > 1]
-    if not search_tokens:
-        search_tokens = raw_tokens
+    parsed_query = analyze_query(s, STOP_WORDS)
+    s_clean = parsed_query.normalized
+    search_tokens = list(parsed_query.tokens)
 
     scored_items = []
     for d in filtered:
@@ -154,13 +146,19 @@ def filter_and_rank_legal_docs(items: list, search: Optional[str] = None, doc_ty
 
         # ── TẦNG 1: BỘ LỌC BẮT BUỘC (Hard Pruning Filter) ──
         # Phải khớp số hiệu, tiêu đề, loại văn bản hoặc các từ khóa cốt lõi
-        exact_doc_num = s_clean in doc_num_clean or (s.replace(" ", "") in doc_num.lower().replace(" ", ""))
+        exact_doc_num = bool(parsed_query.document_numbers) and any(
+            number == doc_num_clean or number in doc_num_clean
+            for number in parsed_query.document_numbers
+        )
+        if not parsed_query.document_numbers:
+            exact_doc_num = s_clean == doc_num_clean
         exact_title = s_clean in title_clean
         all_tokens_in_title = bool(search_tokens) and all(t in title_clean for t in search_tokens)
         all_tokens_in_summary = bool(search_tokens) and all(t in summary_clean for t in search_tokens)
         has_token_in_content = bool(search_tokens) and any(t in content_clean for t in search_tokens)
+        concept_match = best_concept_match(parsed_query, (title_clean, summary_clean, content_clean))
 
-        is_match = exact_doc_num or exact_title or all_tokens_in_title or all_tokens_in_summary or (has_token_in_content and any(t in title_clean for t in search_tokens))
+        is_match = exact_doc_num or exact_title or all_tokens_in_title or all_tokens_in_summary or concept_match or (has_token_in_content and any(t in title_clean for t in search_tokens))
 
         if not is_match:
             continue
@@ -175,6 +173,8 @@ def filter_and_rank_legal_docs(items: list, search: Optional[str] = None, doc_ty
             score += 120.0
         if all_tokens_in_title:
             score += 60.0
+        if concept_match:
+            score += 55.0
 
         for t in search_tokens:
             if t in title_clean:

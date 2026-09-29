@@ -20,6 +20,7 @@ from backend.models.schemas import ProcedureResponse, ProcedureListResponse, Pro
 from backend.core.config import settings
 from backend.services.pdf_service import PdfTemplateService, sanitize_document_name
 from backend.services.document_retrieval_service import document_retrieval_service
+from backend.services.legal_search import analyze_query, best_concept_match, contains_phrase, normalize_text
 
 
 router = APIRouter()
@@ -63,15 +64,10 @@ def _load_fallback_procedures() -> list:
 
 
 import re
-import unicodedata
 
 
 def _strip_accents(text: str) -> str:
-    if not text:
-        return ""
-    text = text.replace("đ", "d").replace("Đ", "D")
-    nfd = unicodedata.normalize("NFD", text)
-    return "".join(c for c in nfd if unicodedata.category(c) != "Mn").lower()
+    return normalize_text(text)
 
 def _safe_join(arr) -> str:
     if not arr:
@@ -93,9 +89,7 @@ STOP_WORDS = {
 
 def _has_word(pattern: str, text: str) -> bool:
     """Kiểm tra cụm từ hoặc từ khóa có xuất hiện nguyên vẹn theo ranh giới từ (tránh khớp nhầm từ con)."""
-    if not pattern or not text:
-        return False
-    return bool(re.search(r'(?:\b|^)' + re.escape(pattern) + r'(?:\b|$)', text))
+    return contains_phrase(text, pattern)
 
 COMPOUND_PHRASES = [
     "khai sinh", "khai tu", "ket hon", "ly hon", "tam tru", "thuong tru",
@@ -143,12 +137,9 @@ def filter_and_rank_procedures(items: list, search: Optional[str] = None, catego
         )
 
     s = search.lower().strip()
-    s_clean = _strip_accents(s)
-
-    raw_tokens = [t for t in re.split(r"[\s,\.\?\!\:\;]+", s_clean) if t]
-    search_tokens = [t for t in raw_tokens if t not in STOP_WORDS and len(t) > 1]
-    if not search_tokens:
-        search_tokens = raw_tokens
+    parsed_query = analyze_query(s, STOP_WORDS)
+    s_clean = parsed_query.normalized
+    search_tokens = list(parsed_query.tokens)
 
     scored_items = []
     for p in filtered:
@@ -165,10 +156,14 @@ def filter_and_rank_procedures(items: list, search: Optional[str] = None, catego
         desc_clean = _strip_accents(desc)
 
         # ── TẦNG 1: BỘ LỌC BẮT BUỘC (Hard Pruning Filter) ──
-        matched_compounds = [cp for cp in COMPOUND_PHRASES if _has_word(cp, s_clean)]
+        matched_compounds = list(parsed_query.phrases) or [
+            cp for cp in COMPOUND_PHRASES if _has_word(cp, s_clean)
+        ]
         if matched_compounds:
-            compound_hit = False
+            compound_hit = best_concept_match(parsed_query, (title_clean, tags_clean))
             for cp in matched_compounds:
+                if compound_hit:
+                    break
                 if _has_word(cp, title_clean) or _has_word(cp, tags_clean):
                     compound_hit = True
                     break
@@ -186,13 +181,7 @@ def filter_and_rank_procedures(items: list, search: Optional[str] = None, catego
                 (_has_word(t, title_clean) or _has_word(t, tags_clean)) for t in search_tokens
             )
 
-            synonym_match = False
-            for q_pats, t_pats in SYNONYMS:
-                if any(qp in s_clean for qp in q_pats):
-                    for tp in t_pats:
-                        if _has_word(tp, title_clean) or _has_word(tp, tags_clean):
-                            synonym_match = True
-                            break
+            synonym_match = best_concept_match(parsed_query, (title_clean, tags_clean))
 
             multi_token_partial = False
             if len(search_tokens) >= 2:
@@ -228,6 +217,9 @@ def filter_and_rank_procedures(items: list, search: Optional[str] = None, catego
                 score += 80.0
             if _has_word(cp, tags_clean):
                 score += 50.0
+
+        if best_concept_match(parsed_query, (title_clean, tags_clean)):
+            score += 65.0
 
         for t in search_tokens:
             if _has_word(t, title_clean):
@@ -487,4 +479,3 @@ async def admin_delete_procedure(
 
     await db.delete(procedure)
     await db.commit()
-

@@ -54,6 +54,16 @@ Nguyên tắc trả lời:
 6. KHÔNG đưa ra phán quyết hay lời khuyên có tính ràng buộc pháp lý cá nhân.
 7. Trả lời bằng tiếng Việt chuẩn ngữ pháp."""
 
+# Các chiều dữ kiện thường làm thay đổi kết quả áp dụng pháp luật. Đây là dữ
+# liệu để phát hiện thông tin còn thiếu, không phải kết luận pháp lý.
+LEGAL_ISSUE_PATTERNS = {
+    "Điều kiện áp dụng": r"\b(co duoc|du dieu kien|quyen|nghia vu|duoc phep)\b",
+    "Vi phạm và chế tài": r"\b(vi pham|phat|xu phat|boi thuong|trach nhiem|toi)\b",
+    "Tranh chấp": r"\b(tranh chap|khieu nai|khoi kien|to cao)\b",
+    "Thời hiệu/thời hạn": r"\b(thoi hieu|thoi han|qua han|bao lau|may ngay)\b",
+    "Thủ tục và thẩm quyền": r"\b(thu tuc|ho so|nop o dau|co quan|trinh tu|cach lam)\b",
+}
+
 
 class AgentService:
     """
@@ -108,6 +118,9 @@ class AgentService:
         Returns:
             Chuỗi prompt hoàn chỉnh
         """
+        scenario = self.analyze_legal_scenario(query)
+        issue_text = ", ".join(scenario["issues"]) or "Chưa xác định rõ"
+        missing_text = ", ".join(scenario["missing_facts"]) or "Không phát hiện"
         if context:
             return f"""{SYSTEM_PROMPT}
 
@@ -118,7 +131,16 @@ TÀI LIỆU PHÁP LUẬT LIÊN QUAN TRÍCH LỤC TỪ CƠ SỞ DỮ LIỆU:
 
 CÂU HỎI CỦA NGƯỜI DÙNG: {query}
 
-HƯỚNG DẪN TRẢ LỜI: Hãy dựa vào các căn cứ pháp lý trên để trả lời chi tiết, trích dẫn rõ ràng số Điều, Tên văn bản và các bước thủ tục cần thiết.
+PHÂN TÍCH SƠ BỘ:
+- Vấn đề cần kiểm tra: {issue_text}
+- Dữ kiện có thể còn thiếu: {missing_text}
+
+HƯỚNG DẪN TRẢ LỜI:
+1. Nêu kết luận sơ bộ và mức độ chắc chắn; không biến giả định thành sự thật.
+2. Tách rõ: Vấn đề pháp lý → Quy định/căn cứ → Áp dụng vào dữ kiện → Kết luận.
+3. Chỉ trích dẫn Điều/Khoản/số hiệu thực sự xuất hiện trong Context. Không tự tạo căn cứ.
+4. Nếu thiếu dữ kiện có thể làm đổi kết quả, nêu câu hỏi cần làm rõ và trình bày kết luận theo điều kiện "nếu... thì...".
+5. Không khẳng định văn bản còn hiệu lực nếu Context không có trạng thái hoặc ngày hiệu lực.
 
 TRẢ LỜI:"""
         else:
@@ -128,7 +150,35 @@ Lưu ý: Không tìm thấy văn bản pháp luật liên quan trong cơ sở d�
 
 CÂU HỎI: {query}
 
+HƯỚNG DẪN: Không suy đoán quy định hoặc viện dẫn điều luật. Hãy nói rõ chưa đủ
+căn cứ, nêu các dữ kiện cần bổ sung và gợi ý từ khóa/số hiệu để tra cứu lại.
+
 TRẢ LỜI:"""
+
+    @staticmethod
+    def analyze_legal_scenario(query: str) -> Dict[str, List[str]]:
+        """Phân rã câu hỏi thành vấn đề pháp lý và các dữ kiện quyết định còn thiếu.
+
+        Hàm chỉ tạo khung phân tích có thể kiểm thử; kết luận cuối cùng vẫn phải
+        được đối chiếu với tài liệu truy xuất.
+        """
+        clean = strip_accents((query or "").lower())
+        issues = [name for name, pattern in LEGAL_ISSUE_PATTERNS.items() if re.search(pattern, clean)]
+        if not issues:
+            issues = ["Xác định quy định pháp luật áp dụng"]
+
+        missing: List[str] = []
+        if not re.search(r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|nam\s+\d{4}|ngay\s+\d{1,2})\b", clean):
+            missing.append("thời điểm xảy ra sự việc")
+        if not re.search(r"\b(tai|o)\s+[a-z]", clean):
+            missing.append("địa bàn/cơ quan có thẩm quyền")
+        if any(issue in issues for issue in ("Điều kiện áp dụng", "Vi phạm và chế tài", "Tranh chấp")):
+            if not re.search(r"\b(ca nhan|doanh nghiep|nguoi lao dong|nguoi su dung lao dong|vo|chong|ben)\b", clean):
+                missing.append("tư cách và quan hệ giữa các bên")
+            if len(clean.split()) < 18:
+                missing.append("diễn biến và tài liệu/chứng cứ liên quan")
+
+        return {"issues": issues, "missing_facts": list(dict.fromkeys(missing))}
 
     @staticmethod
     def _normalize_repetition_key(text: str) -> str:
@@ -256,6 +306,15 @@ TRẢ LỜI:"""
         Gọi Cloud LLM (ưu tiên Groq Llama-3.3-70b siêu tốc, tiếp theo Gemini)
         với đầy đủ Context và Multi-turn History.
         """
+        # Không giao cho mô hình sinh câu trả lời pháp lý khi retrieval không có
+        # căn cứ; nhánh offline sẽ yêu cầu bổ sung thông tin một cách an toàn.
+        if not context.strip():
+            return None
+
+        scenario = self.analyze_legal_scenario(query)
+        issue_text = ", ".join(scenario["issues"])
+        missing_text = ", ".join(scenario["missing_facts"])
+
         # 1. Thử Groq Cloud nếu có cấu hình GROQ_API_KEY
         groq_key = settings.GROQ_API_KEY or os.environ.get("GROQ_API_KEY")
         if groq_key and len(groq_key.strip()) > 15 and not groq_key.startswith("your_"):
@@ -264,9 +323,10 @@ TRẢ LỜI:"""
                     "Bạn là Trợ lý Pháp lý VinaLex — một AI chuyên gia về pháp luật và thủ tục hành chính Việt Nam.\n"
                     "Nguyên tắc trả lời:\n"
                     "1. Trả lời trực diện, đúng trọng tâm, viện dẫn chính xác số Điều, Khoản, Tên văn bản và Số hiệu văn bản quy phạm từ Căn cứ pháp lý được cung cấp.\n"
-                    "2. Phân tách rõ ràng: Căn cứ pháp lý, Trình tự các bước thực hiện (Bước 1, Bước 2...), Thành phần hồ sơ, Cơ quan giải quyết, Thời hạn và Lệ phí.\n"
+                    "2. Phân tách: Vấn đề pháp lý, Quy định/căn cứ, Áp dụng vào dữ kiện, Kết luận sơ bộ. Nêu rõ giả định và không tự tạo căn cứ.\n"
                     "3. Khi đề cập đến mẫu đơn/tờ khai bắt buộc, chèn thẻ biểu mẫu chuẩn hệ thống: [SYS_PDF_TEMPLATE:doc_name=<Tên mẫu đơn>&title=<Tên thủ tục>&slug=<mã slug>] kèm link [Tải Biểu mẫu <Tên mẫu> (PDF)](/api/v1/procedures/download-template?...).\n"
-                    "4. Trả lời bằng tiếng Việt trang trọng, mạch lạc, dễ hiểu."
+                    "4. Nếu thiếu dữ kiện có thể làm đổi kết quả, trả lời theo dạng nếu/thì và hỏi làm rõ. Không khẳng định tình trạng hiệu lực nếu tài liệu không nêu.\n"
+                    f"5. Vấn đề sơ bộ: {issue_text}. Dữ kiện có thể còn thiếu: {missing_text}."
                 )
 
                 messages = [
@@ -492,18 +552,24 @@ TRẢ LỜI:"""
 
         # 3. Fallback khi không tìm thấy thủ tục cụ thể -> Tổng hợp từ các Điều luật trong RAG Docs
         docs = self._dedupe_docs(docs)
+        scenario = self.analyze_legal_scenario(query)
         if not docs:
+            missing = ", ".join(scenario["missing_facts"])
             return (
-                "Xin chào! Tôi là Trợ lý Pháp lý VinaLex.\n\n"
-                "Hiện tại cơ sở dữ liệu chưa tìm thấy văn bản quy phạm hoặc thủ tục nào khớp chính xác với câu hỏi của bạn.\n\n"
-                "💡 **Gợi ý tra cứu:**\n"
+                "## Chưa đủ căn cứ để kết luận\n\n"
+                "Cơ sở dữ liệu chưa tìm thấy văn bản hoặc thủ tục khớp đủ gần với câu hỏi. "
+                "Để tránh viện dẫn sai, hệ thống chưa đưa ra kết luận pháp lý.\n\n"
+                f"**Thông tin nên bổ sung:** {missing or 'lĩnh vực, thời điểm và địa bàn xảy ra sự việc'}.\n\n"
+                "**Gợi ý tra cứu:**\n"
                 "- Bạn có thể thử tra cứu theo từ khóa lĩnh vực: *đất đai, cấp sổ đỏ, hộ tịch, đổi bằng lái xe, bảo hiểm xã hội, thành lập công ty...*\n"
                 "- Hoặc nhập số hiệu văn bản cụ thể: ví dụ `101/2024/NĐ-CP`, `05/2024/TT-BGTVT`, `6093/QĐ-UBND`..."
             )
 
         lines = [
-            f"## 🏛️ TƯ VẤN PHÁP LÝ DỰA TRÊN CƠ SỞ DỮ LIỆU LUẬT\n",
-            f"Đối chiếu câu hỏi của bạn với hệ thống **{len(docs)}** căn cứ pháp luật hiện hành:\n"
+            "## Nhận định pháp lý sơ bộ\n",
+            "**Vấn đề cần xem xét:** " + "; ".join(scenario["issues"]) + ".\n",
+            "Kết luận chỉ ở mức sơ bộ vì cần đối chiếu đầy đủ dữ kiện và tình trạng hiệu lực của văn bản.\n",
+            "### Quy định và căn cứ tìm được\n",
         ]
         for i, doc in enumerate(docs, 1):
             meta = doc.metadata or {}
@@ -515,7 +581,7 @@ TRẢ LỜI:"""
             if len(content) > 600:
                 content = content[:600].rsplit(" ", 1)[0].strip() + "..."
 
-            lines.append(f"### {i}. {source}")
+            lines.append(f"#### {i}. {source}")
             meta_str = " | ".join(filter(None, [
                 f"Quy định: **{article}**" if article else "",
                 f"Số hiệu: `{doc_number}`" if doc_number else "",
@@ -525,12 +591,14 @@ TRẢ LỜI:"""
                 lines.append(f"*{meta_str}*\n")
             lines.append(f"> {content}\n")
 
-        lines.append(
-            "---\n"
-            "📌 **Khuyến nghị của Trợ lý VinaLex:**\n"
-            "- Các quy định trên là căn cứ pháp lý hiện hành điều chỉnh vấn đề bạn quan tâm.\n"
-            "- Người dân và doanh nghiệp cần đối chiếu trường hợp cụ thể của mình với các điều kiện quy định tại các điều luật trên để thực hiện đúng quyền và nghĩa vụ."
-        )
+        lines.extend([
+            "### Áp dụng vào tình huống\n",
+            "Các trích đoạn trên có liên quan về chủ đề, nhưng chỉ có thể áp dụng nếu chủ thể, thời điểm, địa bàn và điều kiện thực tế của vụ việc thuộc phạm vi điều chỉnh tương ứng.\n",
+            "### Kết luận và thông tin cần làm rõ\n",
+            "Chưa nên đưa ra kết luận có/không hoặc xác định trách nhiệm chỉ từ dữ kiện hiện có.",
+        ])
+        if scenario["missing_facts"]:
+            lines.extend([f"- {fact}" for fact in scenario["missing_facts"]])
         return "\n".join(lines)
 
     async def generate_answer(
