@@ -98,18 +98,26 @@ class ChatResponse(BaseModel):
 # ── OCR Schemas ──
 class OcrResponse(BaseModel):
     """
-    Kết quả OCR trả về Frontend.
+    Kết quả OCR trả về Frontend — v2.0.
 
     🔒 Lưu ý bảo mật (ARCHITECTURE.md + CONTRIBUTING.md):
     - Field extracted_fields CHỈ chứa nhãn (label), KHÔNG chứa giá trị thật
       khi ghi log. Giá trị thật chỉ được truyền qua RAM và trả về trong response.
     - Sau khi response này được gửi, Backend phải xóa session_id khỏi Redis.
+
+    v2.0 Cải tiến:
+    - field_confidences: Confidence score riêng cho từng trường OCR
+    - text_quality_report: Báo cáo chất lượng văn bản (spell-check, OCR errors)
+    - is_mock: Đánh dấu kết quả mock (khi chưa có model weights)
     """
     success: bool
     document_type: str
     extracted_fields: Dict[str, str]  # {"Họ và tên": "...", "Số CCCD": "..."}
     summary: str  # Tóm tắt ngắn gọn (không chứa dữ liệu nhạy cảm trực tiếp)
-    confidence: float
+    confidence: float  # Overall confidence (0.0 - 1.0)
+    field_confidences: Dict[str, float] = {}  # Per-field confidence scores
+    text_quality_report: Dict[str, Any] = {}  # Báo cáo chất lượng văn bản
+    is_mock: bool = False  # True nếu kết quả là mock (chưa có model)
     processing_time_ms: int
     session_id: str
 
@@ -123,13 +131,19 @@ class DocumentVerificationCheckItem(BaseModel):
 
 class DocumentVerificationResponse(BaseModel):
     """
-    Kết quả thẩm định tính hợp lệ của tài liệu theo thành phần hồ sơ.
+    Kết quả thẩm định tính hợp lệ của tài liệu theo thành phần hồ sơ — v2.0.
+
+    v2.0 Cải tiến:
+    - field_confidences: Confidence cho từng trường (từ OCR v2.0)
+    - text_quality_score: Điểm chất lượng văn bản (0.0 - 1.0)
     """
     is_valid: bool
     status: str  # passed | rejected
     document_type: str
     expected_document: str
     extracted_fields: Dict[str, str] = {}
+    field_confidences: Dict[str, float] = {}  # v2.0: Per-field OCR confidence
+    text_quality_score: float = 1.0  # v2.0: Điểm chất lượng văn bản
     validation_checks: List[DocumentVerificationCheckItem] = []
     errors: List[str] = []
     suggestions: str = ""

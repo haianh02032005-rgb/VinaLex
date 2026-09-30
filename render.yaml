@@ -1,22 +1,50 @@
 services:
-  # ── VinaLex Backend FastAPI Service ──
+  # FastAPI API. Bundled SQLite files are seed/reference data.
   - type: web
     name: vinalex-backend
     runtime: python
-    region: singapore # hoặc oregon, frankfurt
+    region: singapore
     plan: free
-    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
-    startCommand: "python main.py"
+    buildCommand: pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+    startCommand: python main.py
+    healthCheckPath: /api/v1/health
+    autoDeployTrigger: commit
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: APP_ENV
         value: production
       - key: USE_SQLITE
-        value: "True"
+        value: "true"
       - key: SECRET_KEY
         generateValue: true
       - key: ADMIN_SECRET_KEY
-        value: vinalex-admin-2024
+        sync: false
       - key: GEMINI_API_KEY
         sync: false
+
+  # Static Next.js export served by Render's global CDN.
+  - type: web
+    name: vinalex
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./out
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: 20.15.1
+      - key: STATIC_EXPORT
+        value: "true"
+      - key: NEXT_PUBLIC_BACKEND_URL
+        fromService:
+          type: web
+          name: vinalex-backend
+          envVarKey: RENDER_EXTERNAL_URL
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin

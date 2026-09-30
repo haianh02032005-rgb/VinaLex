@@ -140,6 +140,8 @@ class ApiClient {
     document_type: string;
     expected_document: string;
     extracted_fields: Record<string, string>;
+    field_confidences?: Record<string, number>;
+    text_quality_score?: number;
     validation_checks: Array<{ check: string; status: 'passed' | 'failed' | 'warning'; note: string }>;
     errors: string[];
     suggestions: string;

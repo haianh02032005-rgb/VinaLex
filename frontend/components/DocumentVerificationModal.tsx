@@ -14,6 +14,8 @@ interface VerificationResult {
   document_type: string;
   expected_document: string;
   extracted_fields: Record<string, string>;
+  field_confidences?: Record<string, number>;
+  text_quality_score?: number;
   validation_checks: Array<{ check: string; status: 'passed' | 'failed' | 'warning'; note: string }>;
   errors: string[];
   suggestions: string;
@@ -353,14 +355,42 @@ export default function DocumentVerificationModal({
               {/* Extracted Fields Table */}
               {result.extracted_fields && Object.keys(result.extracted_fields).length > 0 && (
                 <div className={styles.fieldsSection}>
-                  <h4 className={styles.sectionHeader}>Thông tin bóc tách được từ tài liệu:</h4>
-                  <div className={styles.fieldsTable}>
-                    {Object.entries(result.extracted_fields).map(([label, val], idx) => (
-                      <div key={idx} className={styles.fieldRow}>
-                        <span className={styles.fieldLabel}>{label}:</span>
-                        <span className={styles.fieldVal}>{val}</span>
+                  <div className={styles.sectionHeaderRow}>
+                    <h4 className={styles.sectionHeader}>Thông tin bóc tách được từ tài liệu (OCR v2.0):</h4>
+                    {result.text_quality_score !== undefined && (
+                      <div className={styles.qualityBadge}>
+                        <span>Chất lượng văn bản:</span>
+                        <strong className={styles.qualityValue}>
+                          {Math.round(result.text_quality_score * 100)}%
+                        </strong>
                       </div>
-                    ))}
+                    )}
+                  </div>
+                  <div className={styles.fieldsTable}>
+                    {Object.entries(result.extracted_fields).map(([label, val], idx) => {
+                      const conf = result.field_confidences?.[label];
+                      const confPct = conf !== undefined ? Math.round(conf * 100) : null;
+                      return (
+                        <div key={idx} className={styles.fieldRow}>
+                          <span className={styles.fieldLabel}>{label}:</span>
+                          <span className={styles.fieldVal}>{val}</span>
+                          {confPct !== null && (
+                            <span
+                              className={`${styles.confBadge} ${
+                                confPct >= 85
+                                  ? styles.confHigh
+                                  : confPct >= 60
+                                  ? styles.confMedium
+                                  : styles.confLow
+                              }`}
+                              title={`Độ tin cậy OCR cho trường ${label}: ${confPct}%`}
+                            >
+                              {confPct}% tin cậy
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}

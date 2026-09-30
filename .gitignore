@@ -93,8 +93,11 @@ data/pdf_storage/procedures/*
 *.sqlite
 *.sqlite3
 *.db
+*.db-shm
+*.db-wal
 !data/vinalex.db
 !data/dvc_documents.db
+!data/administrative_locations.db
 
 # ------------------------------------------------------------------------------
 # 5. Hệ điều hành & IDEs (OS & DEVELOPER TOOLS)

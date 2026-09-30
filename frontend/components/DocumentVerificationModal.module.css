@@ -558,6 +558,31 @@
   gap: 0.5rem;
 }
 
+.sectionHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.qualityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  color: #a7f3d0;
+}
+
+.qualityValue {
+  color: #34d399;
+  font-weight: 700;
+}
+
 .fieldsTable {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -567,7 +592,9 @@
 
 .fieldRow {
   display: flex;
-  padding: 0.5rem 0.8rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.85rem;
   font-size: 0.825rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -587,6 +614,33 @@
   color: #f8fafc;
   font-weight: 600;
   word-break: break-word;
+}
+
+.confBadge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.18rem 0.55rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.confHigh {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.confMedium {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.confLow {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* Footer */

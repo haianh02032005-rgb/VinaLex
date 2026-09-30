@@ -112,25 +112,31 @@ async def upload_for_ocr(
         # Không ghi ra ổ cứng — tuân thủ Cơ chế RAM-only (ARCHITECTURE.md)
         await store_session_data(session_id, "raw_image", image_bytes)
 
-        # ── Bước 2 & 3: Tiền xử lý + OCR (chạy trong thread pool vì CPU-bound) ──
-        extracted_fields = await run_in_threadpool(
-            _ocr_service.extract_from_image_bytes, image_bytes
+        # ── Bước 2 & 3: Tiền xử lý + OCR v2.0 (Multi-pass, confidence scoring) ──
+        ocr_result = await run_in_threadpool(
+            _ocr_service.extract_from_image_bytes_detailed, image_bytes
         )
 
         # ── Bước 4: Xác định loại tài liệu ──
-        document_type = _ocr_service.get_document_type(extracted_fields)
+        document_type = _ocr_service.get_document_type(ocr_result.fields)
 
         # ── Bước 5: AgentService phân tích tính hợp lệ ──
-        summary = await _agent_service.analyze_ocr_result(extracted_fields, document_type)
+        summary = await _agent_service.analyze_ocr_result(ocr_result.fields, document_type)
 
         processing_time_ms = int((time.time() - start_time) * 1000)
+
+        # v2.0: Trả confidence thực và text quality report
+        text_quality_dict = ocr_result.text_quality.to_dict() if ocr_result.text_quality else {}
 
         response = OcrResponse(
             success=True,
             document_type=document_type,
-            extracted_fields=extracted_fields,
+            extracted_fields=ocr_result.fields,
             summary=summary,
-            confidence=0.92,  # TODO: Tính từ VietOCR confidence score
+            confidence=ocr_result.overall_confidence,
+            field_confidences=ocr_result.field_confidences,
+            text_quality_report=text_quality_dict,
+            is_mock=ocr_result.is_mock,
             processing_time_ms=processing_time_ms,
             session_id=session_id,
         )
@@ -142,12 +148,15 @@ async def upload_for_ocr(
             extracted_fields={},
             summary=f"Lỗi xử lý: Định dạng không hỗ trợ hoặc chất lượng ảnh quá thấp.",
             confidence=0.0,
+            field_confidences={},
+            text_quality_report={},
+            is_mock=False,
             processing_time_ms=int((time.time() - start_time) * 1000),
             session_id=session_id,
         )
 
     finally:
-        # ── Bước 6: XÓA TOÀN BỘ DỮ LIỆU SESSION KHỎI REDIS ──
+        # ── Bước 6: XÓA TOÀN BỘ DỮ LIỆU SESSION KHỎi REDIS ──
         # Bắt buộc thực thi ngay lập tức — KHÔNG được bỏ qua bước này
         # Tuân thủ: ARCHITECTURE.md Data Flow + CONTRIBUTING.md §1 + NĐ 13/2023/NĐ-CP
         await delete_session(session_id)
@@ -192,24 +201,28 @@ async def verify_procedure_document(
         # Bước 1: Lưu tạm vào RAM Redis
         await store_session_data(session_id, "raw_image", image_bytes)
 
-        # Bước 2: Bóc tách OCR nội bộ
-        extracted_fields = await run_in_threadpool(
-            _ocr_service.extract_from_image_bytes, image_bytes
+        # Bước 2: Bóc tách OCR v2.0 (Multi-pass, confidence scoring)
+        ocr_result = await run_in_threadpool(
+            _ocr_service.extract_from_image_bytes_detailed, image_bytes
         )
 
         # Bước 3: Xác định sơ bộ loại văn bản từ OCR
-        raw_doc_type = _ocr_service.get_document_type(extracted_fields)
+        raw_doc_type = _ocr_service.get_document_type(ocr_result.fields)
 
-        # Bước 4: Thẩm định chuyên sâu (kết hợp quy tắc định dạng + Gemini Agent phân tích ngữ cảnh RAG)
+        # Bước 4: Thẩm định chuyên sâu v2.0 (quy tắc + Gemini Agent + confidence-based)
         verification_result = await _verification_service.verify_with_ai(
-            extracted_fields=extracted_fields,
+            extracted_fields=ocr_result.fields,
             expected_doc_name=expected_document,
             procedure_title=procedure_title,
             filename=file.filename or "",
             raw_document_type=raw_doc_type,
+            field_confidences=ocr_result.field_confidences,
         )
 
         processing_time_ms = int((time.time() - start_time) * 1000)
+
+        # v2.0: Tính text quality score từ OCR result
+        text_quality_score = ocr_result.text_quality.quality_score if ocr_result.text_quality else 1.0
 
         response = DocumentVerificationResponse(
             is_valid=verification_result["is_valid"],
@@ -217,6 +230,8 @@ async def verify_procedure_document(
             document_type=verification_result["document_type"],
             expected_document=verification_result["expected_document"],
             extracted_fields=verification_result["extracted_fields"],
+            field_confidences=ocr_result.field_confidences,
+            text_quality_score=text_quality_score,
             validation_checks=verification_result["validation_checks"],
             errors=verification_result["errors"],
             suggestions=verification_result["suggestions"],
@@ -232,6 +247,8 @@ async def verify_procedure_document(
             document_type="Không xác định",
             expected_document=expected_document,
             extracted_fields={},
+            field_confidences={},
+            text_quality_score=0.0,
             validation_checks=[],
             errors=[f"Lỗi phân tích tệp: Không thể đọc được nội dung tài liệu. Vui lòng thử lại."],
             suggestions="Hãy chắc chắn file của bạn là ảnh rõ nét hoặc tệp PDF tiêu chuẩn.",
